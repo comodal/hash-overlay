@@ -14,6 +14,7 @@ All fixed length message digest algorithms provided by Oracle JDK 9 and the late
   * Support overlaying of existing byte arrays which already contain digest data to avoid duplication.
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
+## Example Usage
 ```java
 byte[] message = "Hello World".getBytes(StandardCharsets.UTF_8);
 
@@ -48,7 +49,7 @@ BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 
 ## Generating Source
 
-All of the algorithm specific code is generated using [Mustache](https://github.com/spullara/mustache.java) templates.  Upon generation, any existing generated code is deleted, and implementation code is generated for every unique message digest algorithm found at runtime.
+All of the algorithm specific code is generated using [Mustache](https://github.com/spullara/mustache.java) templates.  Upon generation, any existing generated code is deleted, and new implementation code is generated for every message digest algorithm found at runtime.
 
 ```bash
 ./gradlew generateSrc
