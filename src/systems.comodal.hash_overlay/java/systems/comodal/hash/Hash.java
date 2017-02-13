@@ -23,13 +23,11 @@ public interface Hash extends Comparable<Hash> {
     return bytes;
   }
 
-  byte[] getBackingData();
-
-  int getOffset();
-
-  int getDigestLength();
-
   HashFactory getFactory();
+
+  default int getDigestLength() {
+    return getFactory().getDigestLength();
+  }
 
   long applyToLong(final ByteToLongOperator rawOperator);
 

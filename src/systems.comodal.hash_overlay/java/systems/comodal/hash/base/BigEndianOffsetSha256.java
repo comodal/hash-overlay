@@ -3,9 +3,9 @@ package systems.comodal.hash.base;
 import systems.comodal.hash.Hash;
 import systems.comodal.hash.Sha256;
 
-final class BigEndianOffsetSha256 extends BigEndianOffset256 implements Sha256 {
+public final class BigEndianOffsetSha256 extends BigEndianOffsetHash implements Sha256 {
 
-  BigEndianOffsetSha256(final byte[] data, final int offset) {
+  public BigEndianOffsetSha256(final byte[] data, final int offset) {
     super(data, offset);
   }
 

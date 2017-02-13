@@ -3,9 +3,9 @@ package systems.comodal.hash.base;
 import systems.comodal.hash.Hash;
 import systems.comodal.hash.Sha3_256;
 
-final class LittleEndianOffsetSha3_256 extends LittleEndianOffset256 implements Sha3_256 {
+public final class LittleEndianOffsetSha3_256 extends LittleEndianOffsetHash implements Sha3_256 {
 
-  LittleEndianOffsetSha3_256(final byte[] data, final int offset) {
+  public LittleEndianOffsetSha3_256(final byte[] data, final int offset) {
     super(data, offset);
   }
 

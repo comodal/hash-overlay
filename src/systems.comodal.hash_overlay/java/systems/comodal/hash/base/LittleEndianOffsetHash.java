@@ -16,12 +16,12 @@ abstract class LittleEndianOffsetHash implements Hash {
     this.offset = offset + (getDigestLength() - 1);
   }
 
-  public byte[] getBackingData() {
-    return data;
-  }
-
-  public int getOffset() {
-    return offset;
+  @Override
+  public int hashCode() {
+    return (data[0] & 0xFF)
+        | (data[1] & 0xFF) << 8
+        | (data[2] & 0xFF) << 16
+        | (data[3] & 0xFF) << 24;
   }
 
   @Override

@@ -6,14 +6,14 @@
 
 * Fast hash look-ups (hashCode & equals).
 * Minimize memory usage.
-  * Best case, each Hash Object only holds a reference to the digest byte array.  Worst case, an offset integer as well.
-  * Support overlaying existing byte arrays which already contain digest data to avoid the need to duplicate data.
+  * Best case, each Hash Object only holds a reference to the digest byte array.  Worst case, an additional offset int.
+  * Support overlaying existing byte arrays which already contain digest data to avoid duplication.
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
 ```java
 byte[] data = "Hello World".getBytes(StandardCharsets.UTF_8);
-HashFactory<Hash> factory = DigestAlgo.SHA3_256;
-Hash digest = factory.hash(data);
+HashFactory<Sha3_256> factory = Sha3_256.FACTORY;
+Sha3_256 digest = factory.hash(data);
 
 Map<Hash, byte[]> cache = new HashMap<>();
 cache.put(digest, data);

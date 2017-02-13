@@ -5,21 +5,29 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Security;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class HashTest {
 
+  @BeforeClass
+  public static void beforeClass() {
+    Security.addProvider(new BouncyCastleProvider());
+  }
+
   @Test
   public void testTypes() {
     final byte[] data = "TEST DATA".getBytes(StandardCharsets.UTF_8);
-    for (final HashFactory<Hash> factory : DigestAlgo.values()) {
-      testDigest(factory, factory.hashRaw(data));
-    }
+    List.of(Sha256.FACTORY, RipeMd160.FACTORY, Sha3_256.FACTORY)
+        .forEach(factory -> testDigest(factory, factory.hashRaw(data)));
   }
 
-  private void testDigest(final HashFactory<Hash> factory, final byte[] digest) {
+  private void testDigest(final HashFactory<? extends Hash> factory, final byte[] digest) {
     assertEquals(factory.getDigestLength(), digest.length);
 
     final byte[] offsetBytes = new byte[digest.length + 7];

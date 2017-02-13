@@ -15,12 +15,13 @@ abstract class DiscreteHash implements Hash {
     this.data = data;
   }
 
-  public byte[] getBackingData() {
-    return data;
-  }
-
-  public int getOffset() {
-    return 0;
+  @Override
+  public int hashCode() {
+    int offset = getDigestLength();
+    return (data[--offset] & 0xFF)
+        | (data[--offset] & 0xFF) << 8
+        | (data[--offset] & 0xFF) << 16
+        | (data[--offset] & 0xFF) << 24;
   }
 
   @Override

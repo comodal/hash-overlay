@@ -17,12 +17,13 @@ abstract class BigEndianOffsetHash implements Hash {
     this.offset = offset;
   }
 
-  public byte[] getBackingData() {
-    return data;
-  }
-
-  public int getOffset() {
-    return offset;
+  @Override
+  public int hashCode() {
+    int offset = this.offset + getDigestLength();
+    return (data[--offset] & 0xFF)
+        | (data[--offset] & 0xFF) << 8
+        | (data[--offset] & 0xFF) << 16
+        | (data[--offset] & 0xFF) << 24;
   }
 
   @Override
