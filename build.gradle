@@ -1,0 +1,31 @@
+buildscript {
+    apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/plugins.gradle'
+    dependencies {
+        classpath "$axion"
+        classpath "$bintray"
+    }
+}
+
+ext {
+    desc = 'Fast Hash Binary Overlay Wrappers'
+}
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/travisci.gradle'
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/java.gradle'
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/axion.gradle'
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/comodal.gradle'
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/bintray-maven.gradle'
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/checks.gradle'
+
+compileJava {
+    options.fork = true
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_9
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/systems.comodal.hash_overlay/java'
+        }
+    }
+}
