@@ -12,7 +12,7 @@ public final class GenerateHashClasses {
       "src/systems.comodal.hash_overlay/java/systems/comodal/hash/";
   private static final String baseSrcDirectory = apiSrcDirectory + "base/";
 
-  public static void main(String[] args) throws IOException {
+  public static void main(final String[] args) throws IOException {
     final MustacheFactory mf = new DefaultMustacheFactory();
     for (final Digest digest : Digest.values()) {
       generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");

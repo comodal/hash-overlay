@@ -18,7 +18,7 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-install: ./gradlew -version
+install: ./gradlew generateSrc
 
 script: ./gradlew check
 

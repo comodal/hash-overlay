@@ -9,7 +9,6 @@ buildscript {
 ext {
     desc = 'Fast Hash Binary Overlay Wrappers'
 }
-apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/travisci.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/java.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/axion.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/comodal.gradle'
@@ -22,22 +21,26 @@ compileJava {
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 
-repositories {
-    maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
-    jcenter()
-}
-
 sourceSets {
     mustache
-    main {
+    hashOverlay {
         java {
             srcDir 'src/systems.comodal.hash_overlay/java'
         }
     }
 }
 
+task sourcesJar(type: Jar, dependsOn: classes) {
+    from sourceSets.hashOverlay.allSource
+    classifier = 'sources'
+}
 
 dependencies {
     mustacheCompile 'com.github.spullara.mustache.java:compiler:+'
     testCompile 'org.bouncycastle:bcprov-jdk15on:+'
+}
+
+task generateSrc(type:JavaExec) {
+    classpath = sourceSets.mustache.runtimeClasspath
+    main = 'systems.comodal.mustache.GenerateHashClasses'
 }
