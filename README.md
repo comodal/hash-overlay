@@ -12,9 +12,9 @@
 
 ```java
 byte[] data = "Hello World".getBytes(StandardCharsets.UTF_8);
-HashFactory<Hash> factory = Algos.SHA3_256;
+HashFactory<Hash> factory = DigestAlgo.SHA3_256;
 Hash digest = factory.hash(data);
-    
+
 Map<Hash, byte[]> cache = new HashMap<>();
 cache.put(digest, data);
 
