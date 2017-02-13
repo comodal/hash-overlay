@@ -51,6 +51,7 @@ public enum DigestAlgo implements HashFactory<Hash> {
   Skein512_256(systems.comodal.hash.Skein512_256.FACTORY),
   Skein512_384(systems.comodal.hash.Skein512_384.FACTORY),
   Skein512_512(systems.comodal.hash.Skein512_512.FACTORY),
+  TIGER(systems.comodal.hash.TIGER.FACTORY),
   WHIRLPOOL(systems.comodal.hash.WHIRLPOOL.FACTORY);
 
   private final HashFactory<? extends Hash> delegate;

@@ -115,7 +115,7 @@ public final class GenerateHashClasses {
     public final List<Digest> last;
 
     public DigestAlgosEnumScope(final List<Digest> digestAlgos) {
-      this.digestAlgos = digestAlgos.subList(0, digestAlgos.size() - 2);
+      this.digestAlgos = digestAlgos.subList(0, digestAlgos.size() - 1);
       this.last = Collections.singletonList(digestAlgos.get(digestAlgos.size() - 1));
     }
   }

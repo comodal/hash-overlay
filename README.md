@@ -1,10 +1,10 @@
 # hash-overlay [![Build Status](https://travis-ci.org/comodal/hash-overlay.svg)](https://travis-ci.org/comodal/hash-overlay) [![JCenter](https://api.bintray.com/packages/comodal/libraries/hash-overlay/images/download.svg) ](https://bintray.com/comodal/libraries/hash-overlay/_latestVersion) [![License](http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat) ](LICENSE) [![codecov](https://codecov.io/gh/comodal/hash-overlay/branch/master/graph/badge.svg)](https://codecov.io/gh/comodal/hash-overlay)
 
-> Efficient binary overlay classes for message digests.
+> Binary overlay classes for message digests.
 
 ## Supported Message Digest Algorithms
 
-All fixed length message digest algorithms provided by Oracle JDK 9 and the latest BouncyCastleProvider are available.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
+All fixed-length message digest algorithms provided by Oracle JDK 9 and the latest BouncyCastleProvider are available.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
 
 ## Project Goals
 
@@ -42,7 +42,7 @@ dependencies {
 
 ```java
 Security.addProvider(new BouncyCastleProvider());
-
+// ...
 BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 
 ```
