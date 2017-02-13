@@ -10,7 +10,7 @@ public interface Sha256 extends Hash {
   HashFactory<Sha256> FACTORY = new Sha256.Factory();
 
   @Override
-  default HashFactory getFactory() {
+  default HashFactory<Sha256> getFactory() {
     return FACTORY;
   }
 

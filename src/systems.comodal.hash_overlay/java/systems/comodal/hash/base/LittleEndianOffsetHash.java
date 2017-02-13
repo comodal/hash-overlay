@@ -13,7 +13,7 @@ abstract class LittleEndianOffsetHash implements Hash {
 
   LittleEndianOffsetHash(final byte[] data, final int offset) {
     this.data = data;
-    this.offset = offset + (getDigestLength() - 1);
+    this.offset = offset + getDigestLength() - 1;
   }
 
   @Override
@@ -41,7 +41,7 @@ abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public long applyReverseToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, offset - (getDigestLength() - 1), 1);
+    return rawOperator.apply(data, offset - getDigestLength() - 1, 1);
   }
 
   @Override
@@ -51,7 +51,7 @@ abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public int applyReverseToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, offset - (getDigestLength() - 1), 1);
+    return rawOperator.apply(data, offset - getDigestLength() - 1, 1);
   }
 
   @Override
@@ -79,15 +79,15 @@ abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public void update(final MessageDigest messageDigest) {
-    for (int i = offset - (getDigestLength() - 1); i <= offset; ++i) {
+    for (int i = offset - getDigestLength() - 1; i <= offset; ++i) {
       messageDigest.update(data[i]);
     }
   }
 
   @Override
   public void copyToReverse(final byte[] to, int offset) {
-    System.arraycopy(this.data, this.offset - (getDigestLength() - 1), to,
-        offset - (getDigestLength() - 1), getDigestLength());
+    System.arraycopy(this.data, this.offset - getDigestLength() - 1, to,
+        offset - getDigestLength() - 1, getDigestLength());
   }
 
   @Override

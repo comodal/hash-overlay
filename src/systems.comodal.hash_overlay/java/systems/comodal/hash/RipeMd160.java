@@ -10,7 +10,7 @@ public interface RipeMd160 extends Hash {
   HashFactory<RipeMd160> FACTORY = new Factory();
 
   @Override
-  default HashFactory getFactory() {
+  default HashFactory<RipeMd160> getFactory() {
     return FACTORY;
   }
 

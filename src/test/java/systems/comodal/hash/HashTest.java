@@ -23,7 +23,7 @@ public class HashTest {
   @Test
   public void testTypes() {
     final byte[] data = "TEST DATA".getBytes(StandardCharsets.UTF_8);
-    List.of(Sha256.FACTORY, RipeMd160.FACTORY, Sha3_256.FACTORY)
+    List.of(Sha256.FACTORY, RipeMd160.FACTORY, Sha3_256.FACTORY, Md5.FACTORY, Sha1.FACTORY)
         .forEach(factory -> testDigest(factory, factory.hashRaw(data)));
   }
 

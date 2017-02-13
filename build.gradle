@@ -22,14 +22,22 @@ compileJava {
 
 sourceCompatibility = JavaVersion.VERSION_1_9
 
-dependencies {
-    testCompile 'org.bouncycastle:bcprov-jdk15on:+'
+repositories {
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
+    jcenter()
 }
 
 sourceSets {
+    mustache
     main {
         java {
             srcDir 'src/systems.comodal.hash_overlay/java'
         }
     }
+}
+
+
+dependencies {
+    mustacheCompile 'com.github.spullara.mustache.java:compiler:+'
+    testCompile 'org.bouncycastle:bcprov-jdk15on:+'
 }

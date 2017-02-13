@@ -43,7 +43,7 @@ abstract class BigEndianOffsetHash implements Hash {
 
   @Override
   public long applyReverseToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, offset + (getDigestLength() - 1), -1);
+    return rawOperator.apply(data, offset + getDigestLength() - 1, -1);
   }
 
   @Override
@@ -53,7 +53,7 @@ abstract class BigEndianOffsetHash implements Hash {
 
   @Override
   public int applyReverseToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, offset + (getDigestLength() - 1), -1);
+    return rawOperator.apply(data, offset + getDigestLength() - 1, -1);
   }
 
   @Override
@@ -77,7 +77,7 @@ abstract class BigEndianOffsetHash implements Hash {
 
   @Override
   public void update(final MessageDigest messageDigest) {
-    for (int i = offset + (getDigestLength() - 1); i >= offset; --i) {
+    for (int i = offset + getDigestLength() - 1; i >= offset; --i) {
       messageDigest.update(data[i]);
     }
   }

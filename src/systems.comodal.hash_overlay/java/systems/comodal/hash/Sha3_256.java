@@ -10,7 +10,7 @@ public interface Sha3_256 extends Hash {
   HashFactory<Sha3_256> FACTORY = new Factory();
 
   @Override
-  default HashFactory getFactory() {
+  default HashFactory<Sha3_256> getFactory() {
     return FACTORY;
   }
 

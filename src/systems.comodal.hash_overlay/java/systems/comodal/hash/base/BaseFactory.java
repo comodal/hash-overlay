@@ -10,14 +10,13 @@ public abstract class BaseFactory<H extends Hash> implements HashFactory<H> {
   private final ThreadLocal<MessageDigest> messageDigest;
 
   public BaseFactory(final String algorithm) {
-    this.messageDigest = ThreadLocal
-        .withInitial(() -> {
-          try {
-            return MessageDigest.getInstance(algorithm);
-          } catch (final NoSuchAlgorithmException ex) {
-            throw new IllegalArgumentException(ex.getMessage());
-          }
-        });
+    this.messageDigest = ThreadLocal.withInitial(() -> {
+      try {
+        return MessageDigest.getInstance(algorithm);
+      } catch (final NoSuchAlgorithmException ex) {
+        throw new IllegalArgumentException(ex.getMessage());
+      }
+    });
   }
 
   @Override

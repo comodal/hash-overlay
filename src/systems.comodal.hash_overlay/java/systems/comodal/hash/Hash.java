@@ -23,7 +23,7 @@ public interface Hash extends Comparable<Hash> {
     return bytes;
   }
 
-  HashFactory getFactory();
+  HashFactory<? extends Hash> getFactory();
 
   default int getDigestLength() {
     return getFactory().getDigestLength();

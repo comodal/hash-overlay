@@ -1,0 +1,43 @@
+package systems.comodal.hash;
+
+import systems.comodal.hash.base.BaseFactory;
+import systems.comodal.hash.base.BigEndianOffset{{hash}};
+import systems.comodal.hash.base.Discrete{{hash}};
+import systems.comodal.hash.base.LittleEndianOffset{{hash}};
+
+public interface {{hash}} extends Hash {
+
+  HashFactory<{{hash}}> FACTORY = new {{hash}}.Factory();
+
+  @Override
+  default HashFactory<{{hash}}> getFactory() {
+    return FACTORY;
+  }
+
+  class Factory extends BaseFactory<{{hash}}> {
+
+    private Factory() {
+      super("{{algoName}}");
+    }
+
+    @Override
+    public int getDigestLength() {
+      return {{digestLength}};
+    }
+
+    @Override
+    public {{hash}} overlay(final byte[] digest) {
+      return new Discrete{{hash}}(digest);
+    }
+
+    @Override
+    public {{hash}} overlay(final byte[] digest, final int offset) {
+      return new BigEndianOffset{{hash}}(digest, offset);
+    }
+
+    @Override
+    public {{hash}} reverseOverlay(final byte[] digest, final int offset) {
+      return new LittleEndianOffset{{hash}}(digest, offset);
+    }
+  }
+}
