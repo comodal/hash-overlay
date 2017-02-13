@@ -7,11 +7,12 @@ import static org.junit.Assert.assertTrue;
 import java.nio.charset.StandardCharsets;
 import java.security.Security;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import systems.comodal.hash.api.Hash;
+import systems.comodal.hash.api.HashFactory;
 
 public class HashTest {
 
@@ -23,8 +24,9 @@ public class HashTest {
   @Test
   public void testTypes() {
     final byte[] data = "TEST DATA".getBytes(StandardCharsets.UTF_8);
-    List.of(Sha256.FACTORY, RipeMd160.FACTORY, Sha3_256.FACTORY, Md5.FACTORY, Sha1.FACTORY)
-        .forEach(factory -> testDigest(factory, factory.hashRaw(data)));
+    for (HashFactory<? extends Hash> hashFactory : DigestAlgo.values()) {
+      testDigest(hashFactory, hashFactory.hashRaw(data));
+    }
   }
 
   private void testDigest(final HashFactory<? extends Hash> factory, final byte[] digest) {

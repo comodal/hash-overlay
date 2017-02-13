@@ -2,6 +2,10 @@
 
 > Efficient binary overlay classes for message digests.
 
+## Supported Message Digest Algorithms
+
+All message digest algorithms provided by Oracle JDK 9 and the latest BouncyCastleProvider.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
+
 ## Project Goals
 
 * Fast hash look-ups (hashCode & equals).
@@ -13,8 +17,8 @@
 ```java
 byte[] message = "Hello World".getBytes(StandardCharsets.UTF_8);
 
-HashFactory<Sha3_256> factory = Sha3_256.FACTORY;
-Sha3_256 digest = factory.hash(message);
+HashFactory<SHA3_256> factory = SHA3_256.FACTORY;
+SHA3_256 digest = factory.hash(message);
 
 Map<Hash, byte[]> cache = new HashMap<>();
 cache.put(digest, data);
@@ -22,7 +26,30 @@ cache.put(digest, data);
 byte[] nested = new byte[1024];
 int offset = 42;
 digest.copyHashTo(nested, offset);
-Sha3_256 overlay = factory.overlay(nested, offset);
+SHA3_256 overlay = factory.overlay(nested, offset);
 
 System.out.println(new String(cache.get(overlay)));
+```
+
+## Using [Bouncy Castle](https://www.bouncycastle.org/) Provided Algorithms
+
+```groovy
+dependencies {
+    compile 'org.bouncycastle:bcprov-jdk15on:+'
+}
+```
+
+```java
+Security.addProvider(new BouncyCastleProvider());
+
+BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
+
+```
+
+## Generating Source
+
+All of the algorithm specific code is generated using [Mustache](https://github.com/spullara/mustache.java) templates.  Upon generation, any existing generated code is deleted, and implementation code is generated for every unique message digest algorithm found at runtime.
+
+```bash
+./gradlew generateSrc
 ```

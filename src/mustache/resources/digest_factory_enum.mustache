@@ -1,0 +1,46 @@
+package systems.comodal.hash;
+
+import java.security.MessageDigest;
+import systems.comodal.hash.api.Hash;
+import systems.comodal.hash.api.HashFactory;
+
+public enum DigestAlgo implements HashFactory<Hash> {
+
+  {{#digestAlgos}}
+  {{hash}}(systems.comodal.hash.{{hash}}.FACTORY),
+  {{/digestAlgos}}
+  {{#last}}
+  {{hash}}(systems.comodal.hash.{{hash}}.FACTORY);
+  {{/last}}
+
+  private final HashFactory<? extends Hash> delegate;
+
+  DigestAlgo(final HashFactory<? extends Hash> delegate) {
+    this.delegate = delegate;
+  }
+
+  @Override
+  public MessageDigest getMessageDigest() {
+    return delegate.getMessageDigest();
+  }
+
+  @Override
+  public int getDigestLength() {
+    return delegate.getDigestLength();
+  }
+
+  @Override
+  public Hash overlay(byte[] digest) {
+    return delegate.overlay(digest);
+  }
+
+  @Override
+  public Hash overlay(byte[] digest, int offset) {
+    return delegate.overlay(digest, offset);
+  }
+
+  @Override
+  public Hash reverseOverlay(byte[] digest, int offset) {
+    return delegate.reverseOverlay(digest, offset);
+  }
+}

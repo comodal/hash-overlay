@@ -1,18 +1,18 @@
 package systems.comodal.hash.base;
 
-import static systems.comodal.hash.HashFactory.BA;
+import static systems.comodal.hash.api.HashFactory.BA;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Arrays;
-import systems.comodal.hash.Hash;
+import systems.comodal.hash.api.Hash;
 
-abstract class BigEndianOffsetHash implements Hash {
+public abstract class BigEndianOffsetHash implements Hash {
 
   final byte[] data;
   final int offset;
 
-  BigEndianOffsetHash(final byte[] data, final int offset) {
+  protected BigEndianOffsetHash(final byte[] data, final int offset) {
     this.data = data;
     this.offset = offset;
   }

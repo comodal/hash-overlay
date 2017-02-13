@@ -2,14 +2,14 @@ package systems.comodal.hash.base;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import systems.comodal.hash.Hash;
-import systems.comodal.hash.HashFactory;
+import systems.comodal.hash.api.Hash;
+import systems.comodal.hash.api.HashFactory;
 
 public abstract class BaseFactory<H extends Hash> implements HashFactory<H> {
 
   private final ThreadLocal<MessageDigest> messageDigest;
 
-  public BaseFactory(final String algorithm) {
+  protected BaseFactory(final String algorithm) {
     this.messageDigest = ThreadLocal.withInitial(() -> {
       try {
         return MessageDigest.getInstance(algorithm);

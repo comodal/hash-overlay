@@ -32,6 +32,7 @@ sourceSets {
 
 dependencies {
     mustacheCompile 'com.github.spullara.mustache.java:compiler:+'
+    mustacheCompile 'org.bouncycastle:bcprov-jdk15on:+'
     testCompile 'org.bouncycastle:bcprov-jdk15on:+'
 }
 

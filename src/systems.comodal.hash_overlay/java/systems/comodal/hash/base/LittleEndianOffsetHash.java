@@ -1,17 +1,17 @@
 package systems.comodal.hash.base;
 
-import static systems.comodal.hash.HashFactory.BA;
+import static systems.comodal.hash.api.HashFactory.BA;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
-import systems.comodal.hash.Hash;
+import systems.comodal.hash.api.Hash;
 
-abstract class LittleEndianOffsetHash implements Hash {
+public abstract class LittleEndianOffsetHash implements Hash {
 
   final byte[] data;
   final int offset;
 
-  LittleEndianOffsetHash(final byte[] data, final int offset) {
+  protected LittleEndianOffsetHash(final byte[] data, final int offset) {
     this.data = data;
     this.offset = offset + getDigestLength() - 1;
   }
