@@ -4,7 +4,7 @@
 
 ## Supported Message Digest Algorithms
 
-All message digest algorithms provided by Oracle JDK 9 and the latest BouncyCastleProvider.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
+All fixed length message digest algorithms provided by Oracle JDK 9 and the latest BouncyCastleProvider are available.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
 
 ## Project Goals
 
