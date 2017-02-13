@@ -7,7 +7,7 @@ import systems.comodal.hash.base.LittleEndianOffsetRipeMd160;
 
 public interface RipeMd160 extends Hash {
 
-  HashFactory<RipeMd160> FACTORY = new Factory();
+  HashFactory<RipeMd160> FACTORY = new RipeMd160.Factory();
 
   @Override
   default HashFactory<RipeMd160> getFactory() {

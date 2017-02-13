@@ -7,7 +7,7 @@ import systems.comodal.hash.base.LittleEndianOffsetSha3_256;
 
 public interface Sha3_256 extends Hash {
 
-  HashFactory<Sha3_256> FACTORY = new Factory();
+  HashFactory<Sha3_256> FACTORY = new Sha3_256.Factory();
 
   @Override
   default HashFactory<Sha3_256> getFactory() {
