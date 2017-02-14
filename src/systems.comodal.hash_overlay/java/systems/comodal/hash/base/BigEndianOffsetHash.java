@@ -74,12 +74,12 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public void copyHashTo(final byte[] to, final int offset) {
+  public void copyTo(final byte[] to, final int offset) {
     System.arraycopy(this.data, this.offset, to, offset, getDigestLength());
   }
 
   @Override
-  public void copyHashToVolatile(final byte[] to, int offset) {
+  public void copyToVolatile(final byte[] to, int offset) {
     for (int i = this.offset, max = i + getDigestLength(); i < max; ) {
       BA.setVolatile(to, offset++, data[i++]);
     }

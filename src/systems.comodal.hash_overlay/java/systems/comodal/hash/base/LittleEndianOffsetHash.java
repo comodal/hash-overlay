@@ -74,14 +74,14 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public void copyHashTo(final byte[] to, int offset) {
+  public void copyTo(final byte[] to, int offset) {
     for (int i = this.offset, max = offset + getDigestLength(); offset < max; --i, ++offset) {
       to[offset] = this.data[i];
     }
   }
 
   @Override
-  public void copyHashToVolatile(final byte[] to, int offset) {
+  public void copyToVolatile(final byte[] to, int offset) {
     for (int i = this.offset, max = offset + getDigestLength(); offset < max; ) {
       BA.setVolatile(to, offset++, data[i--]);
     }

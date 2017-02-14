@@ -75,12 +75,12 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
-  public void copyHashTo(final byte[] to, final int offset) {
+  public void copyTo(final byte[] to, final int offset) {
     System.arraycopy(this.data, 0, to, offset, 32);
   }
 
   @Override
-  public void copyHashToVolatile(final byte[] to, int offset) {
+  public void copyToVolatile(final byte[] to, int offset) {
     for (final byte b : this.data) {
       BA.setVolatile(to, offset++, b);
     }

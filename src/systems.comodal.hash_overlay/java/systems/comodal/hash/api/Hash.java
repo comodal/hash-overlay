@@ -5,10 +5,6 @@ import java.security.MessageDigest;
 
 public interface Hash extends Comparable<Hash> {
 
-  byte[] getBackingData();
-
-  int getOffset();
-  
   static void reverse(final byte[] bytes) {
     byte tmp;
     for (int i = 0, j = bytes.length - 1; j > i; i++, j--) {
@@ -27,10 +23,38 @@ public interface Hash extends Comparable<Hash> {
     return bytes;
   }
 
+  byte[] getBackingData();
+
+  int getOffset();
+
+  byte[] getDigest();
+
   HashFactory<? extends Hash> getFactory();
 
   default int getDigestLength() {
     return getFactory().getDigestLength();
+  }
+
+  void copyTo(final byte[] to, final int offset);
+
+  void copyToVolatile(final byte[] to, final int offset);
+
+  default byte[] copyReverse() {
+    final byte[] reverseHash = new byte[getDigestLength()];
+    copyToReverse(reverseHash, getDigestLength() - 1);
+    return reverseHash;
+  }
+
+  void copyToReverse(final byte[] to, final int offset);
+
+  /**
+   * If the current Hash is already discrete this method should return itself.
+   *
+   * @return A Hash instance backed by a dedicated byte array with a digestLength exactly the same
+   * as the number of bytes that constitute the digest.
+   */
+  default Hash getDiscrete() {
+    return getFactory().overlay(getDigest());
   }
 
   long applyToLong(final ByteToLongOperator rawOperator);
@@ -43,29 +67,7 @@ public interface Hash extends Comparable<Hash> {
 
   BigInteger toBigInteger();
 
-  void copyHashTo(final byte[] to, final int offset);
-
-  void copyHashToVolatile(final byte[] to, final int offset);
-
-  /**
-   * If the current Hash is already discrete this method should return itself.
-   *
-   * @return A Hash instance backed by a dedicated byte array with a digestLength exactly the same
-   * as the number of bytes that constitute the digest.
-   */
-  default Hash getDiscrete() {
-    return getFactory().overlay(getDigest());
-  }
-
   void update(final MessageDigest messageDigest);
-
-  default byte[] copyToReverse() {
-    final byte[] reverseHash = new byte[32];
-    copyToReverse(reverseHash, 31);
-    return reverseHash;
-  }
-
-  void copyToReverse(final byte[] to, final int offset);
 
   boolean equals(final byte[] data, int offset);
 
@@ -78,8 +80,6 @@ public interface Hash extends Comparable<Hash> {
   int compareTo(final byte[] other);
 
   int compareToReverse(final byte[] other, int offset);
-
-  byte[] getDigest();
 
   @FunctionalInterface
   interface ByteToLongOperator {
