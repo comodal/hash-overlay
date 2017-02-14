@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.KECCAK384;
+import systems.comodal.hash.base.LittleEndianOffsetHash;
 
 public final class LittleEndianOffsetKECCAK384 extends LittleEndianOffsetHash implements KECCAK384 {
 
@@ -11,8 +12,7 @@ public final class LittleEndianOffsetKECCAK384 extends LittleEndianOffsetHash im
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof KECCAK384
+    return this == other || other != null && other instanceof KECCAK384
         && ((Hash) other).equalsReverse(data, offset);
   }
 }

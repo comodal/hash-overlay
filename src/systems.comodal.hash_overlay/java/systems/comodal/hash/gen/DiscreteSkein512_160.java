@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein512_160;
+import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteSkein512_160 extends DiscreteHash implements Skein512_160 {
 
@@ -11,8 +12,7 @@ public final class DiscreteSkein512_160 extends DiscreteHash implements Skein512
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof Skein512_160
+    return this == other || other != null && other instanceof Skein512_160
         && ((Hash) other).equals(data);
   }
 }

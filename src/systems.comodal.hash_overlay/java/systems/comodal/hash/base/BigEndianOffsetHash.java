@@ -9,8 +9,8 @@ import systems.comodal.hash.api.Hash;
 
 public abstract class BigEndianOffsetHash implements Hash {
 
-  final byte[] data;
-  final int offset;
+  protected final byte[] data;
+  protected final int offset;
 
   protected BigEndianOffsetHash(final byte[] data, final int offset) {
     this.data = data;

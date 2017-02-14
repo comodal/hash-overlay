@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetTIGER;
-import systems.comodal.hash.base.DiscreteTIGER;
-import systems.comodal.hash.base.LittleEndianOffsetTIGER;
+import systems.comodal.hash.gen.BigEndianOffsetTIGER;
+import systems.comodal.hash.gen.DiscreteTIGER;
+import systems.comodal.hash.gen.LittleEndianOffsetTIGER;
 
 public interface TIGER extends Hash {
 

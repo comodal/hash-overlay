@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetSkein512_256;
-import systems.comodal.hash.base.DiscreteSkein512_256;
-import systems.comodal.hash.base.LittleEndianOffsetSkein512_256;
+import systems.comodal.hash.gen.BigEndianOffsetSkein512_256;
+import systems.comodal.hash.gen.DiscreteSkein512_256;
+import systems.comodal.hash.gen.LittleEndianOffsetSkein512_256;
 
 public interface Skein512_256 extends Hash {
 

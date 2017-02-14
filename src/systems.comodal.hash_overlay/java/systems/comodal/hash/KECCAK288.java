@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetKECCAK288;
-import systems.comodal.hash.base.DiscreteKECCAK288;
-import systems.comodal.hash.base.LittleEndianOffsetKECCAK288;
+import systems.comodal.hash.gen.BigEndianOffsetKECCAK288;
+import systems.comodal.hash.gen.DiscreteKECCAK288;
+import systems.comodal.hash.gen.LittleEndianOffsetKECCAK288;
 
 public interface KECCAK288 extends Hash {
 

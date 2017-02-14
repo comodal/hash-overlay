@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.WHIRLPOOL;
+import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteWHIRLPOOL extends DiscreteHash implements WHIRLPOOL {
 
@@ -11,8 +12,7 @@ public final class DiscreteWHIRLPOOL extends DiscreteHash implements WHIRLPOOL {
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof WHIRLPOOL
+    return this == other || other != null && other instanceof WHIRLPOOL
         && ((Hash) other).equals(data);
   }
 }

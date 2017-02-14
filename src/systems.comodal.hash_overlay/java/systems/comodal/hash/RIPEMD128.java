@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetRIPEMD128;
-import systems.comodal.hash.base.DiscreteRIPEMD128;
-import systems.comodal.hash.base.LittleEndianOffsetRIPEMD128;
+import systems.comodal.hash.gen.BigEndianOffsetRIPEMD128;
+import systems.comodal.hash.gen.DiscreteRIPEMD128;
+import systems.comodal.hash.gen.LittleEndianOffsetRIPEMD128;
 
 public interface RIPEMD128 extends Hash {
 

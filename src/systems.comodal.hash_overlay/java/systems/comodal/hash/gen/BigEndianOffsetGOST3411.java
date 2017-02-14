@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.GOST3411;
+import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetGOST3411 extends BigEndianOffsetHash implements GOST3411 {
 
@@ -11,8 +12,7 @@ public final class BigEndianOffsetGOST3411 extends BigEndianOffsetHash implement
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof GOST3411
+    return this == other || other != null && other instanceof GOST3411
         && ((Hash) other).equals(data, offset);
   }
 }

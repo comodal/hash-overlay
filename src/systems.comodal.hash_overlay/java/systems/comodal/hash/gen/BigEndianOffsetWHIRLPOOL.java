@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.WHIRLPOOL;
+import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetWHIRLPOOL extends BigEndianOffsetHash implements WHIRLPOOL {
 
@@ -11,8 +12,7 @@ public final class BigEndianOffsetWHIRLPOOL extends BigEndianOffsetHash implemen
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof WHIRLPOOL
+    return this == other || other != null && other instanceof WHIRLPOOL
         && ((Hash) other).equals(data, offset);
   }
 }

@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.RIPEMD320;
+import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteRIPEMD320 extends DiscreteHash implements RIPEMD320 {
 
@@ -11,8 +12,7 @@ public final class DiscreteRIPEMD320 extends DiscreteHash implements RIPEMD320 {
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof RIPEMD320
+    return this == other || other != null && other instanceof RIPEMD320
         && ((Hash) other).equals(data);
   }
 }

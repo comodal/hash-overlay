@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.TIGER;
+import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteTIGER extends DiscreteHash implements TIGER {
 
@@ -11,8 +12,7 @@ public final class DiscreteTIGER extends DiscreteHash implements TIGER {
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof TIGER
+    return this == other || other != null && other instanceof TIGER
         && ((Hash) other).equals(data);
   }
 }

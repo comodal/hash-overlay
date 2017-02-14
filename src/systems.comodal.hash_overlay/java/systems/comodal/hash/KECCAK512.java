@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetKECCAK512;
-import systems.comodal.hash.base.DiscreteKECCAK512;
-import systems.comodal.hash.base.LittleEndianOffsetKECCAK512;
+import systems.comodal.hash.gen.BigEndianOffsetKECCAK512;
+import systems.comodal.hash.gen.DiscreteKECCAK512;
+import systems.comodal.hash.gen.LittleEndianOffsetKECCAK512;
 
 public interface KECCAK512 extends Hash {
 

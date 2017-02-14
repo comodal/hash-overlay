@@ -9,7 +9,7 @@ import systems.comodal.hash.api.Hash;
 
 public abstract class DiscreteHash implements Hash {
 
-  final byte[] data;
+  protected final byte[] data;
 
   protected DiscreteHash(final byte[] data) {
     this.data = data;

@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetBLAKE2B160;
-import systems.comodal.hash.base.DiscreteBLAKE2B160;
-import systems.comodal.hash.base.LittleEndianOffsetBLAKE2B160;
+import systems.comodal.hash.gen.BigEndianOffsetBLAKE2B160;
+import systems.comodal.hash.gen.DiscreteBLAKE2B160;
+import systems.comodal.hash.gen.LittleEndianOffsetBLAKE2B160;
 
 public interface BLAKE2B160 extends Hash {
 

@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetGOST3411_2012_256;
-import systems.comodal.hash.base.DiscreteGOST3411_2012_256;
-import systems.comodal.hash.base.LittleEndianOffsetGOST3411_2012_256;
+import systems.comodal.hash.gen.BigEndianOffsetGOST3411_2012_256;
+import systems.comodal.hash.gen.DiscreteGOST3411_2012_256;
+import systems.comodal.hash.gen.LittleEndianOffsetGOST3411_2012_256;
 
 public interface GOST3411_2012_256 extends Hash {
 

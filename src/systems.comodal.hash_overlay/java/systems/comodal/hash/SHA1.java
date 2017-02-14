@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetSHA1;
-import systems.comodal.hash.base.DiscreteSHA1;
-import systems.comodal.hash.base.LittleEndianOffsetSHA1;
+import systems.comodal.hash.gen.BigEndianOffsetSHA1;
+import systems.comodal.hash.gen.DiscreteSHA1;
+import systems.comodal.hash.gen.LittleEndianOffsetSHA1;
 
 public interface SHA1 extends Hash {
 

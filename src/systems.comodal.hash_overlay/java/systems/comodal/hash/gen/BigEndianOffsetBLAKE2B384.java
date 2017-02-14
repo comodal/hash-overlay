@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.BLAKE2B384;
+import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetBLAKE2B384 extends BigEndianOffsetHash implements BLAKE2B384 {
 
@@ -11,8 +12,7 @@ public final class BigEndianOffsetBLAKE2B384 extends BigEndianOffsetHash impleme
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof BLAKE2B384
+    return this == other || other != null && other instanceof BLAKE2B384
         && ((Hash) other).equals(data, offset);
   }
 }

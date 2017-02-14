@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.RIPEMD160;
+import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetRIPEMD160 extends BigEndianOffsetHash implements RIPEMD160 {
 
@@ -11,8 +12,7 @@ public final class BigEndianOffsetRIPEMD160 extends BigEndianOffsetHash implemen
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof RIPEMD160
+    return this == other || other != null && other instanceof RIPEMD160
         && ((Hash) other).equals(data, offset);
   }
 }

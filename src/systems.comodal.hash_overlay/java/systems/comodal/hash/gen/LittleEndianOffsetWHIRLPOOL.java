@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.WHIRLPOOL;
+import systems.comodal.hash.base.LittleEndianOffsetHash;
 
 public final class LittleEndianOffsetWHIRLPOOL extends LittleEndianOffsetHash implements WHIRLPOOL {
 
@@ -11,8 +12,7 @@ public final class LittleEndianOffsetWHIRLPOOL extends LittleEndianOffsetHash im
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof WHIRLPOOL
+    return this == other || other != null && other instanceof WHIRLPOOL
         && ((Hash) other).equalsReverse(data, offset);
   }
 }

@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetMD2;
-import systems.comodal.hash.base.DiscreteMD2;
-import systems.comodal.hash.base.LittleEndianOffsetMD2;
+import systems.comodal.hash.gen.BigEndianOffsetMD2;
+import systems.comodal.hash.gen.DiscreteMD2;
+import systems.comodal.hash.gen.LittleEndianOffsetMD2;
 
 public interface MD2 extends Hash {
 

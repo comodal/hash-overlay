@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetSM3;
-import systems.comodal.hash.base.DiscreteSM3;
-import systems.comodal.hash.base.LittleEndianOffsetSM3;
+import systems.comodal.hash.gen.BigEndianOffsetSM3;
+import systems.comodal.hash.gen.DiscreteSM3;
+import systems.comodal.hash.gen.LittleEndianOffsetSM3;
 
 public interface SM3 extends Hash {
 

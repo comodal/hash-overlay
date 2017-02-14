@@ -1,7 +1,8 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA;
+import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetSHA extends BigEndianOffsetHash implements SHA {
 
@@ -11,8 +12,7 @@ public final class BigEndianOffsetSHA extends BigEndianOffsetHash implements SHA
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null
-        && other instanceof SHA
+    return this == other || other != null && other instanceof SHA
         && ((Hash) other).equals(data, offset);
   }
 }

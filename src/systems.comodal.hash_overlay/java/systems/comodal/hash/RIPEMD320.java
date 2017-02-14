@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.base.BigEndianOffsetRIPEMD320;
-import systems.comodal.hash.base.DiscreteRIPEMD320;
-import systems.comodal.hash.base.LittleEndianOffsetRIPEMD320;
+import systems.comodal.hash.gen.BigEndianOffsetRIPEMD320;
+import systems.comodal.hash.gen.DiscreteRIPEMD320;
+import systems.comodal.hash.gen.LittleEndianOffsetRIPEMD320;
 
 public interface RIPEMD320 extends Hash {
 

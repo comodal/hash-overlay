@@ -8,8 +8,8 @@ import systems.comodal.hash.api.Hash;
 
 public abstract class LittleEndianOffsetHash implements Hash {
 
-  final byte[] data;
-  final int offset;
+  protected final byte[] data;
+  protected final int offset;
 
   protected LittleEndianOffsetHash(final byte[] data, final int offset) {
     this.data = data;
