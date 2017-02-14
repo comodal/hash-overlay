@@ -10,9 +10,8 @@ All fixed-length message digest algorithms from providers `SUN v9` and `Bouncy C
 
 * Fast hash look-ups (hashCode & equals).
 * Minimize memory usage.
-  * Optimally, each Hash Object only holds a final reference to the digest byte array, and, if necessary, a final offset int.
-  * Support overlaying of existing byte arrays which already contain digest data to avoid duplication.
-* Support big and little endian ordering to prevent the need to copy or reverse byte arrays.
+  * Each Hash Object only holds a final reference to the digest byte array, and, if necessary, a final offset int.
+  * Support overlaying of big or little endian byte arrays to to prevent the need to copy or reverse byte arrays.
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
 ## Example Usage
