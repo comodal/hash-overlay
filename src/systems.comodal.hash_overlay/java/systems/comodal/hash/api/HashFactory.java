@@ -43,6 +43,94 @@ public interface HashFactory<H extends Hash> {
     return messageDigest.digest(messageDigest.digest());
   }
 
+  static <H extends Hash> H merkle(final HashFactory<H> hashFactory, final Hash[] hashes) {
+    return hashes.length == 1 ? (H) hashes[0]
+        : merkle(hashFactory, hashFactory.getMessageDigest(), hashes);
+  }
+
+  static <H extends Hash> H merkle(final HashFactory<H> hashFactory,
+      final MessageDigest messageDigest, final Hash[] hashes) {
+    final byte[][] tree = new byte[(hashes.length + 1) >> 1][];
+    int depthOffset = 0;
+    int nextDepthOffset = 0;
+    for (final int maxOffset = hashes.length - 1; depthOffset < maxOffset; ) {
+      hashes[depthOffset++].update(messageDigest);
+      hashes[depthOffset++].update(messageDigest);
+      tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+    }
+    if (depthOffset < hashes.length) {
+      hashes[depthOffset].update(messageDigest);
+      hashes[depthOffset].update(messageDigest);
+      tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+    }
+    for (int depthHashes = nextDepthOffset; depthHashes > 1; ) {
+      depthOffset = 0;
+      nextDepthOffset = 0;
+      for (final int maxOffset = depthHashes - 1; depthOffset < maxOffset; ) {
+        messageDigest.update(tree[depthOffset++]);
+        messageDigest.update(tree[depthOffset++]);
+        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+      }
+      if (depthOffset < depthHashes) {
+        final byte[] hash = tree[depthOffset];
+        messageDigest.update(hash);
+        messageDigest.update(hash);
+        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+      }
+      depthHashes = nextDepthOffset;
+    }
+    return hashFactory.reverseOverlay(tree[0]);
+  }
+
+  static <H extends Hash> H merkle(final HashFactory<H> hashFactory, final byte[] data, int offset,
+      final int numHashes) {
+    return numHashes == 1 ? hashFactory.overlay(data, offset)
+        : merkle(hashFactory, hashFactory.getMessageDigest(), data, offset, numHashes);
+  }
+
+  static <H extends Hash> H merkle(final HashFactory<H> hashFactory,
+      final MessageDigest messageDigest, final byte[] data, int offset, final int numHashes) {
+    final byte[][] tree = new byte[(numHashes + 1) >> 1][];
+    int nextDepthOffset = 0;
+    for (final int maxOffset = data.length - hashFactory.getDigestLength(); offset < maxOffset; ) {
+      for (int i = offset + hashFactory.getDigestLength() - 1; i >= offset; --i) {
+        messageDigest.update(data[i]);
+      }
+      offset += hashFactory.getDigestLength();
+      for (int i = offset + hashFactory.getDigestLength() - 1; i >= offset; --i) {
+        messageDigest.update(data[i]);
+      }
+      offset += hashFactory.getDigestLength();
+      tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+    }
+    if (offset < data.length) {
+      for (int i = offset + hashFactory.getDigestLength() - 1; i >= offset; --i) {
+        messageDigest.update(data[i]);
+      }
+      for (int i = offset + hashFactory.getDigestLength() - 1; i >= offset; --i) {
+        messageDigest.update(data[i]);
+      }
+      tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+    }
+    for (int depthHashes = nextDepthOffset; depthHashes > 1; ) {
+      offset = 0;
+      nextDepthOffset = 0;
+      for (final int maxOffset = depthHashes - 1; offset < maxOffset; ) {
+        messageDigest.update(tree[offset++]);
+        messageDigest.update(tree[offset++]);
+        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+      }
+      if (offset < depthHashes) {
+        final byte[] hash = tree[offset];
+        messageDigest.update(hash);
+        messageDigest.update(hash);
+        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+      }
+      depthHashes = nextDepthOffset;
+    }
+    return hashFactory.reverseOverlay(tree[0]);
+  }
+
   MessageDigest getMessageDigest();
 
   int getDigestLength();
@@ -63,7 +151,6 @@ public interface HashFactory<H extends Hash> {
    * @return A new Hash instance backed by the supplied byte array.
    */
   H overlay(final byte[] digest, final int offset);
-
 
   /**
    * Uses the supplied byte array as the backing Hash digest.  The offset should be the beginning of
@@ -139,5 +226,23 @@ public interface HashFactory<H extends Hash> {
     final byte[] discrete = new byte[getDigestLength()];
     System.arraycopy(digest, offset, discrete, 0, discrete.length);
     return overlay(discrete);
+  }
+
+  default H merkle(final Hash[] hashes) {
+    return merkle(this, hashes);
+  }
+
+  default H merkle(final MessageDigest messageDigest, final Hash[] hashes) {
+    return hashes.length == 1 ? (H) hashes[0] : merkle(this, messageDigest, hashes);
+  }
+
+  default H merkle(final byte[] data, int offset, final int numHashes) {
+    return merkle(this, data, offset, numHashes);
+  }
+
+  default H merkle(final MessageDigest messageDigest, final byte[] data, int offset,
+      final int numHashes) {
+    return numHashes == 1 ? overlay(data, offset)
+        : merkle(this, messageDigest, data, offset, numHashes);
   }
 }

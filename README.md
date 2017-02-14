@@ -35,12 +35,14 @@ System.out.println(new String(cache.get(overlay)));
 ## Using [Bouncy Castle](https://www.bouncycastle.org/) Provided Algorithms
 
 ```groovy
+// build.gradle
 dependencies {
     compile 'org.bouncycastle:bcprov-jdk15on:+'
 }
 ```
 
 ```java
+// Once at startup
 Security.addProvider(new BouncyCastleProvider());
 // ...
 BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
