@@ -36,25 +36,30 @@ public final class GenerateHashClasses {
   private static final String testSrcDirectory = "src/test/java/systems/comodal/hash/";
 
   public static void main(final String[] args) throws IOException {
-    Files.walk(Paths.get(apiSrcDirectory), 1)
-        .map(Path::toFile)
-        .filter(file -> file.isFile())
-        .forEach(File::delete);
+    final boolean dryRun = args.length > 0 && args[0].equalsIgnoreCase("dryRun");
 
-    final Path genPath = Paths.get(genSrcDirectory);
-    if (genPath.toFile().exists()) {
-      Files.walk(genPath, FileVisitOption.FOLLOW_LINKS)
-          .sorted(Comparator.reverseOrder())
+    if (!dryRun) {
+      Files.walk(Paths.get(apiSrcDirectory), 1)
           .map(Path::toFile)
+          .filter(file -> file.isFile())
           .forEach(File::delete);
+
+      final Path genPath = Paths.get(genSrcDirectory);
+      if (genPath.toFile().exists()) {
+        Files.walk(genPath, FileVisitOption.FOLLOW_LINKS)
+            .sorted(Comparator.reverseOrder())
+            .map(Path::toFile)
+            .forEach(File::delete);
+      }
+      genPath.toFile().mkdir();
     }
-    genPath.toFile().mkdir();
 
     Security.addProvider(new BouncyCastleProvider());
     final String msgDigestTypeName = MessageDigest.class.getSimpleName();
     final Pattern nonDigitHyphenPattern = Pattern.compile("(\\D)-");
     final Set<String> dedupe = new HashSet<>();
-    final List<Digest> digests = Arrays.stream(Security.getProviders()).map(Provider::getServices)
+    final List<Digest> digests = Arrays.stream(Security.getProviders())
+        .map(Provider::getServices)
         .flatMap(Collection::stream)
         .filter(service -> service.getType().equalsIgnoreCase(msgDigestTypeName))
         .map(Service::getAlgorithm)
@@ -70,26 +75,28 @@ public final class GenerateHashClasses {
               (matcher.find() ? matcher.replaceAll("$1") : algorithm)
                   .replace('-', '_')
                   .replace('/', '_');
+          System.out.println(msgDigest.getProvider() + ": " + formattedName);
           return new Digest(formattedName, algorithm, digestLength);
         })
         .filter(Objects::nonNull)
         .sorted(Comparator.comparing(digest -> digest.hash))
         .collect(Collectors.toList());
 
-
-    final MustacheFactory mf = new DefaultMustacheFactory();
-    digests.forEach(digest -> {
-      System.out.format("%s : %s : %d%n", digest.hash, digest.algoName, digest.digestLength);
-      generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");
-      generate(mf, "discrete.mustache", digest,
-          genSrcDirectory + "Discrete" + digest.hash + ".java");
-      generate(mf, "bigendian.mustache", digest,
-          genSrcDirectory + "BigEndianOffset" + digest.hash + ".java");
-      generate(mf, "littleendian.mustache", digest,
-          genSrcDirectory + "LittleEndianOffset" + digest.hash + ".java");
-    });
-    generate(mf, "digest_factory_enum.mustache", new DigestAlgosEnumScope(digests),
-        testSrcDirectory + "DigestAlgo.java");
+    if (!dryRun) {
+      final MustacheFactory mf = new DefaultMustacheFactory();
+      digests.forEach(digest -> {
+        System.out.format("%s : %s : %d%n", digest.hash, digest.algoName, digest.digestLength);
+        generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");
+        generate(mf, "discrete.mustache", digest,
+            genSrcDirectory + "Discrete" + digest.hash + ".java");
+        generate(mf, "bigendian.mustache", digest,
+            genSrcDirectory + "BigEndianOffset" + digest.hash + ".java");
+        generate(mf, "littleendian.mustache", digest,
+            genSrcDirectory + "LittleEndianOffset" + digest.hash + ".java");
+      });
+      generate(mf, "digest_factory_enum.mustache", new DigestAlgosEnumScope(digests),
+          testSrcDirectory + "DigestAlgo.java");
+    }
   }
 
   private static MessageDigest getMessageDigest(final String algorithm) {

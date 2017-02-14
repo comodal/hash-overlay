@@ -4,14 +4,15 @@
 
 ## Supported Message Digest Algorithms
 
-All fixed-length message digest algorithms provided by Oracle JDK 9 and the latest BouncyCastleProvider are available.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
+All fixed-length message digest algorithms from providers `SUN v9` and `Bouncy Castle v1.56` are available.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
 
 ## Project Goals
 
 * Fast hash look-ups (hashCode & equals).
 * Minimize memory usage.
-  * Best case, each Hash Object only holds a reference to the digest byte array.  Worst case, an additional offset integer as well.
+  * Optimally, each Hash Object only holds a final reference to the digest byte array, and, if necessary, a final offset int.
   * Support overlaying of existing byte arrays which already contain digest data to avoid duplication.
+* Support big and little endian ordering to prevent the need to copy or reverse byte arrays.
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
 ## Example Usage
@@ -49,7 +50,9 @@ BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 
 ## Generating Source
 
-All of the algorithm specific code is generated using [Mustache](https://github.com/spullara/mustache.java) templates.  Upon generation, any existing generated code is deleted, and new implementation code is generated for every message digest algorithm found at runtime.
+All of the algorithm specific code is generated using [Mustache](https://github.com/spullara/mustache.java) templates.  Upon generation, any existing generated code is deleted, and new implementation code is created for every message digest algorithm found at runtime.
+
+See the [mustache module](src/mustache) for the source that drives the code generation as well as the template resource files.
 
 ```bash
 ./gradlew generateSrc

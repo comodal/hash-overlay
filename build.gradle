@@ -36,7 +36,11 @@ dependencies {
     testCompile 'org.bouncycastle:bcprov-jdk15on:+'
 }
 
-task generateSrc(type:JavaExec) {
+task generateSrc(type: JavaExec) {
     classpath = sourceSets.mustache.runtimeClasspath
     main = 'systems.comodal.mustache.GenerateHashClasses'
+    if (project.hasProperty('dryRun')) {
+        args 'dryRun'
+    }
+
 }
