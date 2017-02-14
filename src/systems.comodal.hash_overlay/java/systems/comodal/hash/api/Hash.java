@@ -5,6 +5,10 @@ import java.security.MessageDigest;
 
 public interface Hash extends Comparable<Hash> {
 
+  byte[] getBackingData();
+
+  int getOffset();
+  
   static void reverse(final byte[] bytes) {
     byte tmp;
     for (int i = 0, j = bytes.length - 1; j > i; i++, j--) {

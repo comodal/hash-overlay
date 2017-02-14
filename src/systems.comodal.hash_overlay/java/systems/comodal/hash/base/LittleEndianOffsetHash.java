@@ -25,6 +25,16 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
+  public byte[] getBackingData() {
+    return data;
+  }
+
+  @Override
+  public int getOffset() {
+    return offset;
+  }
+
+  @Override
   public int compareTo(final Hash other) {
     return other.compareToReverse(data, offset);
   }

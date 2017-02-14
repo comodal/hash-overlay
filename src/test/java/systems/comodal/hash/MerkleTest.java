@@ -13,7 +13,7 @@ public class MerkleTest {
 
   @Test
   public void testEven() {
-    final Hash[] txs = new Hash[]{
+    final Hash[] hashes = new Hash[]{
         factory.overlay(decode("8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87")),
         factory.overlay(decode("fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4")),
         factory.overlay(decode("6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4")),
@@ -21,12 +21,12 @@ public class MerkleTest {
     };
     assertEquals(
         factory.overlay(decode("f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766")),
-        factory.merkle(txs));
+        factory.merkle(hashes));
   }
 
   @Test
   public void testOdd() {
-    final Hash[] txs = new Hash[]{
+    final Hash[] hashes = new Hash[]{
         factory.overlay(decode("ef1d870d24c85b89d92ad50f4631026f585d6a34e972eaf427475e5d60acf3a3")),
         factory.overlay(decode("f9fc751cb7dc372406a9f8d738d5e6f8f63bab71986a39cf36ee70ee17036d07")),
         factory.overlay(decode("db60fb93d736894ed0b86cb92548920a3fe8310dd19b0da7ad97e48725e1e12e")),
@@ -39,6 +39,6 @@ public class MerkleTest {
     };
     assertEquals(
         factory.overlay(decode("2fda58e5959b0ee53c5253da9b9f3c0c739422ae04946966991cf55895287552")),
-        factory.merkle(txs));
+        factory.merkle(hashes));
   }
 }

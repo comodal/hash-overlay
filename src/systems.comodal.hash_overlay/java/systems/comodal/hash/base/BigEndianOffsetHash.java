@@ -27,6 +27,16 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
+  public byte[] getBackingData() {
+    return data;
+  }
+
+  @Override
+  public int getOffset() {
+    return offset;
+  }
+
+  @Override
   public int compareTo(final Hash other) {
     return other.compareTo(data, offset);
   }

@@ -25,6 +25,16 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
+  public byte[] getBackingData() {
+    return data;
+  }
+
+  @Override
+  public int getOffset() {
+    return 0;
+  }
+
+  @Override
   public int compareTo(final Hash other) {
     return other.compareTo(data);
   }
