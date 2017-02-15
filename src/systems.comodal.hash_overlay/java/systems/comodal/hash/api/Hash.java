@@ -3,7 +3,7 @@ package systems.comodal.hash.api;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 
-public interface Hash extends Comparable<Hash> {
+public interface Hash {
 
   static void reverse(final byte[] bytes) {
     byte tmp;
@@ -12,6 +12,10 @@ public interface Hash extends Comparable<Hash> {
       bytes[j] = bytes[i];
       bytes[i] = tmp;
     }
+  }
+
+  static byte[] copyReverse(final byte[] data) {
+    return copyReverse(data, 0, data.length);
   }
 
   static byte[] copyReverse(final byte[] data, int offset, final int len) {
@@ -27,23 +31,15 @@ public interface Hash extends Comparable<Hash> {
 
   int getOffset();
 
-  byte[] getDigest();
-
   HashFactory<? extends Hash> getFactory();
 
-  default int getDigestLength() {
-    return getFactory().getDigestLength();
-  }
+  int getDigestLength();
+
+  byte[] copy();
+
+  byte[] copyReverse();
 
   void copyTo(final byte[] to, final int offset);
-
-  void copyToVolatile(final byte[] to, final int offset);
-
-  default byte[] copyReverse() {
-    final byte[] reverseHash = new byte[getDigestLength()];
-    copyToReverse(reverseHash, getDigestLength() - 1);
-    return reverseHash;
-  }
 
   void copyToReverse(final byte[] to, final int offset);
 
@@ -53,21 +49,21 @@ public interface Hash extends Comparable<Hash> {
    * @return A Hash instance backed by a dedicated byte array with a digestLength exactly the same
    * as the number of bytes that constitute the digest.
    */
-  default Hash getDiscrete() {
-    return getFactory().overlay(getDigest());
-  }
+  Hash getDiscrete();
 
-  long applyToLong(final ByteToLongOperator rawOperator);
-
-  long applyReverseToLong(final ByteToLongOperator rawOperator);
-
-  int applyToInt(final ByteToIntOperator rawOperator);
-
-  int applyReverseToInt(final ByteToIntOperator rawOperator);
+  /**
+   * If the current Hash is already discrete this method should return the backing array.
+   *
+   * @return A byte array with a digestLength exactly the same
+   * as the number of bytes that constitute the digest.
+   */
+  byte[] getDiscreteRaw();
 
   BigInteger toBigInteger();
 
   void update(final MessageDigest messageDigest);
+
+  void updateReverse(final MessageDigest messageDigest);
 
   boolean equals(final byte[] data, int offset);
 
@@ -75,21 +71,11 @@ public interface Hash extends Comparable<Hash> {
 
   boolean equalsReverse(final byte[] data, int offset);
 
+  int compareTo(final Hash other);
+
   int compareTo(final byte[] other, int offset);
 
   int compareTo(final byte[] other);
 
   int compareToReverse(final byte[] other, int offset);
-
-  @FunctionalInterface
-  interface ByteToLongOperator {
-
-    long apply(final byte[] data, int offset, final int next);
-  }
-
-  @FunctionalInterface
-  interface ByteToIntOperator {
-
-    int apply(final byte[] data, int offset, final int next);
-  }
 }

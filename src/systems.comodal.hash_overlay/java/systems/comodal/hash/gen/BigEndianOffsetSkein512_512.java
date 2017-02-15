@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein512_512;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetSkein512_512 extends BigEndianOffsetHash implements Skein512_512 {
 
   public BigEndianOffsetSkein512_512(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<Skein512_512> getFactory() {
+    return FACTORY;
   }
 
   @Override

@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.MD4;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteMD4 extends DiscreteHash implements MD4 {
 
   public DiscreteMD4(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<MD4> getFactory() {
+    return FACTORY;
   }
 
   @Override

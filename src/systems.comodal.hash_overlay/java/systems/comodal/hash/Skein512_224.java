@@ -11,12 +11,7 @@ public interface Skein512_224 extends Hash {
 
   HashFactory<Skein512_224> FACTORY = new Skein512_224.Factory();
 
-  @Override
-  default HashFactory<Skein512_224> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<Skein512_224> {
+  final class Factory extends BaseFactory<Skein512_224> {
 
     private Factory() {
       super("Skein-512-224");
@@ -40,6 +35,11 @@ public interface Skein512_224 extends Hash {
     @Override
     public Skein512_224 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetSkein512_224(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "Skein512_224.Factory - 28 byte digest";
     }
   }
 }

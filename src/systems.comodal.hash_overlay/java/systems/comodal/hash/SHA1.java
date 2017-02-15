@@ -11,12 +11,7 @@ public interface SHA1 extends Hash {
 
   HashFactory<SHA1> FACTORY = new SHA1.Factory();
 
-  @Override
-  default HashFactory<SHA1> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<SHA1> {
+  final class Factory extends BaseFactory<SHA1> {
 
     private Factory() {
       super("SHA-1");
@@ -40,6 +35,11 @@ public interface SHA1 extends Hash {
     @Override
     public SHA1 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetSHA1(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "SHA1.Factory - 20 byte digest";
     }
   }
 }

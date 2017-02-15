@@ -1,12 +1,8 @@
 package systems.comodal.hash.api;
 
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.VarHandle;
 import java.security.MessageDigest;
 
 public interface HashFactory<H extends Hash> {
-
-  VarHandle BA = MethodHandles.arrayElementVarHandle(byte[].class);
 
   static byte[] hashRaw(final MessageDigest messageDigest, final byte[] data) {
     return messageDigest.digest(data);
@@ -54,13 +50,13 @@ public interface HashFactory<H extends Hash> {
     int depthOffset = 0;
     int nextDepthOffset = 0;
     for (final int maxOffset = hashes.length - 1; depthOffset < maxOffset; ) {
-      hashes[depthOffset++].update(messageDigest);
-      hashes[depthOffset++].update(messageDigest);
+      hashes[depthOffset++].updateReverse(messageDigest);
+      hashes[depthOffset++].updateReverse(messageDigest);
       tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
     }
     if (depthOffset < hashes.length) {
-      hashes[depthOffset].update(messageDigest);
-      hashes[depthOffset].update(messageDigest);
+      hashes[depthOffset].updateReverse(messageDigest);
+      hashes[depthOffset].updateReverse(messageDigest);
       tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
     }
     for (int depthHashes = nextDepthOffset; depthHashes > 1; ) {
@@ -207,14 +203,6 @@ public interface HashFactory<H extends Hash> {
   default H reverseOverlay(final byte[] digest) {
     Hash.reverse(digest);
     return overlay(digest);
-  }
-
-  default H discreteVolatile(final byte[] digest, int offset) {
-    final byte[] hash = new byte[getDigestLength()];
-    for (int i = 0; i < hash.length; ) {
-      digest[i++] = (byte) BA.getVolatile(digest, offset++);
-    }
-    return overlay(hash);
   }
 
   /**

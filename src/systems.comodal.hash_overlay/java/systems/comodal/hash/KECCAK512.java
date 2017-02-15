@@ -11,12 +11,7 @@ public interface KECCAK512 extends Hash {
 
   HashFactory<KECCAK512> FACTORY = new KECCAK512.Factory();
 
-  @Override
-  default HashFactory<KECCAK512> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<KECCAK512> {
+  final class Factory extends BaseFactory<KECCAK512> {
 
     private Factory() {
       super("KECCAK-512");
@@ -40,6 +35,11 @@ public interface KECCAK512 extends Hash {
     @Override
     public KECCAK512 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetKECCAK512(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "KECCAK512.Factory - 64 byte digest";
     }
   }
 }

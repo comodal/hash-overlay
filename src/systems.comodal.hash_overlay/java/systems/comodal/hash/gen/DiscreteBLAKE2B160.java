@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.BLAKE2B160;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteBLAKE2B160 extends DiscreteHash implements BLAKE2B160 {
 
   public DiscreteBLAKE2B160(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<BLAKE2B160> getFactory() {
+    return FACTORY;
   }
 
   @Override

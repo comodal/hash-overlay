@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.KECCAK288;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.LittleEndianOffsetHash;
 
 public final class LittleEndianOffsetKECCAK288 extends LittleEndianOffsetHash implements KECCAK288 {
 
   public LittleEndianOffsetKECCAK288(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<KECCAK288> getFactory() {
+    return FACTORY;
   }
 
   @Override

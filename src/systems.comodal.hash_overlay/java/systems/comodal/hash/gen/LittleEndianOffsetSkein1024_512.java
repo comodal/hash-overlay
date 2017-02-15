@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein1024_512;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.LittleEndianOffsetHash;
 
 public final class LittleEndianOffsetSkein1024_512 extends LittleEndianOffsetHash implements Skein1024_512 {
 
   public LittleEndianOffsetSkein1024_512(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<Skein1024_512> getFactory() {
+    return FACTORY;
   }
 
   @Override

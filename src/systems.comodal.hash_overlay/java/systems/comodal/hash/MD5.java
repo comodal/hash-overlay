@@ -11,12 +11,7 @@ public interface MD5 extends Hash {
 
   HashFactory<MD5> FACTORY = new MD5.Factory();
 
-  @Override
-  default HashFactory<MD5> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<MD5> {
+  final class Factory extends BaseFactory<MD5> {
 
     private Factory() {
       super("MD5");
@@ -40,6 +35,11 @@ public interface MD5 extends Hash {
     @Override
     public MD5 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetMD5(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "MD5.Factory - 16 byte digest";
     }
   }
 }

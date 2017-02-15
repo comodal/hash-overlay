@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SM3;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteSM3 extends DiscreteHash implements SM3 {
 
   public DiscreteSM3(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<SM3> getFactory() {
+    return FACTORY;
   }
 
   @Override

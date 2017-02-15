@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA384;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetSHA384 extends BigEndianOffsetHash implements SHA384 {
 
   public BigEndianOffsetSHA384(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<SHA384> getFactory() {
+    return FACTORY;
   }
 
   @Override

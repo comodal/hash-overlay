@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA384;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteSHA384 extends DiscreteHash implements SHA384 {
 
   public DiscreteSHA384(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<SHA384> getFactory() {
+    return FACTORY;
   }
 
   @Override

@@ -11,12 +11,7 @@ public interface BLAKE2B512 extends Hash {
 
   HashFactory<BLAKE2B512> FACTORY = new BLAKE2B512.Factory();
 
-  @Override
-  default HashFactory<BLAKE2B512> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<BLAKE2B512> {
+  final class Factory extends BaseFactory<BLAKE2B512> {
 
     private Factory() {
       super("BLAKE2B-512");
@@ -40,6 +35,11 @@ public interface BLAKE2B512 extends Hash {
     @Override
     public BLAKE2B512 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetBLAKE2B512(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "BLAKE2B512.Factory - 64 byte digest";
     }
   }
 }

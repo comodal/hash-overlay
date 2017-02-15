@@ -11,12 +11,7 @@ public interface SM3 extends Hash {
 
   HashFactory<SM3> FACTORY = new SM3.Factory();
 
-  @Override
-  default HashFactory<SM3> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<SM3> {
+  final class Factory extends BaseFactory<SM3> {
 
     private Factory() {
       super("SM3");
@@ -40,6 +35,11 @@ public interface SM3 extends Hash {
     @Override
     public SM3 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetSM3(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "SM3.Factory - 32 byte digest";
     }
   }
 }

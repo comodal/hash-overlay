@@ -11,12 +11,7 @@ public interface SHA512_256 extends Hash {
 
   HashFactory<SHA512_256> FACTORY = new SHA512_256.Factory();
 
-  @Override
-  default HashFactory<SHA512_256> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<SHA512_256> {
+  final class Factory extends BaseFactory<SHA512_256> {
 
     private Factory() {
       super("SHA-512/256");
@@ -40,6 +35,11 @@ public interface SHA512_256 extends Hash {
     @Override
     public SHA512_256 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetSHA512_256(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "SHA512_256.Factory - 32 byte digest";
     }
   }
 }

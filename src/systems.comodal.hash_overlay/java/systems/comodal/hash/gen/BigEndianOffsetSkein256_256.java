@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein256_256;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetSkein256_256 extends BigEndianOffsetHash implements Skein256_256 {
 
   public BigEndianOffsetSkein256_256(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<Skein256_256> getFactory() {
+    return FACTORY;
   }
 
   @Override

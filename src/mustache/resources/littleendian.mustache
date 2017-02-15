@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.{{hash}};
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.LittleEndianOffsetHash;
 
 public final class LittleEndianOffset{{hash}} extends LittleEndianOffsetHash implements {{hash}} {
 
   public LittleEndianOffset{{hash}}(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<{{hash}}> getFactory() {
+    return FACTORY;
   }
 
   @Override

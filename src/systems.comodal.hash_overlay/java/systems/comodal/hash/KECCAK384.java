@@ -11,12 +11,7 @@ public interface KECCAK384 extends Hash {
 
   HashFactory<KECCAK384> FACTORY = new KECCAK384.Factory();
 
-  @Override
-  default HashFactory<KECCAK384> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<KECCAK384> {
+  final class Factory extends BaseFactory<KECCAK384> {
 
     private Factory() {
       super("KECCAK-384");
@@ -40,6 +35,11 @@ public interface KECCAK384 extends Hash {
     @Override
     public KECCAK384 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetKECCAK384(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "KECCAK384.Factory - 48 byte digest";
     }
   }
 }

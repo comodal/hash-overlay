@@ -11,12 +11,7 @@ public interface MD2 extends Hash {
 
   HashFactory<MD2> FACTORY = new MD2.Factory();
 
-  @Override
-  default HashFactory<MD2> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<MD2> {
+  final class Factory extends BaseFactory<MD2> {
 
     private Factory() {
       super("MD2");
@@ -40,6 +35,11 @@ public interface MD2 extends Hash {
     @Override
     public MD2 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetMD2(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "MD2.Factory - 16 byte digest";
     }
   }
 }

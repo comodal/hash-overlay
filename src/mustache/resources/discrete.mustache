@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.{{hash}};
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class Discrete{{hash}} extends DiscreteHash implements {{hash}} {
 
   public Discrete{{hash}}(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<{{hash}}> getFactory() {
+    return FACTORY;
   }
 
   @Override

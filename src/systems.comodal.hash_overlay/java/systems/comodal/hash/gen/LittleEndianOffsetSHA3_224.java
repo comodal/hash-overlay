@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA3_224;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.LittleEndianOffsetHash;
 
 public final class LittleEndianOffsetSHA3_224 extends LittleEndianOffsetHash implements SHA3_224 {
 
   public LittleEndianOffsetSHA3_224(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<SHA3_224> getFactory() {
+    return FACTORY;
   }
 
   @Override

@@ -11,12 +11,7 @@ public interface GOST3411_2012_512 extends Hash {
 
   HashFactory<GOST3411_2012_512> FACTORY = new GOST3411_2012_512.Factory();
 
-  @Override
-  default HashFactory<GOST3411_2012_512> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<GOST3411_2012_512> {
+  final class Factory extends BaseFactory<GOST3411_2012_512> {
 
     private Factory() {
       super("GOST3411-2012-512");
@@ -40,6 +35,11 @@ public interface GOST3411_2012_512 extends Hash {
     @Override
     public GOST3411_2012_512 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetGOST3411_2012_512(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "GOST3411_2012_512.Factory - 64 byte digest";
     }
   }
 }

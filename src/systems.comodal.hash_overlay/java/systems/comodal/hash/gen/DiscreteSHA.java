@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteSHA extends DiscreteHash implements SHA {
 
   public DiscreteSHA(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<SHA> getFactory() {
+    return FACTORY;
   }
 
   @Override

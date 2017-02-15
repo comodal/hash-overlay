@@ -1,7 +1,5 @@
 package systems.comodal.hash.base;
 
-import static systems.comodal.hash.api.HashFactory.BA;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import systems.comodal.hash.api.Hash;
@@ -13,15 +11,16 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   protected LittleEndianOffsetHash(final byte[] data, final int offset) {
     this.data = data;
-    this.offset = offset + getDigestLength() - 1;
+    this.offset = offset + getOffsetLength();
   }
 
   @Override
   public int hashCode() {
-    return (data[0] & 0xFF)
-        | (data[1] & 0xFF) << 8
-        | (data[2] & 0xFF) << 16
-        | (data[3] & 0xFF) << 24;
+    int offset = this.offset - getOffsetLength();
+    return (data[offset] & 0xFF)
+        | (data[++offset] & 0xFF) << 8
+        | (data[++offset] & 0xFF) << 16
+        | (data[++offset] & 0xFF) << 24;
   }
 
   @Override
@@ -34,43 +33,44 @@ public abstract class LittleEndianOffsetHash implements Hash {
     return offset;
   }
 
+  private int getOffsetLength() {
+    return getDigestLength() - 1;
+  }
+
   @Override
-  public int compareTo(final Hash other) {
-    return other.compareToReverse(data, offset);
+  public int getDigestLength() {
+    return getFactory().getDigestLength();
+  }
+
+  @Override
+  public Hash getDiscrete() {
+    return getFactory().overlay(copy());
+  }
+
+  @Override
+  public byte[] getDiscreteRaw() {
+    return copy();
   }
 
   @Override
   public BigInteger toBigInteger() {
-    return new BigInteger(1, getDigest());
+    return new BigInteger(1, copy());
   }
 
   @Override
-  public long applyToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, offset, -1);
-  }
-
-  @Override
-  public long applyReverseToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, offset - getDigestLength() - 1, 1);
-  }
-
-  @Override
-  public int applyToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, offset, -1);
-  }
-
-  @Override
-  public int applyReverseToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, offset - getDigestLength() - 1, 1);
-  }
-
-  @Override
-  public byte[] getDigest() {
+  public byte[] copy() {
     final byte[] copy = new byte[getDigestLength()];
     for (int i = this.offset, o = 0; o < getDigestLength(); ++o, --i) {
       copy[o] = this.data[i];
     }
     return copy;
+  }
+
+  @Override
+  public byte[] copyReverse() {
+    final byte[] reverseHash = new byte[getDigestLength()];
+    copyToReverse(reverseHash, getOffsetLength());
+    return reverseHash;
   }
 
   @Override
@@ -81,23 +81,21 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public void copyToVolatile(final byte[] to, int offset) {
-    for (int i = this.offset, max = offset + getDigestLength(); offset < max; ) {
-      BA.setVolatile(to, offset++, data[i--]);
-    }
+  public void copyToReverse(final byte[] to, int offset) {
+    System.arraycopy(this.data, this.offset - getOffsetLength(), to,
+        offset - getOffsetLength(), getDigestLength());
   }
 
   @Override
   public void update(final MessageDigest messageDigest) {
-    for (int i = offset - getDigestLength() - 1; i <= offset; ++i) {
+    for (int i = offset, min = offset - getDigestLength(); i > min; --i) {
       messageDigest.update(data[i]);
     }
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int offset) {
-    System.arraycopy(this.data, this.offset - getDigestLength() - 1, to,
-        offset - getDigestLength() - 1, getDigestLength());
+  public void updateReverse(final MessageDigest messageDigest) {
+    messageDigest.update(data, offset - getOffsetLength(), getDigestLength());
   }
 
   @Override
@@ -124,7 +122,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public boolean equalsReverse(final byte[] other, int offset) {
-    for (int i = this.offset, min = i - getDigestLength(); i > min; --i, --offset) {
+    for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, --offset) {
       if (this.data[i] != other[offset]) {
         return false;
       }
@@ -133,8 +131,13 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
+  public int compareTo(final Hash other) {
+    return other.compareToReverse(data, offset);
+  }
+
+  @Override
   public int compareTo(final byte[] other, int offset) {
-    for (int i = this.offset, min = i - getDigestLength(); i > min; --i, ++offset) {
+    for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, ++offset) {
       if (this.data[i] != other[offset]) {
         return Byte.compare(other[offset], this.data[i]);
       }
@@ -156,7 +159,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public int compareToReverse(final byte[] other, int offset) {
-    for (int i = this.offset, min = i - getDigestLength(); i > min; --i, --offset) {
+    for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, --offset) {
       if (this.data[i] != other[offset]) {
         return Byte.compare(other[offset], this.data[i]);
       }

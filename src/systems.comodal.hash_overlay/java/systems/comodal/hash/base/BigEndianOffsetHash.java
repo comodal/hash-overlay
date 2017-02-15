@@ -1,7 +1,5 @@
 package systems.comodal.hash.base;
 
-import static systems.comodal.hash.api.HashFactory.BA;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -36,9 +34,23 @@ public abstract class BigEndianOffsetHash implements Hash {
     return offset;
   }
 
+  private int getOffsetLength() {
+    return getDigestLength() - 1;
+  }
+
   @Override
-  public int compareTo(final Hash other) {
-    return other.compareTo(data, offset);
+  public int getDigestLength() {
+    return getFactory().getDigestLength();
+  }
+
+  @Override
+  public Hash getDiscrete() {
+    return getFactory().overlay(copy());
+  }
+
+  @Override
+  public byte[] getDiscreteRaw() {
+    return copy();
   }
 
   @Override
@@ -47,30 +59,17 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public long applyToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, offset, 1);
-  }
-
-  @Override
-  public long applyReverseToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, offset + getDigestLength() - 1, -1);
-  }
-
-  @Override
-  public int applyToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, offset, 1);
-  }
-
-  @Override
-  public int applyReverseToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, offset + getDigestLength() - 1, -1);
-  }
-
-  @Override
-  public byte[] getDigest() {
+  public byte[] copy() {
     final byte[] copy = new byte[getDigestLength()];
     System.arraycopy(this.data, this.offset, copy, 0, getDigestLength());
     return copy;
+  }
+
+  @Override
+  public byte[] copyReverse() {
+    final byte[] reverseHash = new byte[getDigestLength()];
+    copyToReverse(reverseHash, getOffsetLength());
+    return reverseHash;
   }
 
   @Override
@@ -79,23 +78,21 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public void copyToVolatile(final byte[] to, int offset) {
-    for (int i = this.offset, max = i + getDigestLength(); i < max; ) {
-      BA.setVolatile(to, offset++, data[i++]);
+  public void copyToReverse(final byte[] to, int offset) {
+    for (int i = this.offset, max = i + getDigestLength(); i < max; --offset, ++i) {
+      to[offset] = this.data[i];
     }
   }
 
   @Override
   public void update(final MessageDigest messageDigest) {
-    for (int i = offset + getDigestLength() - 1; i >= offset; --i) {
-      messageDigest.update(data[i]);
-    }
+    messageDigest.update(data, offset, getDigestLength());
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int offset) {
-    for (int i = this.offset, max = i + getDigestLength(); i < max; --offset, ++i) {
-      to[offset] = this.data[i];
+  public void updateReverse(final MessageDigest messageDigest) {
+    for (int i = offset + getOffsetLength(); i >= offset; --i) {
+      messageDigest.update(data[i]);
     }
   }
 
@@ -129,6 +126,11 @@ public abstract class BigEndianOffsetHash implements Hash {
       }
     }
     return true;
+  }
+
+  @Override
+  public int compareTo(final Hash other) {
+    return other.compareTo(data, offset);
   }
 
   @Override

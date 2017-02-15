@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein256_128;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteSkein256_128 extends DiscreteHash implements Skein256_128 {
 
   public DiscreteSkein256_128(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<Skein256_128> getFactory() {
+    return FACTORY;
   }
 
   @Override

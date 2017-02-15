@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.RIPEMD320;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetRIPEMD320 extends BigEndianOffsetHash implements RIPEMD320 {
 
   public BigEndianOffsetRIPEMD320(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<RIPEMD320> getFactory() {
+    return FACTORY;
   }
 
   @Override

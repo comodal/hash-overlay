@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.MD5;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteMD5 extends DiscreteHash implements MD5 {
 
   public DiscreteMD5(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<MD5> getFactory() {
+    return FACTORY;
   }
 
   @Override

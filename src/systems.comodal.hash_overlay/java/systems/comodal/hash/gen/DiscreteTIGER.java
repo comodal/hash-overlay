@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.TIGER;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteTIGER extends DiscreteHash implements TIGER {
 
   public DiscreteTIGER(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<TIGER> getFactory() {
+    return FACTORY;
   }
 
   @Override

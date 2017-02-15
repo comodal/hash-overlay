@@ -11,12 +11,7 @@ public interface SHA3_384 extends Hash {
 
   HashFactory<SHA3_384> FACTORY = new SHA3_384.Factory();
 
-  @Override
-  default HashFactory<SHA3_384> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<SHA3_384> {
+  final class Factory extends BaseFactory<SHA3_384> {
 
     private Factory() {
       super("SHA3-384");
@@ -40,6 +35,11 @@ public interface SHA3_384 extends Hash {
     @Override
     public SHA3_384 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetSHA3_384(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "SHA3_384.Factory - 48 byte digest";
     }
   }
 }

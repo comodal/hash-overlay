@@ -1,7 +1,5 @@
 package systems.comodal.hash.base;
 
-import static systems.comodal.hash.api.HashFactory.BA;
-
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -34,14 +32,13 @@ public abstract class DiscreteHash implements Hash {
     return 0;
   }
 
-  @Override
-  public int compareTo(final Hash other) {
-    return other.compareTo(data);
+  private int getOffsetLength() {
+    return getDigestLength() - 1;
   }
 
   @Override
-  public byte[] getDigest() {
-    return data;
+  public int getDigestLength() {
+    return getFactory().getDigestLength();
   }
 
   @Override
@@ -50,28 +47,26 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
-  public long applyToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, 0, 1);
-  }
-
-  @Override
-  public long applyReverseToLong(final ByteToLongOperator rawOperator) {
-    return rawOperator.apply(data, 31, -1);
-  }
-
-  @Override
-  public int applyToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, 0, 1);
-  }
-
-  @Override
-  public int applyReverseToInt(final ByteToIntOperator rawOperator) {
-    return rawOperator.apply(data, 31, -1);
+  public byte[] getDiscreteRaw() {
+    return data;
   }
 
   @Override
   public BigInteger toBigInteger() {
     return new BigInteger(1, data);
+  }
+
+
+  @Override
+  public byte[] copy() {
+    return data;
+  }
+
+  @Override
+  public byte[] copyReverse() {
+    final byte[] reverseHash = new byte[getDigestLength()];
+    copyToReverse(reverseHash, getOffsetLength());
+    return reverseHash;
   }
 
   @Override
@@ -80,22 +75,21 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
-  public void copyToVolatile(final byte[] to, int offset) {
-    for (final byte b : this.data) {
-      BA.setVolatile(to, offset++, b);
-    }
-  }
-
-  public void update(final MessageDigest messageDigest) {
-    for (int i = 31; i >= 0; --i) {
-      messageDigest.update(data[i]);
+  public void copyToReverse(final byte[] to, int offset) {
+    for (final byte bite : this.data) {
+      to[offset--] = bite;
     }
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int offset) {
-    for (final byte bite : this.data) {
-      to[offset--] = bite;
+  public void update(final MessageDigest messageDigest) {
+    messageDigest.update(data);
+  }
+
+  @Override
+  public void updateReverse(final MessageDigest messageDigest) {
+    for (int i = getOffsetLength(); i >= 0; --i) {
+      messageDigest.update(data[i]);
     }
   }
 
@@ -134,8 +128,13 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
+  public int compareTo(final Hash other) {
+    return other.compareTo(data);
+  }
+
+  @Override
   public int compareTo(final byte[] other, int offset) {
-    return Arrays.compare(other, offset, offset + 32, data, 0, 32);
+    return Arrays.compare(other, offset, offset + getDigestLength(), data, 0, getDigestLength());
   }
 
   @Override

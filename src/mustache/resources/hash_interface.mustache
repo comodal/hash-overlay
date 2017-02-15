@@ -11,12 +11,7 @@ public interface {{hash}} extends Hash {
 
   HashFactory<{{hash}}> FACTORY = new {{hash}}.Factory();
 
-  @Override
-  default HashFactory<{{hash}}> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<{{hash}}> {
+  final class Factory extends BaseFactory<{{hash}}> {
 
     private Factory() {
       super("{{algoName}}");
@@ -40,6 +35,11 @@ public interface {{hash}} extends Hash {
     @Override
     public {{hash}} reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffset{{hash}}(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "{{hash}}.Factory - {{digestLength}} byte digest";
     }
   }
 }

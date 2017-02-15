@@ -11,12 +11,7 @@ public interface TIGER extends Hash {
 
   HashFactory<TIGER> FACTORY = new TIGER.Factory();
 
-  @Override
-  default HashFactory<TIGER> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<TIGER> {
+  final class Factory extends BaseFactory<TIGER> {
 
     private Factory() {
       super("TIGER");
@@ -40,6 +35,11 @@ public interface TIGER extends Hash {
     @Override
     public TIGER reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetTIGER(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "TIGER.Factory - 24 byte digest";
     }
   }
 }

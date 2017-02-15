@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA224;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteSHA224 extends DiscreteHash implements SHA224 {
 
   public DiscreteSHA224(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<SHA224> getFactory() {
+    return FACTORY;
   }
 
   @Override

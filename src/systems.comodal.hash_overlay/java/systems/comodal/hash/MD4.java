@@ -11,12 +11,7 @@ public interface MD4 extends Hash {
 
   HashFactory<MD4> FACTORY = new MD4.Factory();
 
-  @Override
-  default HashFactory<MD4> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<MD4> {
+  final class Factory extends BaseFactory<MD4> {
 
     private Factory() {
       super("MD4");
@@ -40,6 +35,11 @@ public interface MD4 extends Hash {
     @Override
     public MD4 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetMD4(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "MD4.Factory - 16 byte digest";
     }
   }
 }

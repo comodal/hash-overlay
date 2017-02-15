@@ -11,12 +11,7 @@ public interface WHIRLPOOL extends Hash {
 
   HashFactory<WHIRLPOOL> FACTORY = new WHIRLPOOL.Factory();
 
-  @Override
-  default HashFactory<WHIRLPOOL> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<WHIRLPOOL> {
+  final class Factory extends BaseFactory<WHIRLPOOL> {
 
     private Factory() {
       super("WHIRLPOOL");
@@ -40,6 +35,11 @@ public interface WHIRLPOOL extends Hash {
     @Override
     public WHIRLPOOL reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetWHIRLPOOL(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "WHIRLPOOL.Factory - 64 byte digest";
     }
   }
 }

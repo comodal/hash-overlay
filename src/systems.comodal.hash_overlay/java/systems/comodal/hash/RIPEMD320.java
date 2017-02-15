@@ -11,12 +11,7 @@ public interface RIPEMD320 extends Hash {
 
   HashFactory<RIPEMD320> FACTORY = new RIPEMD320.Factory();
 
-  @Override
-  default HashFactory<RIPEMD320> getFactory() {
-    return FACTORY;
-  }
-
-  class Factory extends BaseFactory<RIPEMD320> {
+  final class Factory extends BaseFactory<RIPEMD320> {
 
     private Factory() {
       super("RIPEMD320");
@@ -40,6 +35,11 @@ public interface RIPEMD320 extends Hash {
     @Override
     public RIPEMD320 reverseOverlay(final byte[] digest, final int offset) {
       return new LittleEndianOffsetRIPEMD320(digest, offset);
+    }
+
+    @Override
+    public String toString() {
+      return "RIPEMD320.Factory - 40 byte digest";
     }
   }
 }

@@ -1,8 +1,10 @@
 buildscript {
     apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/plugins.gradle'
+    apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/plugins.gradle'
     dependencies {
         classpath "$axion"
         classpath "$bintray"
+        classpath "$jmh"
     }
 }
 
@@ -14,6 +16,7 @@ apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/axion.
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/comodal.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/bintray-maven.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/checks.gradle'
+apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/jmh.gradle'
 
 compileJava {
     options.fork = true
@@ -33,7 +36,16 @@ sourceSets {
 dependencies {
     mustacheCompile 'com.github.spullara.mustache.java:compiler:+'
     mustacheCompile 'org.bouncycastle:bcprov-jdk15on:+'
+
+    jmh 'org.bouncycastle:bcprov-jdk15on:+'
+    jmh fileTree(dir: 'libs', include: ['*.jar'])
+
     testCompile 'org.bouncycastle:bcprov-jdk15on:+'
+}
+
+jmh {
+    includeTests = false
+    benchmarkParameters = [msgLength: "64"]
 }
 
 task generateSrc(type: JavaExec) {
@@ -42,5 +54,4 @@ task generateSrc(type: JavaExec) {
     if (project.hasProperty('dryRun')) {
         args 'dryRun'
     }
-
 }

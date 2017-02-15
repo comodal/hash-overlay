@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.RIPEMD128;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteRIPEMD128 extends DiscreteHash implements RIPEMD128 {
 
   public DiscreteRIPEMD128(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<RIPEMD128> getFactory() {
+    return FACTORY;
   }
 
   @Override

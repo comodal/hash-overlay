@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.GOST3411;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BigEndianOffsetHash;
 
 public final class BigEndianOffsetGOST3411 extends BigEndianOffsetHash implements GOST3411 {
 
   public BigEndianOffsetGOST3411(final byte[] data, final int offset) {
     super(data, offset);
+  }
+
+  @Override
+  public HashFactory<GOST3411> getFactory() {
+    return FACTORY;
   }
 
   @Override

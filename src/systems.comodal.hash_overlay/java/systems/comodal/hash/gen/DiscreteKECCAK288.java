@@ -2,12 +2,18 @@ package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.KECCAK288;
+import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
 public final class DiscreteKECCAK288 extends DiscreteHash implements KECCAK288 {
 
   public DiscreteKECCAK288(final byte[] data) {
     super(data);
+  }
+
+  @Override
+  public HashFactory<KECCAK288> getFactory() {
+    return FACTORY;
   }
 
   @Override
