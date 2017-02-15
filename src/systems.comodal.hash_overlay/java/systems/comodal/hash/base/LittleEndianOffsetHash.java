@@ -1,6 +1,7 @@
 package systems.comodal.hash.base;
 
 import java.math.BigInteger;
+import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import systems.comodal.hash.api.Hash;
 
@@ -35,6 +36,11 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   private int getOffsetLength() {
     return getDigestLength() - 1;
+  }
+
+  @Override
+  public ByteOrder getByteOrder() {
+    return ByteOrder.BIG_ENDIAN;
   }
 
   @Override

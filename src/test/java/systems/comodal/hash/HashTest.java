@@ -46,7 +46,7 @@ public class HashTest {
 
     final byte[] offsetBytes = new byte[digest.length + 7];
     System.arraycopy(digest, 0, offsetBytes, 3, digest.length);
-    final byte[] reverse = Hash.copyReverse(offsetBytes, 3, digest.length);
+    final byte[] reverse = HashFactory.copyReverse(offsetBytes, 3, digest.length);
     final byte[] reverseOffset = new byte[digest.length * 2];
     System.arraycopy(reverse, 0, reverseOffset, digest.length, digest.length);
     discrete = factory.overlay(digest);
@@ -123,7 +123,7 @@ public class HashTest {
   @Test
   public void testCopyReverse() {
     factories.forEach(hashFactory -> {
-      final byte[] expected = Hash.copyReverse(digest);
+      final byte[] expected = HashFactory.copyReverse(digest);
       assertArrayEquals(expected, discrete.copyReverse());
       assertArrayEquals(expected, offset.copyReverse());
       assertArrayEquals(expected, offset2.copyReverse());
@@ -136,7 +136,7 @@ public class HashTest {
   public void testUpdateReverse() {
     factories.forEach(hashFactory -> {
       final MessageDigest msgDigest = hashFactory.getMessageDigest();
-      final byte[] expected = msgDigest.digest(Hash.copyReverse(digest));
+      final byte[] expected = msgDigest.digest(HashFactory.copyReverse(digest));
       discrete.updateReverse(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
       offset.updateReverse(msgDigest);

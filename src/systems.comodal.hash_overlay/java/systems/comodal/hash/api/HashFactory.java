@@ -4,6 +4,28 @@ import java.security.MessageDigest;
 
 public interface HashFactory<H extends Hash> {
 
+  static void reverse(final byte[] bytes) {
+    byte tmp;
+    for (int i = 0, j = bytes.length - 1; j > i; i++, j--) {
+      tmp = bytes[j];
+      bytes[j] = bytes[i];
+      bytes[i] = tmp;
+    }
+  }
+
+  static byte[] copyReverse(final byte[] data) {
+    return copyReverse(data, 0, data.length);
+  }
+
+  static byte[] copyReverse(final byte[] data, int offset, final int len) {
+    offset += len;
+    final byte[] bytes = new byte[len];
+    for (int i = 0; i < len; ) {
+      bytes[i++] = data[--offset];
+    }
+    return bytes;
+  }
+
   static byte[] hashRaw(final MessageDigest messageDigest, final byte[] data) {
     return messageDigest.digest(data);
   }
@@ -17,7 +39,7 @@ public interface HashFactory<H extends Hash> {
   static byte[] hashTwiceReverseRaw(final MessageDigest messageDigest, final byte[] data) {
     messageDigest.update(data);
     final byte[] hash = messageDigest.digest(messageDigest.digest());
-    Hash.reverse(hash);
+    reverse(hash);
     return hash;
   }
 
@@ -201,7 +223,7 @@ public interface HashFactory<H extends Hash> {
   }
 
   default H reverseOverlay(final byte[] digest) {
-    Hash.reverse(digest);
+    reverse(digest);
     return overlay(digest);
   }
 

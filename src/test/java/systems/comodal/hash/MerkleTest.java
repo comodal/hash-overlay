@@ -9,7 +9,7 @@ import systems.comodal.hash.api.HashFactory;
 
 public class MerkleTest {
 
-  final HashFactory<SHA256> factory = SHA256.FACTORY;
+  private final HashFactory<SHA256> factory = SHA256.FACTORY;
 
   @Test
   public void testEven() {

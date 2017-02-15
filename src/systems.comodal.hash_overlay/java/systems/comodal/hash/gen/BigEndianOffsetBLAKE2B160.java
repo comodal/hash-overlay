@@ -1,5 +1,6 @@
 package systems.comodal.hash.gen;
 
+import java.nio.ByteOrder;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.BLAKE2B160;
 import systems.comodal.hash.api.HashFactory;

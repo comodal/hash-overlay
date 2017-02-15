@@ -1,35 +1,16 @@
 package systems.comodal.hash.api;
 
 import java.math.BigInteger;
+import java.nio.ByteOrder;
 import java.security.MessageDigest;
 
 public interface Hash {
 
-  static void reverse(final byte[] bytes) {
-    byte tmp;
-    for (int i = 0, j = bytes.length - 1; j > i; i++, j--) {
-      tmp = bytes[j];
-      bytes[j] = bytes[i];
-      bytes[i] = tmp;
-    }
-  }
-
-  static byte[] copyReverse(final byte[] data) {
-    return copyReverse(data, 0, data.length);
-  }
-
-  static byte[] copyReverse(final byte[] data, int offset, final int len) {
-    offset += len;
-    final byte[] bytes = new byte[len];
-    for (int i = 0; i < len; ) {
-      bytes[i++] = data[--offset];
-    }
-    return bytes;
-  }
-
   byte[] getBackingData();
 
   int getOffset();
+
+  ByteOrder getByteOrder();
 
   HashFactory<? extends Hash> getFactory();
 
@@ -65,17 +46,17 @@ public interface Hash {
 
   void updateReverse(final MessageDigest messageDigest);
 
-  boolean equals(final byte[] data, int offset);
-
   boolean equals(final byte[] data);
+
+  boolean equals(final byte[] data, int offset);
 
   boolean equalsReverse(final byte[] data, int offset);
 
   int compareTo(final Hash other);
 
-  int compareTo(final byte[] other, int offset);
-
   int compareTo(final byte[] other);
+
+  int compareTo(final byte[] other, int offset);
 
   int compareToReverse(final byte[] other, int offset);
 }

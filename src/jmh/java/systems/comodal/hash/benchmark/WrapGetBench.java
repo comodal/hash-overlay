@@ -18,7 +18,6 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
 import systems.comodal.hash.BLAKE2B160;
-import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 
 @State(Scope.Benchmark)
@@ -46,7 +45,7 @@ public class WrapGetBench {
       rand.nextBytes(DIGESTS[i]);
       System.arraycopy(DIGESTS[i], 0, OFFSET_DIGESTS[i], OFFSET, DIGEST_LENGTH);
       System.arraycopy(DIGESTS[i], 0, REVERSE_OFFSET_DIGESTS[i], 0, DIGEST_LENGTH);
-      Hash.reverse(REVERSE_OFFSET_DIGESTS[i]);
+      HashFactory.reverse(REVERSE_OFFSET_DIGESTS[i]);
     }
   }
 
@@ -106,7 +105,7 @@ public class WrapGetBench {
         keySupplier = threadState -> {
           final byte[] copy = new byte[DIGEST_LENGTH];
           System.arraycopy(threadState.nextReverseOffset(), DIGEST_LENGTH, copy, 0, DIGEST_LENGTH);
-          Hash.reverse(copy);
+          HashFactory.reverse(copy);
           return ByteBuffer.wrap(copy, 0, DIGEST_LENGTH);
         };
         break;

@@ -33,6 +33,10 @@ sourceSets {
     }
 }
 
+repositories {
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots" }
+}
+
 dependencies {
     mustacheCompile 'com.github.spullara.mustache.java:compiler:+'
     mustacheCompile 'org.bouncycastle:bcprov-jdk15on:+'
@@ -44,8 +48,10 @@ dependencies {
 }
 
 jmh {
+    // http://jmh.morethan.io/
     includeTests = false
     benchmarkParameters = [msgLength: "64"]
+    threads = 2
 }
 
 task generateSrc(type: JavaExec) {
@@ -54,4 +60,10 @@ task generateSrc(type: JavaExec) {
     if (project.hasProperty('dryRun')) {
         args 'dryRun'
     }
+}
+
+task printMemUsage(type: JavaExec) {
+    classpath = sourceSets.jmh.runtimeClasspath
+    main = 'systems.comodal.hash.benchmark.MemoryMeasurements'
+    jvmArgs '-javaagent:/Users/james/git/hash-overlay/libs/jamm-0.3.2-SNAPSHOT.jar'
 }
