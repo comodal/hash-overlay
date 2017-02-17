@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetRIPEMD256;
-import systems.comodal.hash.gen.DiscreteRIPEMD256;
+import systems.comodal.hash.gen.RIPEMD256Value;
 import systems.comodal.hash.gen.LittleEndianOffsetRIPEMD256;
 
 public interface RIPEMD256 extends Hash {
@@ -24,7 +24,7 @@ public interface RIPEMD256 extends Hash {
 
     @Override
     public RIPEMD256 overlay(final byte[] digest) {
-      return new DiscreteRIPEMD256(digest);
+      return new RIPEMD256Value(digest);
     }
 
     @Override

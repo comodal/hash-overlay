@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetSHA3_512;
-import systems.comodal.hash.gen.DiscreteSHA3_512;
+import systems.comodal.hash.gen.SHA3_512Value;
 import systems.comodal.hash.gen.LittleEndianOffsetSHA3_512;
 
 public interface SHA3_512 extends Hash {
@@ -24,7 +24,7 @@ public interface SHA3_512 extends Hash {
 
     @Override
     public SHA3_512 overlay(final byte[] digest) {
-      return new DiscreteSHA3_512(digest);
+      return new SHA3_512Value(digest);
     }
 
     @Override

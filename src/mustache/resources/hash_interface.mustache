@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffset{{hash}};
-import systems.comodal.hash.gen.Discrete{{hash}};
+import systems.comodal.hash.gen.{{hash}}Value;
 import systems.comodal.hash.gen.LittleEndianOffset{{hash}};
 
 public interface {{hash}} extends Hash {
@@ -24,7 +24,7 @@ public interface {{hash}} extends Hash {
 
     @Override
     public {{hash}} overlay(final byte[] digest) {
-      return new Discrete{{hash}}(digest);
+      return new {{hash}}Value(digest);
     }
 
     @Override

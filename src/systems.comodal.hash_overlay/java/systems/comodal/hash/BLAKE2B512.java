@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetBLAKE2B512;
-import systems.comodal.hash.gen.DiscreteBLAKE2B512;
+import systems.comodal.hash.gen.BLAKE2B512Value;
 import systems.comodal.hash.gen.LittleEndianOffsetBLAKE2B512;
 
 public interface BLAKE2B512 extends Hash {
@@ -24,7 +24,7 @@ public interface BLAKE2B512 extends Hash {
 
     @Override
     public BLAKE2B512 overlay(final byte[] digest) {
-      return new DiscreteBLAKE2B512(digest);
+      return new BLAKE2B512Value(digest);
     }
 
     @Override

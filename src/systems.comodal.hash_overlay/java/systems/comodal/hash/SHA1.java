@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetSHA1;
-import systems.comodal.hash.gen.DiscreteSHA1;
+import systems.comodal.hash.gen.SHA1Value;
 import systems.comodal.hash.gen.LittleEndianOffsetSHA1;
 
 public interface SHA1 extends Hash {
@@ -24,7 +24,7 @@ public interface SHA1 extends Hash {
 
     @Override
     public SHA1 overlay(final byte[] digest) {
-      return new DiscreteSHA1(digest);
+      return new SHA1Value(digest);
     }
 
     @Override

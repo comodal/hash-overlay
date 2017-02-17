@@ -1,24 +1,24 @@
 package systems.comodal.hash.gen;
 
 import systems.comodal.hash.api.Hash;
-import systems.comodal.hash.SM3;
+import systems.comodal.hash.{{hash}};
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.DiscreteHash;
 
-public final class DiscreteSM3 extends DiscreteHash implements SM3 {
+public final class {{hash}}Value extends DiscreteHash implements {{hash}} {
 
-  public DiscreteSM3(final byte[] data) {
+  public {{hash}}Value(final byte[] data) {
     super(data);
   }
 
   @Override
-  public HashFactory<SM3> getFactory() {
+  public HashFactory<{{hash}}> getFactory() {
     return FACTORY;
   }
 
   @Override
   public boolean equals(final Object other) {
-    return this == other || other != null && other instanceof SM3
+    return this == other || other != null && other instanceof {{hash}}
         && ((Hash) other).equals(data);
   }
 }

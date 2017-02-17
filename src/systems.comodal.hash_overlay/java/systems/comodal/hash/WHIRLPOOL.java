@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetWHIRLPOOL;
-import systems.comodal.hash.gen.DiscreteWHIRLPOOL;
+import systems.comodal.hash.gen.WHIRLPOOLValue;
 import systems.comodal.hash.gen.LittleEndianOffsetWHIRLPOOL;
 
 public interface WHIRLPOOL extends Hash {
@@ -24,7 +24,7 @@ public interface WHIRLPOOL extends Hash {
 
     @Override
     public WHIRLPOOL overlay(final byte[] digest) {
-      return new DiscreteWHIRLPOOL(digest);
+      return new WHIRLPOOLValue(digest);
     }
 
     @Override

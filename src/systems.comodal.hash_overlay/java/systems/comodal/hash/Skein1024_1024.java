@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetSkein1024_1024;
-import systems.comodal.hash.gen.DiscreteSkein1024_1024;
+import systems.comodal.hash.gen.Skein1024_1024Value;
 import systems.comodal.hash.gen.LittleEndianOffsetSkein1024_1024;
 
 public interface Skein1024_1024 extends Hash {
@@ -24,7 +24,7 @@ public interface Skein1024_1024 extends Hash {
 
     @Override
     public Skein1024_1024 overlay(final byte[] digest) {
-      return new DiscreteSkein1024_1024(digest);
+      return new Skein1024_1024Value(digest);
     }
 
     @Override

@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetSM3;
-import systems.comodal.hash.gen.DiscreteSM3;
+import systems.comodal.hash.gen.SM3Value;
 import systems.comodal.hash.gen.LittleEndianOffsetSM3;
 
 public interface SM3 extends Hash {
@@ -24,7 +24,7 @@ public interface SM3 extends Hash {
 
     @Override
     public SM3 overlay(final byte[] digest) {
-      return new DiscreteSM3(digest);
+      return new SM3Value(digest);
     }
 
     @Override

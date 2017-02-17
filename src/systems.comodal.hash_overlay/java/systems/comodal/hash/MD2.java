@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetMD2;
-import systems.comodal.hash.gen.DiscreteMD2;
+import systems.comodal.hash.gen.MD2Value;
 import systems.comodal.hash.gen.LittleEndianOffsetMD2;
 
 public interface MD2 extends Hash {
@@ -24,7 +24,7 @@ public interface MD2 extends Hash {
 
     @Override
     public MD2 overlay(final byte[] digest) {
-      return new DiscreteMD2(digest);
+      return new MD2Value(digest);
     }
 
     @Override

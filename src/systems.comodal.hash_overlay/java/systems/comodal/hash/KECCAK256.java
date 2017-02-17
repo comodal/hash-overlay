@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetKECCAK256;
-import systems.comodal.hash.gen.DiscreteKECCAK256;
+import systems.comodal.hash.gen.KECCAK256Value;
 import systems.comodal.hash.gen.LittleEndianOffsetKECCAK256;
 
 public interface KECCAK256 extends Hash {
@@ -24,7 +24,7 @@ public interface KECCAK256 extends Hash {
 
     @Override
     public KECCAK256 overlay(final byte[] digest) {
-      return new DiscreteKECCAK256(digest);
+      return new KECCAK256Value(digest);
     }
 
     @Override

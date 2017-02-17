@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetRIPEMD160;
-import systems.comodal.hash.gen.DiscreteRIPEMD160;
+import systems.comodal.hash.gen.RIPEMD160Value;
 import systems.comodal.hash.gen.LittleEndianOffsetRIPEMD160;
 
 public interface RIPEMD160 extends Hash {
@@ -24,7 +24,7 @@ public interface RIPEMD160 extends Hash {
 
     @Override
     public RIPEMD160 overlay(final byte[] digest) {
-      return new DiscreteRIPEMD160(digest);
+      return new RIPEMD160Value(digest);
     }
 
     @Override

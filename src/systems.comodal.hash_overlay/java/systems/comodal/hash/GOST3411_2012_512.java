@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetGOST3411_2012_512;
-import systems.comodal.hash.gen.DiscreteGOST3411_2012_512;
+import systems.comodal.hash.gen.GOST3411_2012_512Value;
 import systems.comodal.hash.gen.LittleEndianOffsetGOST3411_2012_512;
 
 public interface GOST3411_2012_512 extends Hash {
@@ -24,7 +24,7 @@ public interface GOST3411_2012_512 extends Hash {
 
     @Override
     public GOST3411_2012_512 overlay(final byte[] digest) {
-      return new DiscreteGOST3411_2012_512(digest);
+      return new GOST3411_2012_512Value(digest);
     }
 
     @Override

@@ -100,8 +100,8 @@ public final class GenerateHashClasses {
         digests.forEach(digest -> {
           System.out.format("%s : %s : %d%n", digest.hash, digest.algoName, digest.digestLength);
           generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");
-          generate(mf, "discrete.mustache", digest,
-              genSrcDirectory + "Discrete" + digest.hash + ".java");
+          generate(mf, "value.mustache", digest,
+              genSrcDirectory  + digest.hash + "Value.java");
           generate(mf, "bigendian.mustache", digest,
               genSrcDirectory + "BigEndianOffset" + digest.hash + ".java");
           generate(mf, "littleendian.mustache", digest,

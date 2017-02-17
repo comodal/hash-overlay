@@ -4,7 +4,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
 import systems.comodal.hash.gen.BigEndianOffsetMD5;
-import systems.comodal.hash.gen.DiscreteMD5;
+import systems.comodal.hash.gen.MD5Value;
 import systems.comodal.hash.gen.LittleEndianOffsetMD5;
 
 public interface MD5 extends Hash {
@@ -24,7 +24,7 @@ public interface MD5 extends Hash {
 
     @Override
     public MD5 overlay(final byte[] digest) {
-      return new DiscreteMD5(digest);
+      return new MD5Value(digest);
     }
 
     @Override
