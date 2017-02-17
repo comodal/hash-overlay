@@ -187,50 +187,6 @@ public interface HashFactory<H extends Hash> {
    */
   H reverseOverlay(final byte[] digest, final int offset);
 
-  default byte[] hashTwiceRaw(final byte[] data) {
-    return hashTwiceRaw(getMessageDigest(), data);
-  }
-
-  default byte[] hashTwiceRaw(final byte[] data, final int offset, final int len) {
-    return hashTwiceRaw(getMessageDigest(), data, offset, len);
-  }
-
-  default byte[] hashTwiceRaw(final byte prefix, final byte[] data) {
-    return hashTwiceRaw(getMessageDigest(), prefix, data);
-  }
-
-  default byte[] hashRaw(final byte[] data) {
-    return hashRaw(getMessageDigest(), data);
-  }
-
-  default byte[] hashRaw(final byte[] data, final int offset, final int len) {
-    return hashRaw(getMessageDigest(), data, offset, len);
-  }
-
-  default byte[] hashTwiceReverseRaw(final byte[] data) {
-    return hashTwiceReverseRaw(getMessageDigest(), data);
-  }
-
-  default H hash(final byte[] data) {
-    return overlay(hashRaw(data));
-  }
-
-  default H hashTwice(final byte[] data) {
-    return overlay(hashTwiceRaw(data));
-  }
-
-  default H hashTwiceReverse(final byte[] data) {
-    return reverseOverlay(hashTwiceRaw(data));
-  }
-
-  default H hashTwiceReverse(final byte[] data, final int offset, final int len) {
-    return reverseOverlay(hashTwiceRaw(data, offset, len));
-  }
-
-  default H hashReverse(final byte[] data) {
-    return reverseOverlay(hashRaw(data));
-  }
-
   default H reverseOverlay(final byte[] digest) {
     reverse(digest);
     return overlay(digest);
@@ -245,6 +201,50 @@ public interface HashFactory<H extends Hash> {
     final byte[] discrete = new byte[getDigestLength()];
     System.arraycopy(digest, offset, discrete, 0, discrete.length);
     return overlay(discrete);
+  }
+
+  default byte[] hashRaw(final byte[] data) {
+    return hashRaw(getMessageDigest(), data);
+  }
+
+  default byte[] hashRaw(final byte[] data, final int offset, final int len) {
+    return hashRaw(getMessageDigest(), data, offset, len);
+  }
+
+  default byte[] hashTwiceRaw(final byte[] data) {
+    return hashTwiceRaw(getMessageDigest(), data);
+  }
+
+  default byte[] hashTwiceRaw(final byte[] data, final int offset, final int len) {
+    return hashTwiceRaw(getMessageDigest(), data, offset, len);
+  }
+
+  default byte[] hashTwiceRaw(final byte prefix, final byte[] data) {
+    return hashTwiceRaw(getMessageDigest(), prefix, data);
+  }
+
+  default byte[] hashTwiceReverseRaw(final byte[] data) {
+    return hashTwiceReverseRaw(getMessageDigest(), data);
+  }
+
+  default H hash(final byte[] data) {
+    return overlay(hashRaw(data));
+  }
+
+  default H hashReverse(final byte[] data) {
+    return reverseOverlay(hashRaw(data));
+  }
+
+  default H hashTwice(final byte[] data) {
+    return overlay(hashTwiceRaw(data));
+  }
+
+  default H hashTwiceReverse(final byte[] data) {
+    return reverseOverlay(hashTwiceRaw(data));
+  }
+
+  default H hashTwiceReverse(final byte[] data, final int offset, final int len) {
+    return reverseOverlay(hashTwiceRaw(data, offset, len));
   }
 
   default H merkle(final Hash[] hashes) {

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.Security;
@@ -224,9 +225,62 @@ public class HashTest {
   }
 
   @Test
+  public void testByteOrder() {
+    factories.forEach(hashFactory -> {
+      final byte[] reverseDigest = HashFactory.copyReverse(digest);
+      testByteOrder(digest, reverseDigest, discrete);
+      testByteOrder(digest, reverseDigest, offset);
+      testByteOrder(digest, reverseDigest, offset2);
+      testByteOrder(digest, reverseDigest, reverseOverlay);
+      testByteOrder(digest, reverseDigest, offsetReverse);
+    });
+  }
+
+  private void testByteOrder(final byte[] expected, final byte[] reverseExpected,
+      final Hash hash) {
+    final byte[] backingArray = hash.getBackingData();
+    if (hash.getByteOrder() == ByteOrder.BIG_ENDIAN) {
+      Arrays.equals(expected, 0, expected.length,
+          backingArray, hash.getOffset(), hash.getOffset() + hash.getDigestLength());
+    } else {
+      Arrays.equals(reverseExpected, 0, expected.length,
+          backingArray, hash.getOffset() - (hash.getDigestLength() - 1), hash.getOffset() + 1);
+    }
+  }
+
+  @Test
   public void testCompareTo() {
     factories.forEach(hashFactory -> {
       assertEquals(0, reverseOverlay.compareTo(offset));
+    });
+  }
+
+  @Test
+  public void testGetDiscrete() {
+    factories.forEach(hashFactory -> {
+      assertTrue(discrete == discrete.getDiscrete());
+      assertEquals(discrete, discrete.getDiscrete());
+      assertTrue(digest == discrete.getDiscreteRaw());
+
+      assertFalse(offset == offset.getDiscrete());
+      assertEquals(offset, offset.getDiscrete());
+      assertFalse(digest == offset.getDiscreteRaw());
+      assertArrayEquals(digest, offset.getDiscreteRaw());
+
+      assertFalse(offset2 == offset2.getDiscrete());
+      assertEquals(offset2, offset2.getDiscrete());
+      assertFalse(digest == offset2.getDiscreteRaw());
+      assertArrayEquals(digest, offset2.getDiscreteRaw());
+
+      assertFalse(reverseOverlay == reverseOverlay.getDiscrete());
+      assertEquals(reverseOverlay, reverseOverlay.getDiscrete());
+      assertFalse(digest == reverseOverlay.getDiscreteRaw());
+      assertArrayEquals(digest, reverseOverlay.getDiscreteRaw());
+
+      assertFalse(offsetReverse == offsetReverse.getDiscrete());
+      assertEquals(offsetReverse, offsetReverse.getDiscrete());
+      assertFalse(digest == offsetReverse.getDiscreteRaw());
+      assertArrayEquals(digest, offsetReverse.getDiscreteRaw());
     });
   }
 }
