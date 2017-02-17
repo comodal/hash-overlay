@@ -1,8 +1,17 @@
 package systems.comodal.hash.api;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public interface HashFactory<H extends Hash> {
+
+  static MessageDigest getMessageDigestUnchecked(final String algorithm) {
+    try {
+      return MessageDigest.getInstance(algorithm);
+    } catch (final NoSuchAlgorithmException ex) {
+      throw new IllegalStateException(ex.getMessage());
+    }
+  }
 
   static void reverse(final byte[] bytes) {
     byte tmp;

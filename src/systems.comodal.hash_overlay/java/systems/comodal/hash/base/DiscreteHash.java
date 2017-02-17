@@ -77,7 +77,7 @@ public abstract class DiscreteHash implements Hash {
 
   @Override
   public void copyTo(final byte[] to, final int offset) {
-    System.arraycopy(this.data, 0, to, offset, 32);
+    System.arraycopy(this.data, 0, to, offset, getDigestLength());
   }
 
   @Override

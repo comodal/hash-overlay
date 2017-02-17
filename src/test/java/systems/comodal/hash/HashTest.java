@@ -121,6 +121,38 @@ public class HashTest {
   }
 
   @Test
+  public void testCopy() {
+    factories.forEach(hashFactory -> {
+      assertArrayEquals(digest, discrete.copy());
+      assertArrayEquals(digest, offset.copy());
+      assertArrayEquals(digest, offset2.copy());
+      assertArrayEquals(digest, reverseOverlay.copy());
+      assertArrayEquals(digest, offsetReverse.copy());
+    });
+  }
+
+  @Test
+  public void testCopyTo() {
+    final int testOffset = 3;
+    factories.forEach(hashFactory -> {
+      final byte[] expected = new byte[digest.length << 1];
+      final byte[] test = new byte[expected.length];
+      System.arraycopy(digest, 0, expected, testOffset, digest.length);
+
+      discrete.copyTo(test, testOffset);
+      assertArrayEquals(expected, test);
+      offset.copyTo(test, testOffset);
+      assertArrayEquals(expected, test);
+      offset2.copyTo(test, testOffset);
+      assertArrayEquals(expected, test);
+      reverseOverlay.copyTo(test, testOffset);
+      assertArrayEquals(expected, test);
+      offsetReverse.copyTo(test, testOffset);
+      assertArrayEquals(expected, test);
+    });
+  }
+
+  @Test
   public void testCopyReverse() {
     factories.forEach(hashFactory -> {
       final byte[] expected = HashFactory.copyReverse(digest);
@@ -129,6 +161,29 @@ public class HashTest {
       assertArrayEquals(expected, offset2.copyReverse());
       assertArrayEquals(expected, reverseOverlay.copyReverse());
       assertArrayEquals(expected, offsetReverse.copyReverse());
+    });
+  }
+
+  @Test
+  public void testCopyToReverse() {
+    final int testOffset = 3;
+    factories.forEach(hashFactory -> {
+      final byte[] expected = new byte[digest.length << 1];
+      final byte[] test = new byte[expected.length];
+      byte[] reverseDigest = HashFactory.copyReverse(digest);
+      System.arraycopy(reverseDigest, 0, expected,
+          expected.length - (digest.length + testOffset - 1), digest.length);
+
+      discrete.copyToReverse(test, expected.length - testOffset);
+      assertArrayEquals(expected, test);
+      offset.copyToReverse(test, expected.length - testOffset);
+      assertArrayEquals(expected, test);
+      offset2.copyToReverse(test, expected.length - testOffset);
+      assertArrayEquals(expected, test);
+      reverseOverlay.copyToReverse(test, expected.length - testOffset);
+      assertArrayEquals(expected, test);
+      offsetReverse.copyToReverse(test, expected.length - testOffset);
+      assertArrayEquals(expected, test);
     });
   }
 

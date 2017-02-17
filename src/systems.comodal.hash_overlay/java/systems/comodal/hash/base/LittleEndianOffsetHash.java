@@ -40,7 +40,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public ByteOrder getByteOrder() {
-    return ByteOrder.BIG_ENDIAN;
+    return ByteOrder.LITTLE_ENDIAN;
   }
 
   @Override

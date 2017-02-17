@@ -51,7 +51,7 @@ jmh {
     // http://jmh.morethan.io/
     includeTests = false
     benchmarkParameters = [msgLength: "64"]
-    threads = 2
+    threads = 1
 }
 
 task generateSrc(type: JavaExec) {
