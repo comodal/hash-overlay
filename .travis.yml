@@ -18,8 +18,8 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
-install: ./gradlew generateSrc
+install: ./gradlew generateSrc --stacktrace --debug
 
-script: ./gradlew check
+script: ./gradlew check --stacktrace --debug
 
 after_success: if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ ! -z "$TRAVIS_TAG" ] ; then ./gradlew bintrayUpload; else ./gradlew jacocoTestReport; bash <(curl -s https://codecov.io/bash); fi
