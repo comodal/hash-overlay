@@ -23,6 +23,11 @@ public interface SHA1 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 19;
+    }
+
+    @Override
     public SHA1 overlay(final byte[] digest) {
       return new SHA1Value(digest);
     }

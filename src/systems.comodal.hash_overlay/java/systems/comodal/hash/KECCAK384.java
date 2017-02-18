@@ -23,6 +23,11 @@ public interface KECCAK384 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 47;
+    }
+
+    @Override
     public KECCAK384 overlay(final byte[] digest) {
       return new KECCAK384Value(digest);
     }

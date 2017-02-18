@@ -23,6 +23,11 @@ public interface RIPEMD128 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 15;
+    }
+
+    @Override
     public RIPEMD128 overlay(final byte[] digest) {
       return new RIPEMD128Value(digest);
     }

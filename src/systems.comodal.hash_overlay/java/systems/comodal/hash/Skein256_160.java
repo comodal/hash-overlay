@@ -23,6 +23,11 @@ public interface Skein256_160 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 19;
+    }
+
+    @Override
     public Skein256_160 overlay(final byte[] digest) {
       return new Skein256_160Value(digest);
     }

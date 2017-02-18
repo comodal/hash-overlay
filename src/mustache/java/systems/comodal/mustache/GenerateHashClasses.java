@@ -101,7 +101,7 @@ public final class GenerateHashClasses {
           System.out.format("%s : %s : %d%n", digest.hash, digest.algoName, digest.digestLength);
           generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");
           generate(mf, "value.mustache", digest,
-              genSrcDirectory  + digest.hash + "Value.java");
+              genSrcDirectory + digest.hash + "Value.java");
           generate(mf, "bigendian.mustache", digest,
               genSrcDirectory + "BigEndianOffset" + digest.hash + ".java");
           generate(mf, "littleendian.mustache", digest,
@@ -162,6 +162,7 @@ public final class GenerateHashClasses {
     public final String hash;
     public final String algoName;
     public final int digestLength;
+    public final int digestOffset;
     public final String provider;
 
     Digest(final String hash, final String algoName, final int digestLength,
@@ -169,6 +170,7 @@ public final class GenerateHashClasses {
       this.hash = hash;
       this.algoName = algoName;
       this.digestLength = digestLength;
+      this.digestOffset = digestLength - 1;
       this.provider = provider;
     }
   }

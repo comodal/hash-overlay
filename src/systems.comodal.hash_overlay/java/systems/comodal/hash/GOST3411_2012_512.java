@@ -23,6 +23,11 @@ public interface GOST3411_2012_512 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 63;
+    }
+
+    @Override
     public GOST3411_2012_512 overlay(final byte[] digest) {
       return new GOST3411_2012_512Value(digest);
     }

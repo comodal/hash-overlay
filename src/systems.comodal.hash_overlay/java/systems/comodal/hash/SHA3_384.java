@@ -23,6 +23,11 @@ public interface SHA3_384 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 47;
+    }
+
+    @Override
     public SHA3_384 overlay(final byte[] digest) {
       return new SHA3_384Value(digest);
     }

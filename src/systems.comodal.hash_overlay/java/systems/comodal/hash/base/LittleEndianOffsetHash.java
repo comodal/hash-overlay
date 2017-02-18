@@ -35,7 +35,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   private int getOffsetLength() {
-    return getDigestLength() - 1;
+    return getFactory().getOffsetLength();
   }
 
   @Override

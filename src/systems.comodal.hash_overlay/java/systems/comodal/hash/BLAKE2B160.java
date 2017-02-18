@@ -23,6 +23,11 @@ public interface BLAKE2B160 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 19;
+    }
+
+    @Override
     public BLAKE2B160 overlay(final byte[] digest) {
       return new BLAKE2B160Value(digest);
     }

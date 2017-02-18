@@ -23,6 +23,11 @@ public interface Skein1024_512 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 63;
+    }
+
+    @Override
     public Skein1024_512 overlay(final byte[] digest) {
       return new Skein1024_512Value(digest);
     }

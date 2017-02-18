@@ -23,6 +23,11 @@ public interface TIGER extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 23;
+    }
+
+    @Override
     public TIGER overlay(final byte[] digest) {
       return new TIGERValue(digest);
     }

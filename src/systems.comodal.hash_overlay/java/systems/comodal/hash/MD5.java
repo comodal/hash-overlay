@@ -23,6 +23,11 @@ public interface MD5 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 15;
+    }
+
+    @Override
     public MD5 overlay(final byte[] digest) {
       return new MD5Value(digest);
     }

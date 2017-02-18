@@ -23,6 +23,11 @@ public interface WHIRLPOOL extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 63;
+    }
+
+    @Override
     public WHIRLPOOL overlay(final byte[] digest) {
       return new WHIRLPOOLValue(digest);
     }

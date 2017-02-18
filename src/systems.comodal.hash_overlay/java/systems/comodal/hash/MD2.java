@@ -23,6 +23,11 @@ public interface MD2 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 15;
+    }
+
+    @Override
     public MD2 overlay(final byte[] digest) {
       return new MD2Value(digest);
     }

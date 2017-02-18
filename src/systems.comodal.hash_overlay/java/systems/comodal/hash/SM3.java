@@ -23,6 +23,11 @@ public interface SM3 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 31;
+    }
+
+    @Override
     public SM3 overlay(final byte[] digest) {
       return new SM3Value(digest);
     }

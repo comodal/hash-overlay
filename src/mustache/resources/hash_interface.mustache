@@ -23,6 +23,11 @@ public interface {{hash}} extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return {{digestOffset}};
+    }
+
+    @Override
     public {{hash}} overlay(final byte[] digest) {
       return new {{hash}}Value(digest);
     }

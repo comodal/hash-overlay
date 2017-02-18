@@ -23,6 +23,11 @@ public interface RIPEMD320 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 39;
+    }
+
+    @Override
     public RIPEMD320 overlay(final byte[] digest) {
       return new RIPEMD320Value(digest);
     }

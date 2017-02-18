@@ -23,6 +23,11 @@ public interface SHA512_224 extends Hash {
     }
 
     @Override
+    public int getOffsetLength() {
+      return 27;
+    }
+
+    @Override
     public SHA512_224 overlay(final byte[] digest) {
       return new SHA512_224Value(digest);
     }
