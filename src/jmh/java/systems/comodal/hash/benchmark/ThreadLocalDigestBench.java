@@ -19,7 +19,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 
 @State(Scope.Benchmark)
-@Threads(1)
+@Threads(Threads.MAX)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @Warmup(iterations = 7)
@@ -28,8 +28,7 @@ public class ThreadLocalDigestBench {
 
   private static final int NUM_MESSAGES = 2 << 18;
   private static final int MASK = NUM_MESSAGES - 1;
-  private static final HashFactory<? extends Hash> hashFactory = SHA256.FACTORY;
-  private static final MessageDigest messageDigest = hashFactory.getMessageDigest();
+  private static final HashFactory<? extends Hash> HASH_FACTORY = SHA256.FACTORY;
 
   @Param({"32"})
   String msgLength;
@@ -46,18 +45,19 @@ public class ThreadLocalDigestBench {
 
   @Benchmark
   public byte[] threadLocal(final ThreadState threadState) {
-    return hashFactory.getMessageDigest().digest(messages[threadState.next()]);
+    return HASH_FACTORY.getMessageDigest().digest(messages[threadState.next()]);
   }
 
   @Benchmark
   public byte[] singleton(final ThreadState threadState) {
-    return messageDigest.digest(messages[threadState.next()]);
+    return threadState.messageDigest.digest(messages[threadState.next()]);
   }
 
   @State(Scope.Thread)
   public static class ThreadState {
 
-    int index = ThreadLocalRandom.current().nextInt(NUM_MESSAGES);
+    private int index = ThreadLocalRandom.current().nextInt(NUM_MESSAGES);
+    private final MessageDigest messageDigest = HASH_FACTORY.getMessageDigest();
 
     int next() {
       return index++ & MASK;
