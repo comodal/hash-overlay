@@ -34,7 +34,7 @@ public abstract class DiscreteHash implements Hash {
   }
 
   private int getOffsetLength() {
-    return getDigestLength() - 1;
+    return getFactory().getOffsetLength();
   }
 
   @Override

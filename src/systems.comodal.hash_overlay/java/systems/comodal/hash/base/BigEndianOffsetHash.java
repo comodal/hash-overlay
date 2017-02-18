@@ -36,7 +36,7 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   private int getOffsetLength() {
-    return getDigestLength() - 1;
+    return getFactory().getOffsetLength();
   }
 
   @Override
