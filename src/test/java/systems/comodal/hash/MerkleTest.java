@@ -22,7 +22,7 @@ public class MerkleTest {
     final byte[] expected = decode(
         "f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766");
     HashFactory.reverse(expected);
-    assertArrayEquals(expected, factory.merkle(hashes, true));
+    assertArrayEquals(expected, factory.merkleHashTwice(hashes, true));
   }
 
   @Test
@@ -40,7 +40,7 @@ public class MerkleTest {
     final byte[] expected = decode(
         "f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766");
     HashFactory.reverse(expected);
-    assertArrayEquals(expected, factory.merkle(hashes, false));
+    assertArrayEquals(expected, factory.merkleHashTwice(hashes, false));
   }
 
   @Test
@@ -60,7 +60,7 @@ public class MerkleTest {
     final byte[] expected = decode(
         "2fda58e5959b0ee53c5253da9b9f3c0c739422ae04946966991cf55895287552");
     HashFactory.reverse(expected);
-    assertArrayEquals(expected, factory.merkle(hashes, true));
+    assertArrayEquals(expected, factory.merkleHashTwice(hashes, true));
   }
 
   @Test
@@ -89,6 +89,6 @@ public class MerkleTest {
     final byte[] expected = decode(
         "2fda58e5959b0ee53c5253da9b9f3c0c739422ae04946966991cf55895287552");
     HashFactory.reverse(expected);
-    assertArrayEquals(expected, factory.merkle(hashes, false));
+    assertArrayEquals(expected, factory.merkleHashTwice(hashes, false));
   }
 }

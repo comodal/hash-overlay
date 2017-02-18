@@ -71,7 +71,7 @@ public interface HashFactory<H extends Hash> {
     return messageDigest.digest(messageDigest.digest());
   }
 
-  static byte[] merkle(final MessageDigest messageDigest, final Hash[] hashes,
+  static byte[] merkleHashTwice(final MessageDigest messageDigest, final Hash[] hashes,
       final boolean reverseByteOrder) {
     if (hashes.length == 1) {
       return reverseByteOrder ? hashes[0].copyReverse() : hashes[0].getDiscreteRaw();
@@ -121,7 +121,7 @@ public interface HashFactory<H extends Hash> {
     return tree[0];
   }
 
-  static byte[] merkle(final HashFactory<? extends Hash> hashFactory,
+  static byte[] merkleHashTwice(final HashFactory<? extends Hash> hashFactory,
       final MessageDigest messageDigest, final byte[] data, int offset, final int numHashes,
       final boolean reverseByteOrder) {
     if (numHashes == 1) {
@@ -279,17 +279,17 @@ public interface HashFactory<H extends Hash> {
     return reverseOverlay(hashTwiceRaw(data, offset, len));
   }
 
-  default byte[] merkle(final Hash[] hashes, final boolean reverseByteOrder) {
-    return merkle(getMessageDigest(), hashes, reverseByteOrder);
+  default byte[] merkleHashTwice(final Hash[] hashes, final boolean reverseByteOrder) {
+    return merkleHashTwice(getMessageDigest(), hashes, reverseByteOrder);
   }
 
-  default byte[] merkle(final byte[] data, int offset, final int numHashes,
+  default byte[] merkleHashTwice(final byte[] data, int offset, final int numHashes,
       final boolean reverseByteOrder) {
-    return merkle(getMessageDigest(), data, offset, numHashes, reverseByteOrder);
+    return merkleHashTwice(getMessageDigest(), data, offset, numHashes, reverseByteOrder);
   }
 
-  default byte[] merkle(final MessageDigest messageDigest, final byte[] data, int offset,
+  default byte[] merkleHashTwice(final MessageDigest messageDigest, final byte[] data, int offset,
       final int numHashes, final boolean reverseByteOrder) {
-    return merkle(this, messageDigest, data, offset, numHashes, reverseByteOrder);
+    return merkleHashTwice(this, messageDigest, data, offset, numHashes, reverseByteOrder);
   }
 }
