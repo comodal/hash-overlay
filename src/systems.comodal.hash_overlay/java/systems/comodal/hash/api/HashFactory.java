@@ -53,6 +53,14 @@ public interface HashFactory<H extends Hash> {
     return hash;
   }
 
+  static byte[] hashTwiceReverseRaw(final MessageDigest messageDigest, final byte[] data, final int offset,
+      final int len) {
+    messageDigest.update(data, offset, len);
+    final byte[] hash = messageDigest.digest(messageDigest.digest());
+    reverse(hash);
+    return hash;
+  }
+
   static byte[] hashTwiceRaw(final MessageDigest messageDigest, final byte[] data) {
     messageDigest.update(data);
     return messageDigest.digest(messageDigest.digest());
@@ -259,16 +267,32 @@ public interface HashFactory<H extends Hash> {
     return hashTwiceReverseRaw(getMessageDigest(), data);
   }
 
+  default byte[] hashTwiceReverseRaw(final byte[] data, final int offset, final int len) {
+    return hashTwiceReverseRaw(getMessageDigest(), data, offset, len);
+  }
+
   default H hash(final byte[] data) {
     return overlay(hashRaw(data));
+  }
+
+  default H hash(final byte[] data, final int offset, final int len) {
+    return overlay(hashRaw(data, offset, len));
   }
 
   default H hashReverse(final byte[] data) {
     return reverseOverlay(hashRaw(data));
   }
 
+  default H hashReverse(final byte[] data, final int offset, final int len) {
+    return reverseOverlay(hashRaw(data, offset, len));
+  }
+
   default H hashTwice(final byte[] data) {
     return overlay(hashTwiceRaw(data));
+  }
+
+  default H hashTwice(final byte[] data, final int offset, final int len) {
+    return overlay(hashTwiceRaw(data, offset, len));
   }
 
   default H hashTwiceReverse(final byte[] data) {

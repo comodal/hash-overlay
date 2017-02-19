@@ -61,13 +61,6 @@ public class HashTest {
   }
 
   @Test
-  public void testDigestLength() {
-    for (HashFactory<? extends Hash> hashFactory : DigestAlgo.values()) {
-      assertEquals(hashFactory.getMessageDigest().getDigestLength(), hashFactory.getDigestLength());
-    }
-  }
-
-  @Test
   public void testEquals() {
     factories.forEach(hashFactory -> {
       assertEquals(discrete, offset);
