@@ -3,8 +3,13 @@ package systems.comodal.hash.api;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.function.Function;
 
 public interface HashFactory<H extends Hash> {
+
+  Function<MessageDigest, byte[]> DIGEST = MessageDigest::digest;
+  Function<MessageDigest, byte[]> DIGEST_TWICE = messageDigest -> messageDigest
+      .digest(messageDigest.digest());
 
   static MessageDigest getMessageDigestUnchecked(final String algorithm) {
     try {
@@ -53,7 +58,8 @@ public interface HashFactory<H extends Hash> {
     return hash;
   }
 
-  static byte[] hashTwiceReverseRaw(final MessageDigest messageDigest, final byte[] data, final int offset,
+  static byte[] hashTwiceReverseRaw(final MessageDigest messageDigest, final byte[] data,
+      final int offset,
       final int len) {
     messageDigest.update(data, offset, len);
     final byte[] hash = messageDigest.digest(messageDigest.digest());
@@ -81,6 +87,16 @@ public interface HashFactory<H extends Hash> {
 
   static byte[] merkleHashTwice(final MessageDigest messageDigest, final Hash[] hashes,
       final boolean reverseByteOrder) {
+    return merkle(messageDigest, hashes, reverseByteOrder, DIGEST_TWICE);
+  }
+
+  static byte[] merkle(final MessageDigest messageDigest, final Hash[] hashes,
+      final boolean reverseByteOrder) {
+    return merkle(messageDigest, hashes, reverseByteOrder, DIGEST);
+  }
+
+  static byte[] merkle(final MessageDigest messageDigest, final Hash[] hashes,
+      final boolean reverseByteOrder, Function<MessageDigest, byte[]> digestFunction) {
     if (hashes.length == 1) {
       return reverseByteOrder ? hashes[0].copyReverse() : hashes[0].getDiscreteRaw();
     }
@@ -91,23 +107,23 @@ public interface HashFactory<H extends Hash> {
       for (final int maxOffset = hashes.length - 1; depthOffset < maxOffset; ) {
         hashes[depthOffset++].updateReverse(messageDigest);
         hashes[depthOffset++].updateReverse(messageDigest);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (depthOffset < hashes.length) {
         hashes[depthOffset].updateReverse(messageDigest);
         hashes[depthOffset].updateReverse(messageDigest);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
     } else {
       for (final int maxOffset = hashes.length - 1; depthOffset < maxOffset; ) {
         hashes[depthOffset++].update(messageDigest);
         hashes[depthOffset++].update(messageDigest);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (depthOffset < hashes.length) {
         hashes[depthOffset].update(messageDigest);
         hashes[depthOffset].update(messageDigest);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
     }
     for (int depthHashes = nextDepthOffset; depthHashes > 1; ) {
@@ -116,13 +132,13 @@ public interface HashFactory<H extends Hash> {
       for (final int maxOffset = depthHashes - 1; depthOffset < maxOffset; ) {
         messageDigest.update(tree[depthOffset++]);
         messageDigest.update(tree[depthOffset++]);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (depthOffset < depthHashes) {
         final byte[] hash = tree[depthOffset];
         messageDigest.update(hash);
         messageDigest.update(hash);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       depthHashes = nextDepthOffset;
     }
@@ -132,6 +148,19 @@ public interface HashFactory<H extends Hash> {
   static byte[] merkleHashTwice(final HashFactory<? extends Hash> hashFactory,
       final MessageDigest messageDigest, final byte[] data, int offset, final int numHashes,
       final boolean reverseByteOrder) {
+    return merkle(hashFactory, messageDigest, data, offset, numHashes, reverseByteOrder,
+        DIGEST_TWICE);
+  }
+
+  static byte[] merkle(final HashFactory<? extends Hash> hashFactory,
+      final MessageDigest messageDigest, final byte[] data, int offset, final int numHashes,
+      final boolean reverseByteOrder) {
+    return merkle(hashFactory, messageDigest, data, offset, numHashes, reverseByteOrder, DIGEST);
+  }
+
+  static byte[] merkle(final HashFactory<? extends Hash> hashFactory,
+      final MessageDigest messageDigest, final byte[] data, int offset, final int numHashes,
+      final boolean reverseByteOrder, Function<MessageDigest, byte[]> digestFunction) {
     if (numHashes == 1) {
       return reverseByteOrder ? HashFactory.copyReverse(data, offset, hashFactory.getDigestLength())
           : Arrays.copyOfRange(data, offset, hashFactory.getDigestLength());
@@ -149,7 +178,7 @@ public interface HashFactory<H extends Hash> {
           messageDigest.update(data[i]);
         }
         offset += hashFactory.getDigestLength();
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (offset < data.length) {
         for (int i = offset + hashFactory.getOffsetLength(); i >= offset; --i) {
@@ -158,19 +187,19 @@ public interface HashFactory<H extends Hash> {
         for (int i = offset + hashFactory.getOffsetLength(); i >= offset; --i) {
           messageDigest.update(data[i]);
         }
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
     } else {
       final int pairLength = hashFactory.getDigestLength() << 1;
       for (final int maxOffset = data.length - hashFactory.getDigestLength(); offset < maxOffset;
           offset += pairLength) {
         messageDigest.update(data, offset, pairLength);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (offset < data.length) {
         messageDigest.update(data, offset, hashFactory.getDigestLength());
         messageDigest.update(data, offset, hashFactory.getDigestLength());
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
     }
     for (int depthHashes = nextDepthOffset; depthHashes > 1; ) {
@@ -179,13 +208,13 @@ public interface HashFactory<H extends Hash> {
       for (final int maxOffset = depthHashes - 1; offset < maxOffset; ) {
         messageDigest.update(tree[offset++]);
         messageDigest.update(tree[offset++]);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (offset < depthHashes) {
         final byte[] hash = tree[offset];
         messageDigest.update(hash);
         messageDigest.update(hash);
-        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
+        tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       depthHashes = nextDepthOffset;
     }
@@ -313,5 +342,19 @@ public interface HashFactory<H extends Hash> {
   default byte[] merkleHashTwice(final MessageDigest messageDigest, final byte[] data, int offset,
       final int numHashes, final boolean reverseByteOrder) {
     return merkleHashTwice(this, messageDigest, data, offset, numHashes, reverseByteOrder);
+  }
+
+  default byte[] merkle(final Hash[] hashes, final boolean reverseByteOrder) {
+    return merkle(getMessageDigest(), hashes, reverseByteOrder);
+  }
+
+  default byte[] merkle(final byte[] data, int offset, final int numHashes,
+      final boolean reverseByteOrder) {
+    return merkle(getMessageDigest(), data, offset, numHashes, reverseByteOrder);
+  }
+
+  default byte[] merkle(final MessageDigest messageDigest, final byte[] data, int offset,
+      final int numHashes, final boolean reverseByteOrder) {
+    return merkle(this, messageDigest, data, offset, numHashes, reverseByteOrder);
   }
 }
