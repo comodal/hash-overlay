@@ -23,6 +23,14 @@ public class MerkleTest {
         "f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766");
     HashFactory.reverse(expected);
     assertArrayEquals(expected, factory.merkleHashTwice(hashes, true));
+
+    final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
+    int offset = 0;
+    for(final Hash hash : hashes) {
+      hash.copyTo(flatHashes, offset);
+      offset += hash.getDigestLength();
+    }
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, true));
   }
 
   @Test
@@ -41,6 +49,14 @@ public class MerkleTest {
         "f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766");
     HashFactory.reverse(expected);
     assertArrayEquals(expected, factory.merkleHashTwice(hashes, false));
+
+    final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
+    int offset = 0;
+    for(final Hash hash : hashes) {
+      hash.copyTo(flatHashes, offset);
+      offset += hash.getDigestLength();
+    }
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, false));
   }
 
   @Test
@@ -61,6 +77,14 @@ public class MerkleTest {
         "2fda58e5959b0ee53c5253da9b9f3c0c739422ae04946966991cf55895287552");
     HashFactory.reverse(expected);
     assertArrayEquals(expected, factory.merkleHashTwice(hashes, true));
+
+    final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
+    int offset = 0;
+    for(final Hash hash : hashes) {
+      hash.copyTo(flatHashes, offset);
+      offset += hash.getDigestLength();
+    }
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, true));
   }
 
   @Test
@@ -90,5 +114,13 @@ public class MerkleTest {
         "2fda58e5959b0ee53c5253da9b9f3c0c739422ae04946966991cf55895287552");
     HashFactory.reverse(expected);
     assertArrayEquals(expected, factory.merkleHashTwice(hashes, false));
+
+    final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
+    int offset = 0;
+    for(final Hash hash : hashes) {
+      hash.copyTo(flatHashes, offset);
+      offset += hash.getDigestLength();
+    }
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, false));
   }
 }

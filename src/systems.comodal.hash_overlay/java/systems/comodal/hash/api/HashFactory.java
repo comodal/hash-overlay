@@ -168,11 +168,9 @@ public interface HashFactory<H extends Hash> {
         tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
       }
       if (offset < data.length) {
-        for (final int maxOffset = data.length - hashFactory.getDigestLength(); offset < maxOffset;
-            offset += pairLength) {
-          messageDigest.update(data, offset, pairLength);
-          tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
-        }
+        messageDigest.update(data, offset, hashFactory.getDigestLength());
+        messageDigest.update(data, offset, hashFactory.getDigestLength());
+        tree[nextDepthOffset++] = messageDigest.digest(messageDigest.digest());
       }
     }
     for (int depthHashes = nextDepthOffset; depthHashes > 1; ) {
