@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Security;
+import java.util.Arrays;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -71,7 +72,7 @@ public class TestMultiHash {
   }
 
   @Test
-  public void testEncodeDecode() {
+  public void testEncodeDecodeVarInt() {
     for (long val = 1; val > 0; val <<= 1) {
       final byte[] varInt = MultiHash.encodeVarInt(val);
       assertEquals(val, MultiHash.decodeVarInt(varInt));
@@ -81,15 +82,20 @@ public class TestMultiHash {
 
   @Test
   public void testDecodeHash() {
-    final HashFactory<? extends Hash> hashFactory = SHA256.FACTORY;
-    final Hash hash = hashFactory.hash("test".getBytes(StandardCharsets.UTF_8));
-    final byte[] multiHash = new byte[2 + hash.getDigestLength()];
-    multiHash[0] = (byte) hashFactory.getMultiHashFnCode();
-    multiHash[1] = (byte) hashFactory.getDigestLength();
-    System.arraycopy(hash.getDiscreteRaw(), 0, multiHash, 2, hash.getDigestLength());
+    final byte[] msg = "test".getBytes(StandardCharsets.UTF_8);
+    Arrays.stream(DigestAlgo.values())
+        .filter(hashFactory -> hashFactory.getMultiHashFnCode() > 0)
+        .forEach(hashFactory -> {
 
-    assertEquals(hash, MultiHash.createOverlay(multiHash));
-    assertEquals(hash, MultiHash.createCopy(multiHash));
+          final Hash hash = hashFactory.hash(msg);
+          final byte[] prefix = hash.getFactory().getMultiHashPrefix();
+          final byte[] multiHash = new byte[prefix.length + hash.getDigestLength()];
+          System.arraycopy(prefix, 0, multiHash, 0, prefix.length);
+          hash.copyTo(multiHash, prefix.length);
+
+          assertEquals(hash, MultiHash.createOverlay(multiHash));
+          assertEquals(hash, MultiHash.createCopy(multiHash));
+        });
   }
 
   @Test

@@ -240,6 +240,17 @@ public interface HashFactory<H extends Hash> {
   long getMultiHashFnCode();
 
   /**
+   * The prefix contains a optimally encoded Multiformats varint function code followed by
+   * a varint digest length.  The is intended to be re-used for serializing Multihash hashes.
+   *
+   * https://github.com/multiformats/unsigned-varint
+   *
+   * @return a re-used constant byte[] representing the MutliHash function code and digest length
+   * prefix.
+   */
+  byte[] getMultiHashPrefix();
+
+  /**
    * Uses the supplied byte array as the backing Hash digest.  The digestLength of the byte array
    * should be exactly the digestLength of the digest.  Otherwise, use the overlay constructor with
    * an offset of 0;

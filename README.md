@@ -14,7 +14,7 @@ All fixed-length message digest algorithms from providers `SUN v9` and `Bouncy C
 * Minimize memory usage.
   * Each Hash Object only holds a final reference to the digest byte array, resulting in a 16 byte Object.  Only if necessary, a final offset int as well, resulting in a 24 byte Object.  Compared to being lazy and wrapping it in a ByteBuffer (48 byte Object).
   * Support overlaying of big or little endian byte arrays to to prevent the need to copy or reverse arrays.
-  * Every effort will be made to convert existing classes to Value Types.  This will probably mean the removal of base classes and generating the same code for every value type.  Default interface method implementations are avoided because of potential Value Type performance implications.
+  * Every effort will be made to convert existing classes to Java 10 Value Types.  This will probably mean the removal of base classes and generating the same code for every value type.  Default interface method implementations are avoided because of potential Value Type performance implications.
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
 ## Example Usage
@@ -63,21 +63,41 @@ BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 See [HashFactoryFnCodeFactory.java](src/systems.comodal.hash_overlay/java/systems/comodal/hash/multihash/HashFactoryFnCodeFactory.java#L15) for list of supported Multihash function codes.
 
 ```java
-byte[] multihashEncodedHash = ... // <varint fn code><varint digest length><digest>
+// Decoding
+byte[] multiHashEncoded = ... // <varint fn code><varint digest length><digest>
 
 // Copies the digest to a new byte array with the exact digest length.
-Hash hash = MultiHash.createCopy(multihashEncodedHash);
+Hash hash = MultiHash.createCopy(multiHashEncoded);
 
 // Overlay's the existing byte array.
-Hash overlay = MultiHash.createOverlay(multihashEncodedHash);
+Hash overlay = MultiHash.createOverlay(multiHashEncoded);
+```
 
-// Lookup Hash Factories by Multihash Function Codes.
-HashFactory<? extends Hash> hashFactory = MultiHash.getHashFactory(0xB220);
+
+```java
+// Encoding
+Hash hash = ...
+byte[] prefix = hash.getFactory().getMultiHashPrefix();
+byte[] multiHashEncoded = new byte[prefix.length + hash.getDigestLength()];
+System.arraycopy(prefix, 0, multiHashEncoded, 0, prefix.length);
+hash.copyTo(multiHash, prefix.length);
+```
+
+```java 
+// VarInt Encoding/Decoding
+long val = 128;
+byte[] varInt = MultiHash.encodeVarInt(val);
+long unsignedInt = MultiHash.decodeVarInt(varInt);
+```
+
+```java
+// HashFactory Lookup
+int fnCode = 0xB220;
+HashFactory<? extends Hash> hashFactory = MultiHash.getHashFactory(fnCode);
 // Blake2b
 System.out.println(hashFactory.getMessageDigest().getAlgorithm());
-// 45600 == 0xB220
-System.out.println(hashFactory.getMultiHashFnCode());
-byte[] varIntFnCode = MultiHash.encodeVarInt(0xB220);
+
+byte[] varIntFnCode = MultiHash.encodeVarInt(fnCode);
 hashFactory = MultiHash.getHashFactory(varIntFnCode);
 // Blake2b
 System.out.println(hashFactory.getMessageDigest().getAlgorithm());

@@ -52,18 +52,19 @@ public final class MultiHash {
         offset, max));
   }
 
-  public static byte[] encodeVarInt(long val) {
-    if (val <= 127) {
-      final byte[] out = new byte[1];
-      encodeVarInt(val, out, 0);
-      return out;
+  public static int getVarIntEncodingLength(final long val) {
+    if (val < 128) {
+      return 1;
     }
     final long highestBit = Long.highestOneBit(val);
-    final int numTrailingZeros = Long.numberOfTrailingZeros(highestBit);
-    final int numBytes = numTrailingZeros >> 3;
+    final int numBytes = Long.numberOfTrailingZeros(highestBit) >> 3;
     final int numCarriesAvail = Integer
         .numberOfLeadingZeros(((int) (highestBit >> (numBytes << 3))) << 24);
-    final byte[] out = new byte[numCarriesAvail <= numBytes ? numBytes + 2 : numBytes + 1];
+    return numCarriesAvail <= numBytes ? numBytes + 2 : numBytes + 1;
+  }
+
+  public static byte[] encodeVarInt(final long val) {
+    final byte[] out = new byte[getVarIntEncodingLength(val)];
     encodeVarInt(val, out, 0);
     return out;
   }
@@ -81,6 +82,12 @@ public final class MultiHash {
       }
       out[offset++] |= CONTINUE_MASK;
     }
+  }
+
+  public static byte[] createPrefix(final long fnCode, final long digestLength) {
+    final byte[] prefix = new byte[getVarIntEncodingLength(fnCode) + getVarIntEncodingLength(digestLength)];
+    encodeVarInt(digestLength, prefix, encodeVarInt(fnCode, prefix));
+    return prefix;
   }
 
   public static Hash createCopy(final byte[] multihash) {

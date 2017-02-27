@@ -76,6 +76,11 @@ public enum DigestAlgo implements HashFactory<Hash> {
   }
 
   @Override
+  public byte[] getMultiHashPrefix() {
+    return delegate.getMultiHashPrefix();
+  }
+
+  @Override
   public Hash overlay(byte[] digest) {
     return delegate.overlay(digest);
   }
