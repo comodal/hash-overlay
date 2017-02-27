@@ -21,7 +21,7 @@ public final class MultiHash {
   }
 
   /**
-   * Decodes up to 9 byte long variable length encoding integers defined by the multiformats
+   * Decodes up to 9 byte long variable length encoded integers defined by the multiformats
    * organization on Github: https://github.com/multiformats/unsigned-varint
    *
    * @param varIntPrefixed binary data containing at least an encoded VarInt at the beginning of the
