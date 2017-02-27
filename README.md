@@ -62,6 +62,8 @@ BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 
 See [HashFactoryFnCodeFactory.java](src/systems.comodal.hash_overlay/java/systems/comodal/hash/multihash/HashFactoryFnCodeFactory.java#L15) for list of supported Multihash function codes.
 
+See [MultiHashTest.java](src/test/java/systems/comodal/hash/MultiHashTest.java#L17) for more complete usage examples.
+
 ```java
 // Decoding
 byte[] multiHashEncoded = ... // <varint fn code><varint digest length><digest>
@@ -72,7 +74,6 @@ Hash hash = MultiHash.createCopy(multiHashEncoded);
 // Overlay's the existing byte array.
 Hash overlay = MultiHash.createOverlay(multiHashEncoded);
 ```
-
 
 ```java
 // Encoding
@@ -85,9 +86,10 @@ hash.copyTo(multiHash, prefix.length);
 
 ```java 
 // VarInt Encoding/Decoding
-long val = 128;
+int val = 128;
 byte[] varInt = MultiHash.encodeVarInt(val);
 long unsignedInt = MultiHash.decodeVarInt(varInt);
+System.out.println(unsignedInt == val);
 ```
 
 ```java

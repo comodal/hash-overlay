@@ -14,7 +14,7 @@ import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.multihash.MultiHash;
 
-public class TestMultiHash {
+public class MultiHashTest {
 
   @BeforeClass
   public static void beforeClass() {
@@ -86,7 +86,6 @@ public class TestMultiHash {
     Arrays.stream(DigestAlgo.values())
         .filter(hashFactory -> hashFactory.getMultiHashFnCode() > 0)
         .forEach(hashFactory -> {
-
           final Hash hash = hashFactory.hash(msg);
           final byte[] prefix = hash.getFactory().getMultiHashPrefix();
           final byte[] multiHash = new byte[prefix.length + hash.getDigestLength()];
