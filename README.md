@@ -2,7 +2,7 @@
 
 > Binary overlay classes for message digests.
 
-*Build Note:* [Gradle is currently broken for Java 9 past build 143](https://github.com/gradle/gradle/issues/1095). TravisCI builds will be broken until Gradle fixes their [Java 9 issues](https://github.com/gradle/gradle/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20Java%209) :/
+*Build Note:* [Gradle is currently broken for Java 9 past build 143](https://github.com/gradle/gradle/issues/1095). TravisCI builds will be broken until Gradle fixes their [Java 9 issues](https://github.com/gradle/gradle/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20Java%209) :/ Developing locally with JDK 9-ea build 143 works fine.
 
 ## Supported Message Digest Algorithms
 
