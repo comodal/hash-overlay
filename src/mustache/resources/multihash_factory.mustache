@@ -1,0 +1,24 @@
+package systems.comodal.hash.multihash;
+
+import systems.comodal.hash.api.Hash;
+import systems.comodal.hash.api.HashFactory;
+
+final class HashFactoryFnCodeFactory {
+
+  private HashFactoryFnCodeFactory() {
+  }
+
+  static HashFactory<? extends Hash> fromFnCode(final long fnCode) {
+    if (fnCode > Integer.MAX_VALUE) {
+      throw new IllegalArgumentException("Unknown Multihash fn code: " + fnCode);
+    }
+    switch ((int) fnCode) {
+      {{#digestAlgos}}
+      case {{fnCode}}:
+        return systems.comodal.hash.{{hash}}.FACTORY;
+      {{/digestAlgos}}
+      default:
+        throw new IllegalArgumentException("Unknown Multihash fn code: " + fnCode);
+    }
+  }
+}

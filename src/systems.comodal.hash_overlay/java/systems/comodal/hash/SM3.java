@@ -28,6 +28,11 @@ public interface SM3 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public SM3 overlay(final byte[] digest) {
       return new SM3Value(digest);
     }

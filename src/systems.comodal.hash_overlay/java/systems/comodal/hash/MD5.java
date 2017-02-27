@@ -28,6 +28,11 @@ public interface MD5 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public MD5 overlay(final byte[] digest) {
       return new MD5Value(digest);
     }

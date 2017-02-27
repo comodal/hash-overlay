@@ -28,6 +28,11 @@ public interface GOST3411 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public GOST3411 overlay(final byte[] digest) {
       return new GOST3411Value(digest);
     }

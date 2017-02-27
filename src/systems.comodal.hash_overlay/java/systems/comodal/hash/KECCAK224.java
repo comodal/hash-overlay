@@ -28,6 +28,11 @@ public interface KECCAK224 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x1A;
+    }
+
+    @Override
     public KECCAK224 overlay(final byte[] digest) {
       return new KECCAK224Value(digest);
     }

@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -28,14 +29,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import systems.comodal.mustache.GenerateMultiHashFactory.Multihash;
 
 public final class GenerateHashClasses {
 
   private static final String apiSrcDirectory =
       "src/systems.comodal.hash_overlay/java/systems/comodal/hash/";
   private static final String genSrcDirectory = apiSrcDirectory + "gen/";
+  private static final String multihashSrcDirectory = apiSrcDirectory + "multihash/";
   private static final String testSrcDirectory = "src/test/java/systems/comodal/hash/";
   private static final String benchSrcDirectory = "src/jmh/java/systems/comodal/hash/benchmark/";
+
+  private static final Pattern nonDigitHyphenPattern = Pattern.compile("(\\D)-");
+
+  private static final String UNKNOWN_MULTIHASH_FN_CODE = "Long.MIN_VALUE";
 
   public static void main(final String[] args) throws IOException {
     final boolean dryRun = args.length > 0 && args[0].equalsIgnoreCase("dryRun");
@@ -64,29 +71,31 @@ public final class GenerateHashClasses {
 
     Security.addProvider(new BouncyCastleProvider());
     final String msgDigestTypeName = MessageDigest.class.getSimpleName();
-    final Pattern nonDigitHyphenPattern = Pattern.compile("(\\D)-");
+
+    final Map<String, Multihash> multihashMap = GenerateMultiHashFactory.getMulthashMap();
+
     final Set<String> dedupe = new HashSet<>();
+
     final Map<Integer, List<Digest>> digestsByLength = Arrays.stream(Security.getProviders())
         .map(Provider::getServices)
         .flatMap(Collection::stream)
         .filter(service -> service.getType().equalsIgnoreCase(msgDigestTypeName))
         .map(Service::getAlgorithm)
-        .filter(algorithm -> !algorithm.contains(".") && dedupe.add(algorithm))
+        .filter(algorithm -> !algorithm.contains(".")
+            && dedupe.add(algorithm.toUpperCase(Locale.ENGLISH)))
         .map(algorithm -> {
           final MessageDigest msgDigest = getMessageDigest(algorithm);
           final int digestLength = msgDigest.getDigestLength();
           if (digestLength <= 0) {
             return null;
           }
-          final Matcher matcher = nonDigitHyphenPattern.matcher(algorithm);
-          final String formattedName =
-              (matcher.find() ? matcher.replaceAll("$1") : algorithm)
-                  .replace('-', '_')
-                  .replace('/', '_');
+          final String formattedName = formatAlgoName(algorithm);
+          final Multihash multihash = multihashMap.get(formattedName.toUpperCase(Locale.ENGLISH));
           System.out.println(msgDigest.getProvider() + ": " + formattedName);
           return new Digest(formattedName, algorithm, digestLength,
               msgDigest.getProvider().getName() + msgDigest.getProvider().getVersionStr()
-                  .replace('.', '_'));
+                  .replace('.', '_'),
+              multihash == null ? UNKNOWN_MULTIHASH_FN_CODE : multihash.fnCode);
         })
         .filter(Objects::nonNull)
         .collect(Collectors.groupingBy(digest -> digest.digestLength));
@@ -115,7 +124,21 @@ public final class GenerateHashClasses {
           .collect(Collectors.toList());
       generate(mf, "digest_factory_enum.mustache", new DigestAlgosEnumScope(digests),
           testSrcDirectory + "DigestAlgo.java");
+
+      final List<Digest> digestsWithFnCodes = digests.stream()
+          .filter(digest -> digest.fnCode != UNKNOWN_MULTIHASH_FN_CODE)
+          .sorted(Comparator.comparing(digest -> Integer.parseInt(digest.fnCode.substring(2), 16)))
+          .collect(Collectors.toList());
+      generate(mf, "multihash_factory.mustache", new MultihashScope(digestsWithFnCodes),
+          multihashSrcDirectory + "HashFactoryFnCodeFactory.java");
     }
+  }
+
+  static String formatAlgoName(final String algorithm) {
+    final Matcher matcher = nonDigitHyphenPattern.matcher(algorithm);
+    return (matcher.find() ? matcher.replaceAll("$1") : algorithm)
+        .replace('-', '_')
+        .replace('/', '_');
   }
 
   private static MessageDigest getMessageDigest(final String algorithm) {
@@ -132,6 +155,15 @@ public final class GenerateHashClasses {
       mf.compile(templateName).execute(writer, scope);
     } catch (IOException ioe) {
       throw new UncheckedIOException(ioe);
+    }
+  }
+
+  public static final class MultihashScope {
+
+    public final List<Digest> digestAlgos;
+
+    public MultihashScope(final List<Digest> digestAlgos) {
+      this.digestAlgos = digestAlgos;
     }
   }
 
@@ -164,14 +196,16 @@ public final class GenerateHashClasses {
     public final int digestLength;
     public final int digestOffset;
     public final String provider;
+    public final String fnCode;
 
     Digest(final String hash, final String algoName, final int digestLength,
-        final String provider) {
+        final String provider, final String fnCode) {
       this.hash = hash;
       this.algoName = algoName;
       this.digestLength = digestLength;
       this.digestOffset = digestLength - 1;
       this.provider = provider;
+      this.fnCode = fnCode;
     }
   }
 }

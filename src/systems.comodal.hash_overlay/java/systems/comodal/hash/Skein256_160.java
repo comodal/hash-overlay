@@ -28,6 +28,11 @@ public interface Skein256_160 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public Skein256_160 overlay(final byte[] digest) {
       return new Skein256_160Value(digest);
     }

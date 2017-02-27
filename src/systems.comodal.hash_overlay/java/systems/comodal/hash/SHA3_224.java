@@ -28,6 +28,11 @@ public interface SHA3_224 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x17;
+    }
+
+    @Override
     public SHA3_224 overlay(final byte[] digest) {
       return new SHA3_224Value(digest);
     }

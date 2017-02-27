@@ -28,6 +28,11 @@ public interface BLAKE2B512 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0xB240;
+    }
+
+    @Override
     public BLAKE2B512 overlay(final byte[] digest) {
       return new BLAKE2B512Value(digest);
     }

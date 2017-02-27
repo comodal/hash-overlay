@@ -28,6 +28,11 @@ public interface SHA3_384 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x15;
+    }
+
+    @Override
     public SHA3_384 overlay(final byte[] digest) {
       return new SHA3_384Value(digest);
     }

@@ -26,7 +26,7 @@ public class MerkleTest {
 
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
-    for(final Hash hash : hashes) {
+    for (final Hash hash : hashes) {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
@@ -52,7 +52,7 @@ public class MerkleTest {
 
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
-    for(final Hash hash : hashes) {
+    for (final Hash hash : hashes) {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
@@ -80,7 +80,7 @@ public class MerkleTest {
 
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
-    for(final Hash hash : hashes) {
+    for (final Hash hash : hashes) {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
@@ -117,7 +117,7 @@ public class MerkleTest {
 
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
-    for(final Hash hash : hashes) {
+    for (final Hash hash : hashes) {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }

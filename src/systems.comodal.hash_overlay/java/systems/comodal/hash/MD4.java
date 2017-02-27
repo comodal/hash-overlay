@@ -28,6 +28,11 @@ public interface MD4 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public MD4 overlay(final byte[] digest) {
       return new MD4Value(digest);
     }

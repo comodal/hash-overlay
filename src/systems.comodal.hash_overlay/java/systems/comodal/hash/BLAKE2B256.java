@@ -28,6 +28,11 @@ public interface BLAKE2B256 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0xB220;
+    }
+
+    @Override
     public BLAKE2B256 overlay(final byte[] digest) {
       return new BLAKE2B256Value(digest);
     }

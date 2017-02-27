@@ -28,6 +28,11 @@ public interface SHA512 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x13;
+    }
+
+    @Override
     public SHA512 overlay(final byte[] digest) {
       return new SHA512Value(digest);
     }

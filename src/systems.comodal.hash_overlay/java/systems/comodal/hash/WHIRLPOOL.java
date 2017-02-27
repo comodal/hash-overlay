@@ -28,6 +28,11 @@ public interface WHIRLPOOL extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public WHIRLPOOL overlay(final byte[] digest) {
       return new WHIRLPOOLValue(digest);
     }

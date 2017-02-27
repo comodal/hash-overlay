@@ -28,6 +28,11 @@ public interface {{hash}} extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return {{fnCode}};
+    }
+
+    @Override
     public {{hash}} overlay(final byte[] digest) {
       return new {{hash}}Value(digest);
     }

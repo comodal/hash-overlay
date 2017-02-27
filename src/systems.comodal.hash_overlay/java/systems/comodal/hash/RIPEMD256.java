@@ -28,6 +28,11 @@ public interface RIPEMD256 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public RIPEMD256 overlay(final byte[] digest) {
       return new RIPEMD256Value(digest);
     }

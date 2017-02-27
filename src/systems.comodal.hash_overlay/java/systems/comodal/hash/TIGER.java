@@ -28,6 +28,11 @@ public interface TIGER extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public TIGER overlay(final byte[] digest) {
       return new TIGERValue(digest);
     }

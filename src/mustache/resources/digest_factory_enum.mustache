@@ -30,6 +30,11 @@ public enum DigestAlgo implements HashFactory<Hash> {
   }
 
   @Override
+  public long getMultiHashFnCode() {
+    return delegate.getMultiHashFnCode();
+  }
+
+  @Override
   public Hash overlay(byte[] digest) {
     return delegate.overlay(digest);
   }

@@ -28,6 +28,11 @@ public interface SHA1 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x11;
+    }
+
+    @Override
     public SHA1 overlay(final byte[] digest) {
       return new SHA1Value(digest);
     }

@@ -28,6 +28,11 @@ public interface Skein512_160 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public Skein512_160 overlay(final byte[] digest) {
       return new Skein512_160Value(digest);
     }

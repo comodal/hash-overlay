@@ -28,6 +28,11 @@ public interface SHA3_256 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x16;
+    }
+
+    @Override
     public SHA3_256 overlay(final byte[] digest) {
       return new SHA3_256Value(digest);
     }

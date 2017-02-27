@@ -28,6 +28,11 @@ public interface SHA384 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public SHA384 overlay(final byte[] digest) {
       return new SHA384Value(digest);
     }

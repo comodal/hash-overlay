@@ -28,6 +28,11 @@ public interface SHA512_224 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return Long.MIN_VALUE;
+    }
+
+    @Override
     public SHA512_224 overlay(final byte[] digest) {
       return new SHA512_224Value(digest);
     }

@@ -28,6 +28,11 @@ public interface SHA256 extends Hash {
     }
 
     @Override
+    public long getMultiHashFnCode() {
+      return 0x12;
+    }
+
+    @Override
     public SHA256 overlay(final byte[] digest) {
       return new SHA256Value(digest);
     }

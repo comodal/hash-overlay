@@ -230,6 +230,16 @@ public interface HashFactory<H extends Hash> {
   }
 
   /**
+   * Returns the Multiformats MultiHash fn code prefix.  This code is use to define the hash
+   * function type.
+   *
+   * https://github.com/multiformats/multihash/blob/07b56eeeb070d2a2e6c1cf8a89352e7f47003ccb/hashtable.csv
+   *
+   * @return Multihash fn code prefix as a long. Long.MIN_VALUE is return if unknown.
+   */
+  long getMultiHashFnCode();
+
+  /**
    * Uses the supplied byte array as the backing Hash digest.  The digestLength of the byte array
    * should be exactly the digestLength of the digest.  Otherwise, use the overlay constructor with
    * an offset of 0;
