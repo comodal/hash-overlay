@@ -52,6 +52,38 @@ public final class MultiHash {
         offset, max));
   }
 
+  public static byte[] encodeVarInt(long val) {
+    if (val <= 127) {
+      final byte[] out = new byte[1];
+      encodeVarInt(val, out, 0);
+      return out;
+    }
+    final long highestBit = Long.highestOneBit(val);
+    final int numTrailingZeros = Long.numberOfTrailingZeros(highestBit);
+    final int numBytes = (numTrailingZeros >> 3) + 1;
+    final int lasByte = (int) (highestBit >> ((numBytes - 1) << 3));
+    final byte[] out = new byte[Integer.numberOfLeadingZeros(lasByte << 24) < numBytes
+        ? numBytes + 1
+        : numBytes];
+    encodeVarInt(val, out, 0);
+    return out;
+  }
+
+  public static void encodeVarInt(long val, final byte[] out) {
+    encodeVarInt(val, out, 0);
+  }
+
+  public static void encodeVarInt(long val, final byte[] out, int offset) {
+    for (; ; ) {
+      out[offset] = (byte) (val & VAL_MASK);
+      val >>>= VAL_BIT_SHIFT;
+      if (val == 0) {
+        return;
+      }
+      out[offset++] |= CONTINUE_MASK;
+    }
+  }
+
   public static Hash createCopy(final byte[] multihash) {
     return createCopy(multihash, 0);
   }

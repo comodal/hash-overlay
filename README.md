@@ -16,6 +16,7 @@ All fixed-length message digest algorithms from providers `SUN v9` and `Bouncy C
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
 ## Example Usage
+
 ```java
 byte[] message = "Hello World".getBytes(StandardCharsets.UTF_8);
 
@@ -48,6 +49,36 @@ Security.addProvider(new BouncyCastleProvider());
 // ...
 BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 
+```
+
+## [Multihash](https://github.com/multiformats/multihash) Support
+
+* Decode Multihash encoded digests.
+* Lookup up HashFactories by Multihash function codes.
+* Function code getters.
+* [Multiformat Unsigned VarInt](https://github.com/multiformats/unsigned-varint) encoding & decoding.
+
+See [HashFactoryFnCodeFactory.java](src/systems.comodal.hash_overlay/java/systems/comodal/hash/multihash/HashFactoryFnCodeFactory.java#L15) for list of supported Multihash function codes.
+
+```java
+byte[] multihashEncodedHash = ... // <varint fn code><varint digest length><digest>
+
+// Copies the digest to a new byte array with the exact digest length.
+Hash hash = MultiHash.createCopy(multihashEncodedHash);
+
+// Overlay's the existing byte array.
+Hash overlay = MultiHash.createOverlay(multihashEncodedHash);
+
+// Lookup Hash Factories by Multihash Function Codes.
+HashFactory<? extends Hash> hashFactory = MultiHash.getHashFactory(0xB220);
+// Blake2b
+System.out.println(hashFactory.getMessageDigest().getAlgorithm());
+// 45600 == 0xB220
+System.out.println(hashFactory.getMultiHashFnCode());
+byte[] varIntFnCode = MultiHash.encodeVarInt(0xB220);
+hashFactory = MultiHash.getHashFactory(varIntFnCode);
+// Blake2b
+System.out.println(hashFactory.getMessageDigest().getAlgorithm());
 ```
 
 ## Generating Source
