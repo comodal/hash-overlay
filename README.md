@@ -2,6 +2,8 @@
 
 > Binary overlay classes for message digests.
 
+*Build Note:* [Gradle is currently broken for Java 9 past build 143](https://github.com/gradle/gradle/issues/1095). TravisCI builds will be broken until Gradle fixes their [Java 9 issues](https://github.com/gradle/gradle/issues?utf8=%E2%9C%93&q=is%3Aissue%20is%3Aopen%20Java%209) :/
+
 ## Supported Message Digest Algorithms
 
 All fixed-length message digest algorithms from providers `SUN v9` and `Bouncy Castle v1.56` are available.  See the [root source directory](src/systems.comodal.hash_overlay/java/systems/comodal/hash) for a quick look of all available algorithms.
