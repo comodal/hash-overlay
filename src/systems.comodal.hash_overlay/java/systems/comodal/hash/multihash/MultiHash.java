@@ -60,25 +60,24 @@ public final class MultiHash {
     }
     final long highestBit = Long.highestOneBit(val);
     final int numTrailingZeros = Long.numberOfTrailingZeros(highestBit);
-    final int numBytes = (numTrailingZeros >> 3) + 1;
-    final int lasByte = (int) (highestBit >> ((numBytes - 1) << 3));
-    final byte[] out = new byte[Integer.numberOfLeadingZeros(lasByte << 24) < numBytes
-        ? numBytes + 1
-        : numBytes];
+    final int numBytes = numTrailingZeros >> 3;
+    final int numCarriesAvail = Integer
+        .numberOfLeadingZeros(((int) (highestBit >> (numBytes << 3))) << 24);
+    final byte[] out = new byte[numCarriesAvail <= numBytes ? numBytes + 2 : numBytes + 1];
     encodeVarInt(val, out, 0);
     return out;
   }
 
-  public static void encodeVarInt(long val, final byte[] out) {
-    encodeVarInt(val, out, 0);
+  public static int encodeVarInt(long val, final byte[] out) {
+    return encodeVarInt(val, out, 0);
   }
 
-  public static void encodeVarInt(long val, final byte[] out, int offset) {
+  public static int encodeVarInt(long val, final byte[] out, int offset) {
     for (; ; ) {
       out[offset] = (byte) (val & VAL_MASK);
       val >>>= VAL_BIT_SHIFT;
       if (val == 0) {
-        return;
+        return offset + 1;
       }
       out[offset++] |= CONTINUE_MASK;
     }
