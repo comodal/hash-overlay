@@ -19,6 +19,6 @@ public final class BigEndianOffsetBLAKE2B160 extends BigEndianOffsetHash impleme
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof BLAKE2B160
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

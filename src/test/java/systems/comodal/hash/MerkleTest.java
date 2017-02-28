@@ -12,6 +12,28 @@ public class MerkleTest {
   private final HashFactory<SHA256> factory = SHA256.FACTORY;
 
   @Test
+  public void testRoot() {
+    final Hash[] hashes = new Hash[]{
+        factory.overlay(decode("f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766"))
+    };
+    final byte[] expected = decode(
+        "f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766");
+    assertArrayEquals(expected, factory.merkleHashTwice(hashes, false));
+    HashFactory.reverse(expected);
+    assertArrayEquals(expected, factory.merkleHashTwice(hashes, true));
+
+    final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
+    int offset = 0;
+    for (final Hash hash : hashes) {
+      hash.copyTo(flatHashes, offset);
+      offset += hash.getDigestLength();
+    }
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, true));
+    HashFactory.reverse(expected);
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, false));
+  }
+
+  @Test
   public void testEven() {
     final Hash[] hashes = new Hash[]{
         factory.overlay(decode("8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87")),
@@ -30,7 +52,7 @@ public class MerkleTest {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
-    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, true));
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, true));
   }
 
   @Test
@@ -56,7 +78,7 @@ public class MerkleTest {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
-    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, false));
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, false));
   }
 
   @Test
@@ -84,7 +106,7 @@ public class MerkleTest {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
-    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, true));
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, true));
   }
 
   @Test
@@ -121,6 +143,6 @@ public class MerkleTest {
       hash.copyTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
-    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, flatHashes.length, false));
+    assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, false));
   }
 }

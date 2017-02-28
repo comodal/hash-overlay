@@ -19,6 +19,6 @@ public final class LittleEndianOffsetSkein1024_512 extends LittleEndianOffsetHas
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof Skein1024_512
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

@@ -37,6 +37,13 @@ public class MultiHashTest {
   }
 
   @Test
+  public void testDecodeBigArrayVarInt() {
+    final byte[] varInt = new byte[128];
+    MultiHash.encodeVarInt(128, varInt, 2);
+    assertEquals(128, MultiHash.decodeVarInt(varInt, 2));
+  }
+
+  @Test
   public void testEncodeVarInt() {
     final byte[] test = new byte[3];
     assertEquals(1, MultiHash.encodeVarInt(0, test));
@@ -80,6 +87,21 @@ public class MultiHashTest {
     }
   }
 
+  @Test(expected = IllegalStateException.class)
+  public void testDecodeVarIntBadOffset() {
+    assertEquals(1, MultiHash.decodeVarInt(new byte[]{0b1}, 1));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDecodeVarIntBadOffset2() {
+    assertEquals(1, MultiHash.decodeVarInt(new byte[]{0b1}, 2));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void tesTruncatedVarInt() {
+    assertEquals(1, MultiHash.decodeVarInt(new byte[]{(byte) 0b10000000, (byte) 0b10000000}, 0));
+  }
+
   @Test
   public void testDecodeHash() {
     final byte[] msg = "test".getBytes(StandardCharsets.UTF_8);
@@ -95,6 +117,46 @@ public class MultiHashTest {
           assertEquals(hash, MultiHash.createOverlay(multiHash));
           assertEquals(hash, MultiHash.createCopy(multiHash));
         });
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDecodeFnCodeOverlayBadOffset() {
+    assertEquals(1, MultiHash.createOverlay(new byte[]{0b1}, 1));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDecodeFnCodeOverlayBadOffset2() {
+    assertEquals(1, MultiHash.createOverlay(new byte[]{0b1}, 2));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void tesTruncatedFnCodeOverlay() {
+    assertEquals(1, MultiHash.createOverlay(new byte[]{(byte) 0b10000000, (byte) 0b10000000}, 0));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDecodeFnCodeCopyBadOffset() {
+    assertEquals(1, MultiHash.createCopy(new byte[]{0b1}, 1));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDecodeFnCodeCopyBadOffset2() {
+    assertEquals(1, MultiHash.createCopy(new byte[]{0b1}, 2));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void tesTruncatedFnCodeCopy() {
+    assertEquals(1, MultiHash.createCopy(new byte[]{(byte) 0b10000000, (byte) 0b10000000}, 0));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void tesTruncatedDigestLengthOverlay() {
+    assertEquals(1, MultiHash.createOverlay(new byte[]{0x11, (byte) 0b10000000, (byte) 0b10000000}, 0));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void tesTruncatedDigestLengthCopy() {
+    assertEquals(1, MultiHash.createCopy(new byte[]{0x11, (byte) 0b10000000, (byte) 0b10000000}, 0));
   }
 
   @Test

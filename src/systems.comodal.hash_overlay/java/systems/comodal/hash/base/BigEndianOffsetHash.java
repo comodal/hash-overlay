@@ -103,7 +103,7 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean equals(final byte[] other, int offset) {
+  public boolean digestEquals(final byte[] other, int offset) {
     for (int i = this.offset, max = this.offset + getDigestLength(); i < max; ++i, ++offset) {
       if (this.data[i] != other[offset]) {
         return false;
@@ -113,7 +113,7 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean equals(final byte[] other) {
+  public boolean digestEquals(final byte[] other) {
     int index = this.offset;
     for (final byte b : other) {
       if (b != this.data[index]) {
@@ -125,7 +125,7 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean equalsReverse(final byte[] other, int offset) {
+  public boolean digestEqualsReverse(final byte[] other, int offset) {
     for (int i = this.offset, max = i + getDigestLength(); i < max; ++i, --offset) {
       if (this.data[i] != other[offset]) {
         return false;
@@ -136,23 +136,23 @@ public abstract class BigEndianOffsetHash implements Hash {
 
   @Override
   public int compareTo(final Hash other) {
-    return other.compareTo(data, offset);
+    return other.compareDigestTo(data, offset);
   }
 
   @Override
-  public int compareTo(final byte[] other, final int offset) {
+  public int compareDigestTo(final byte[] other, final int offset) {
     return Arrays.compare(other, offset, offset + getDigestLength(), data, this.offset,
         this.offset + getDigestLength());
   }
 
   @Override
-  public int compareTo(final byte[] other) {
+  public int compareDigestTo(final byte[] other) {
     return Arrays
         .compare(other, 0, getDigestLength(), data, this.offset, this.offset + getDigestLength());
   }
 
   @Override
-  public int compareToReverse(final byte[] other, int offset) {
+  public int compareDigestToReverse(final byte[] other, int offset) {
     for (int i = this.offset, max = i + getDigestLength(); i < max; ++i, --offset) {
       if (this.data[i] != other[offset]) {
         return Byte.compare(other[offset], this.data[i]);

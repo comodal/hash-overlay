@@ -19,6 +19,6 @@ public final class BigEndianOffsetSHA3_224 extends BigEndianOffsetHash implement
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA3_224
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

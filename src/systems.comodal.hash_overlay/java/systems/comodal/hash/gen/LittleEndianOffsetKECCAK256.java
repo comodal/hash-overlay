@@ -19,6 +19,6 @@ public final class LittleEndianOffsetKECCAK256 extends LittleEndianOffsetHash im
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof KECCAK256
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

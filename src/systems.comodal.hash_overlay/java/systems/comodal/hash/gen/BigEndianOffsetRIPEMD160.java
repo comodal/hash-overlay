@@ -19,6 +19,6 @@ public final class BigEndianOffsetRIPEMD160 extends BigEndianOffsetHash implemen
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof RIPEMD160
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

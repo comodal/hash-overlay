@@ -19,6 +19,6 @@ public final class BigEndianOffsetMD4 extends BigEndianOffsetHash implements MD4
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof MD4
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

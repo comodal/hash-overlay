@@ -19,6 +19,6 @@ public final class SHA3_512Value extends DiscreteHash implements SHA3_512 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA3_512
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

@@ -19,6 +19,6 @@ public final class BLAKE2B512Value extends DiscreteHash implements BLAKE2B512 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof BLAKE2B512
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

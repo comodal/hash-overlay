@@ -19,6 +19,6 @@ public final class Skein1024_384Value extends DiscreteHash implements Skein1024_
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof Skein1024_384
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

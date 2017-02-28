@@ -30,7 +30,7 @@ public final class MultiHash {
    */
   public static long decodeVarInt(final byte[] varIntPrefixed, int offset) {
     Objects.requireNonNull(varIntPrefixed);
-    if (varIntPrefixed.length == offset) {
+    if (varIntPrefixed.length <= offset) {
       throw new IllegalStateException("VarInt data must be at least 1 byte long.");
     }
     long val = varIntPrefixed[offset] & VAL_MASK;
@@ -96,7 +96,7 @@ public final class MultiHash {
 
   public static Hash createCopy(final byte[] multihash, int offset) {
     Objects.requireNonNull(multihash);
-    if (multihash.length == offset) {
+    if (multihash.length <= offset) {
       throw new IllegalStateException("VarInt data must be at least 1 byte long.");
     }
     long val = multihash[offset] & VAL_MASK;
@@ -140,7 +140,7 @@ public final class MultiHash {
 
   public static Hash createOverlay(final byte[] multihash, int offset) {
     Objects.requireNonNull(multihash);
-    if (multihash.length == offset) {
+    if (multihash.length <= offset) {
       throw new IllegalStateException("VarInt data must be at least 1 byte long.");
     }
     long val = multihash[offset] & VAL_MASK;

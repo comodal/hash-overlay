@@ -19,6 +19,6 @@ public final class LittleEndianOffsetRIPEMD256 extends LittleEndianOffsetHash im
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof RIPEMD256
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

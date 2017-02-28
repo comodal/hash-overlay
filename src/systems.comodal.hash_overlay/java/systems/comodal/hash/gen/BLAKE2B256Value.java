@@ -19,6 +19,6 @@ public final class BLAKE2B256Value extends DiscreteHash implements BLAKE2B256 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof BLAKE2B256
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

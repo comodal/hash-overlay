@@ -19,6 +19,6 @@ public final class MD2Value extends DiscreteHash implements MD2 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof MD2
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

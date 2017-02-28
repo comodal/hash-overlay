@@ -46,17 +46,17 @@ public interface Hash {
 
   void updateReverse(final MessageDigest messageDigest);
 
-  boolean equals(final byte[] data);
+  boolean digestEquals(final byte[] data);
 
-  boolean equals(final byte[] data, int offset);
+  boolean digestEquals(final byte[] data, int offset);
 
-  boolean equalsReverse(final byte[] data, int offset);
+  boolean digestEqualsReverse(final byte[] data, int offset);
 
   int compareTo(final Hash other);
 
-  int compareTo(final byte[] other);
+  int compareDigestTo(final byte[] other);
 
-  int compareTo(final byte[] other, int offset);
+  int compareDigestTo(final byte[] other, int offset);
 
-  int compareToReverse(final byte[] other, int offset);
+  int compareDigestToReverse(final byte[] other, int offset);
 }

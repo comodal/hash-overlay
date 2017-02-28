@@ -19,6 +19,6 @@ public final class BigEndianOffsetMD5 extends BigEndianOffsetHash implements MD5
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof MD5
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

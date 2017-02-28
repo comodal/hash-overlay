@@ -19,6 +19,6 @@ public final class LittleEndianOffsetMD2 extends LittleEndianOffsetHash implemen
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof MD2
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

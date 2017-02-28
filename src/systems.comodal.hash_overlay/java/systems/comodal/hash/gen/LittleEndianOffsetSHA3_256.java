@@ -19,6 +19,6 @@ public final class LittleEndianOffsetSHA3_256 extends LittleEndianOffsetHash imp
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA3_256
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

@@ -19,6 +19,6 @@ public final class RIPEMD160Value extends DiscreteHash implements RIPEMD160 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof RIPEMD160
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

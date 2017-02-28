@@ -19,6 +19,6 @@ public final class SHA512_224Value extends DiscreteHash implements SHA512_224 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA512_224
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

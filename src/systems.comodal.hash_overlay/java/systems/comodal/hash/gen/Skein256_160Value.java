@@ -19,6 +19,6 @@ public final class Skein256_160Value extends DiscreteHash implements Skein256_16
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof Skein256_160
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

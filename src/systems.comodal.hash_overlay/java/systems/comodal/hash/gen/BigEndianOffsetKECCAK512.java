@@ -19,6 +19,6 @@ public final class BigEndianOffsetKECCAK512 extends BigEndianOffsetHash implemen
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof KECCAK512
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

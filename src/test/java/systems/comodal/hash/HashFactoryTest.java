@@ -53,7 +53,7 @@ public class HashFactoryTest {
       assertArrayEquals(digest, copy.getBackingData());
       assertFalse(digest == copy.getBackingData());
       assertTrue(copy.getDiscreteRaw() == copy.getBackingData());
-      assertTrue(copy.equals(digest));
+      assertTrue(copy.digestEquals(digest));
 
       final byte[] offset = new byte[digest.length * 2];
       System.arraycopy(digest, 0, offset, 3, digest.length);
@@ -61,7 +61,7 @@ public class HashFactoryTest {
       assertArrayEquals(digest, offsetHash.getBackingData());
       assertFalse(offset == copy.getBackingData());
       assertTrue(copy.getDiscreteRaw() == copy.getBackingData());
-      assertTrue(copy.equals(offset, 3));
+      assertTrue(copy.digestEquals(offset, 3));
     });
   }
 
@@ -95,5 +95,10 @@ public class HashFactoryTest {
       assertEquals(hashTwiceReverse, hashFactory.hashTwiceReverse(TEST_DATA));
       assertEquals(hashTwiceReverse, hashFactory.hashTwiceReverse(TEST_DATA, 0, TEST_DATA.length));
     });
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testUnknownAlgo() {
+    HashFactory.getMessageDigestUnchecked("doesntexist");
   }
 }

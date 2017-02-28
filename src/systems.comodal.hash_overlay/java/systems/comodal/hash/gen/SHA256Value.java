@@ -19,6 +19,6 @@ public final class SHA256Value extends DiscreteHash implements SHA256 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA256
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

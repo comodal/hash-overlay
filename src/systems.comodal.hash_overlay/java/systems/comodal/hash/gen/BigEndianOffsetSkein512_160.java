@@ -19,6 +19,6 @@ public final class BigEndianOffsetSkein512_160 extends BigEndianOffsetHash imple
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof Skein512_160
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

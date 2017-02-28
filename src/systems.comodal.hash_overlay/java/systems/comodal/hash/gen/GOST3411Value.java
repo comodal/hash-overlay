@@ -19,6 +19,6 @@ public final class GOST3411Value extends DiscreteHash implements GOST3411 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof GOST3411
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

@@ -19,6 +19,6 @@ public final class LittleEndianOffsetSHA1 extends LittleEndianOffsetHash impleme
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA1
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

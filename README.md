@@ -60,7 +60,7 @@ BLAKE2B160 digest = BLAKE2B160.FACTORY.hash(msg);
 * Function code getters.
 * [Multiformat Unsigned VarInt](https://github.com/multiformats/unsigned-varint) encoding & decoding.
 
-See [HashFactoryFnCodeFactory.java](src/systems.comodal.hash_overlay/java/systems/comodal/hash/multihash/HashFactoryFnCodeFactory.java#L15) for list of supported Multihash function codes.
+See [HashFactoryFnCodeFactory.java](src/systems.comodal.hash_overlay/java/systems/comodal/hash/multihash/HashFactoryFnCodeFactory.java#L15) for a list of supported Multihash function codes.
 
 See [MultiHashTest.java](src/test/java/systems/comodal/hash/MultiHashTest.java#L17) for more complete usage examples.
 

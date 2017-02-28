@@ -19,6 +19,6 @@ public final class KECCAK512Value extends DiscreteHash implements KECCAK512 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof KECCAK512
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

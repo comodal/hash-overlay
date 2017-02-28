@@ -105,7 +105,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean equals(final byte[] other, int offset) {
+  public boolean digestEquals(final byte[] other, int offset) {
     for (int i = this.offset, max = offset + getDigestLength(); offset < max; --i, ++offset) {
       if (data[i] != other[offset]) {
         return false;
@@ -115,7 +115,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean equals(final byte[] other) {
+  public boolean digestEquals(final byte[] other) {
     int index = this.offset;
     for (final byte b : other) {
       if (b != this.data[index]) {
@@ -127,7 +127,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean equalsReverse(final byte[] other, int offset) {
+  public boolean digestEqualsReverse(final byte[] other, int offset) {
     for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, --offset) {
       if (this.data[i] != other[offset]) {
         return false;
@@ -138,11 +138,11 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public int compareTo(final Hash other) {
-    return other.compareToReverse(data, offset);
+    return other.compareDigestToReverse(data, offset);
   }
 
   @Override
-  public int compareTo(final byte[] other, int offset) {
+  public int compareDigestTo(final byte[] other, int offset) {
     for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, ++offset) {
       if (this.data[i] != other[offset]) {
         return Byte.compare(other[offset], this.data[i]);
@@ -152,7 +152,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public int compareTo(final byte[] other) {
+  public int compareDigestTo(final byte[] other) {
     int offset = this.offset;
     for (final byte b : other) {
       if (this.data[offset] != b) {
@@ -164,7 +164,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public int compareToReverse(final byte[] other, int offset) {
+  public int compareDigestToReverse(final byte[] other, int offset) {
     for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, --offset) {
       if (this.data[i] != other[offset]) {
         return Byte.compare(other[offset], this.data[i]);

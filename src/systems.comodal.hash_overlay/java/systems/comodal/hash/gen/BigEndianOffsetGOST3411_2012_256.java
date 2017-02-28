@@ -19,6 +19,6 @@ public final class BigEndianOffsetGOST3411_2012_256 extends BigEndianOffsetHash 
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof GOST3411_2012_256
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

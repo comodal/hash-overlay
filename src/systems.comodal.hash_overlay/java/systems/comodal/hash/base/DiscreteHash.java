@@ -100,7 +100,7 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
-  public boolean equals(final byte[] other, int offset) {
+  public boolean digestEquals(final byte[] other, int offset) {
     for (final byte b : this.data) {
       if (b != other[offset]) {
         return false;
@@ -111,7 +111,7 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
-  public boolean equals(final byte[] other) {
+  public boolean digestEquals(final byte[] other) {
     int offset = 0;
     for (final byte b : this.data) {
       if (b != other[offset]) {
@@ -123,7 +123,7 @@ public abstract class DiscreteHash implements Hash {
   }
 
   @Override
-  public boolean equalsReverse(final byte[] other, int offset) {
+  public boolean digestEqualsReverse(final byte[] other, int offset) {
     for (final byte b : this.data) {
       if (b != other[offset]) {
         return false;
@@ -135,21 +135,21 @@ public abstract class DiscreteHash implements Hash {
 
   @Override
   public int compareTo(final Hash other) {
-    return other.compareTo(data);
+    return other.compareDigestTo(data);
   }
 
   @Override
-  public int compareTo(final byte[] other, int offset) {
+  public int compareDigestTo(final byte[] other, int offset) {
     return Arrays.compare(other, offset, offset + getDigestLength(), data, 0, getDigestLength());
   }
 
   @Override
-  public int compareTo(final byte[] other) {
+  public int compareDigestTo(final byte[] other) {
     return Arrays.compare(other, data);
   }
 
   @Override
-  public int compareToReverse(final byte[] other, int offset) {
+  public int compareDigestToReverse(final byte[] other, int offset) {
     for (final byte b : this.data) {
       if (b != other[offset]) {
         return Byte.compare(other[offset], b);

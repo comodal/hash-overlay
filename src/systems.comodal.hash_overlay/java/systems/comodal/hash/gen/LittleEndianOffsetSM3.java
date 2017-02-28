@@ -19,6 +19,6 @@ public final class LittleEndianOffsetSM3 extends LittleEndianOffsetHash implemen
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SM3
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

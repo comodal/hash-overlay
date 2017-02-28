@@ -19,6 +19,6 @@ public final class TIGERValue extends DiscreteHash implements TIGER {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof TIGER
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

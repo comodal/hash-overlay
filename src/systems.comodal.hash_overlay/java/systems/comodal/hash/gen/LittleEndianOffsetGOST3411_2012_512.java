@@ -19,6 +19,6 @@ public final class LittleEndianOffsetGOST3411_2012_512 extends LittleEndianOffse
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof GOST3411_2012_512
-        && ((Hash) other).equalsReverse(data, offset);
+        && ((Hash) other).digestEqualsReverse(data, offset);
   }
 }

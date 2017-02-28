@@ -19,6 +19,6 @@ public final class SHA3_384Value extends DiscreteHash implements SHA3_384 {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA3_384
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }

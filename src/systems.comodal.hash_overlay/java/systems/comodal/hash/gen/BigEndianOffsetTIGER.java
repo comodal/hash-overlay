@@ -19,6 +19,6 @@ public final class BigEndianOffsetTIGER extends BigEndianOffsetHash implements T
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof TIGER
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

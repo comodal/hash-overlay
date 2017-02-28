@@ -19,6 +19,6 @@ public final class BigEndianOffsetSHA1 extends BigEndianOffsetHash implements SH
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof SHA1
-        && ((Hash) other).equals(data, offset);
+        && ((Hash) other).digestEquals(data, offset);
   }
 }

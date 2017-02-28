@@ -19,6 +19,6 @@ public final class WHIRLPOOLValue extends DiscreteHash implements WHIRLPOOL {
   @Override
   public boolean equals(final Object other) {
     return this == other || other != null && other instanceof WHIRLPOOL
-        && ((Hash) other).equals(data);
+        && ((Hash) other).digestEquals(data);
   }
 }
