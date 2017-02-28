@@ -21,6 +21,11 @@ public class MultiHashTest {
     Security.addProvider(new BouncyCastleProvider());
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testOutOfRangeFnCode() {
+    MultiHash.getHashFactory(Integer.MAX_VALUE + 1L);
+  }
+
   @Test
   public void testDecodeVarInt() {
     assertEquals(0, MultiHash.decodeVarInt(new byte[]{(byte) 0b00000000}));

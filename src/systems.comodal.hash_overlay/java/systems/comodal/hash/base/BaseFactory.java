@@ -24,11 +24,6 @@ public abstract class BaseFactory<H extends Hash> implements HashFactory<H> {
   }
 
   @Override
-  public int getDigestLength() {
-    return messageDigest.get().getDigestLength();
-  }
-
-  @Override
   public byte[] getMultiHashPrefix() {
     return multiHashPrefix;
   }

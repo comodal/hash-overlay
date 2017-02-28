@@ -71,6 +71,11 @@ public enum DigestAlgo implements HashFactory<Hash> {
   }
 
   @Override
+  public int getOffsetLength() {
+    return delegate.getOffsetLength();
+  }
+
+  @Override
   public long getMultiHashFnCode() {
     return delegate.getMultiHashFnCode();
   }
@@ -93,5 +98,10 @@ public enum DigestAlgo implements HashFactory<Hash> {
   @Override
   public Hash reverseOverlay(byte[] digest, int offset) {
     return delegate.reverseOverlay(digest, offset);
+  }
+
+  @Override
+  public String toString() {
+    return delegate.toString();
   }
 }

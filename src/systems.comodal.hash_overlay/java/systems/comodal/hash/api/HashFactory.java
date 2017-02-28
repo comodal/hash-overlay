@@ -225,9 +225,7 @@ public interface HashFactory<H extends Hash> {
 
   int getDigestLength();
 
-  default int getOffsetLength() {
-    return getDigestLength() - 1;
-  }
+  int getOffsetLength();
 
   /**
    * Returns the Multiformats MultiHash fn code prefix.  This code is use to define the hash

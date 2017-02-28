@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.nio.ByteOrder;
@@ -82,6 +83,11 @@ public class HashTest {
   }
 
   @Test
+  public void testToString() {
+    factories.forEach(hashFactory -> assertNotNull(hashFactory.toString()));
+  }
+
+  @Test
   public void testEquals() {
     factories.forEach(hashFactory -> {
       assertTrue(discrete.equals(discrete));
@@ -119,21 +125,25 @@ public class HashTest {
       assertFalse(reverseOverlay.equals(""));
       assertFalse(offsetReverse.equals(""));
 
+      assertNotEquals(discrete, discreteB);
       assertNotEquals(discrete, offsetB);
       assertNotEquals(discrete, reverseOverlayB);
       assertNotEquals(discrete, offsetReverseB);
 
       assertNotEquals(offset, discreteB);
+      assertNotEquals(offset, offsetB);
       assertNotEquals(offset, reverseOverlayB);
       assertNotEquals(offset, offsetReverseB);
 
       assertNotEquals(reverseOverlay, discreteB);
       assertNotEquals(reverseOverlay, offsetB);
+      assertNotEquals(reverseOverlay, reverseOverlayB);
       assertNotEquals(reverseOverlay, offsetReverseB);
 
       assertNotEquals(offsetReverse, discreteB);
       assertNotEquals(offsetReverse, offsetB);
       assertNotEquals(offsetReverse, reverseOverlayB);
+      assertNotEquals(offsetReverse, offsetReverseB);
     });
   }
 
