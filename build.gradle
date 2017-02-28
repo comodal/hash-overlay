@@ -50,7 +50,7 @@ dependencies {
 jmh {
     // http://jmh.morethan.io/
     includeTests = false
-    benchmarkParameters = [msgLength: "64"]
+    benchmarkParameters = [msgLength: "128"]
     threads = 3
 }
 

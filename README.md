@@ -26,7 +26,7 @@ HashFactory<SHA3_256> factory = SHA3_256.FACTORY;
 SHA3_256 digest = factory.hash(message);
 
 Map<Hash, byte[]> cache = new HashMap<>();
-cache.put(digest, data);
+cache.put(digest, message);
 
 byte[] nested = new byte[1024];
 int offset = 42;
