@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.BLAKE2B256;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class BLAKE2B256Value extends DiscreteHash implements BLAKE2B256 {
+public final class BLAKE2B256Value extends HashValue implements BLAKE2B256 {
 
   public BLAKE2B256Value(final byte[] data) {
     super(data);

@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.GOST3411;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class GOST3411Value extends DiscreteHash implements GOST3411 {
+public final class GOST3411Value extends HashValue implements GOST3411 {
 
   public GOST3411Value(final byte[] data) {
     super(data);

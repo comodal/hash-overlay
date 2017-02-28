@@ -6,11 +6,11 @@ import java.security.MessageDigest;
 import java.util.Arrays;
 import systems.comodal.hash.api.Hash;
 
-public abstract class DiscreteHash implements Hash {
+public abstract class HashValue implements Hash {
 
   protected final byte[] data;
 
-  protected DiscreteHash(final byte[] data) {
+  protected HashValue(final byte[] data) {
     this.data = data;
   }
 
@@ -62,10 +62,11 @@ public abstract class DiscreteHash implements Hash {
     return new BigInteger(1, data);
   }
 
-
   @Override
   public byte[] copy() {
-    return data;
+    final byte[] copy = new byte[getDigestLength()];
+    System.arraycopy(data, 0, copy, 0, getDigestLength());
+    return copy;
   }
 
   @Override

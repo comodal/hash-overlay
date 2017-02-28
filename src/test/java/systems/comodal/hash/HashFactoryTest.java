@@ -67,7 +67,6 @@ public class HashFactoryTest {
 
   @Test
   public void testHashRaw() {
-    final byte[] PREFIXED_TEST_DATA = "1TEST DATA".getBytes(StandardCharsets.UTF_8);
     factories.forEach(hashFactory -> {
       assertArrayEquals(digest, hashFactory.hashRaw(TEST_DATA, 0, TEST_DATA.length));
       assertArrayEquals(hashTwice, hashFactory.hashTwiceRaw(TEST_DATA, 0, TEST_DATA.length));
@@ -75,8 +74,6 @@ public class HashFactoryTest {
           hashFactory.hashTwiceReverseRaw(TEST_DATA));
       assertArrayEquals(HashFactory.copyReverse(hashTwice),
           hashFactory.hashTwiceReverseRaw(TEST_DATA, 0, TEST_DATA.length));
-      assertArrayEquals(hashFactory.hashTwiceRaw(PREFIXED_TEST_DATA),
-          hashFactory.hashTwiceRaw((byte) '1', TEST_DATA));
     });
   }
 

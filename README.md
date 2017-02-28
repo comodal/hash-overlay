@@ -14,7 +14,7 @@ All fixed-length message digest algorithms from providers `SUN v9` and `Bouncy C
 * Minimize memory usage.
   * Each Hash Object only holds a final reference to the digest byte array, resulting in a 16 byte Object.  Only if necessary, a final offset int as well, resulting in a 24 byte Object.  Compared to being lazy and wrapping it in a ByteBuffer (48 byte Object).
   * Support overlaying of big or little endian byte arrays to to prevent the need to copy or reverse arrays.
-  * Every effort will be made to convert existing classes to Java 10 Value Types.  This will probably mean the removal of base classes and generating the same code for every value type.  Default interface method implementations are avoided because of potential Value Type performance implications.
+  * Every effort will be made to convert existing classes to Java 10 Value Types.  This will probably mean the removal of base classes and generating the same code for every value type.  So do NOT extend or use anything in the [systems.comodal.hash.base](src/systems.comodal.hash_overlay/java/systems/comodal/hash/base) package.  This package will not be exposed once the project is jigsaw modularized... Also, default interface method implementations are avoided because of potential Value Type performance implications (Boxing). See [Minimal Value Types](http://cr.openjdk.java.net/~jrose/values/shady-values.html) from John Rose and Brian Goetz. 
 * Make the handling of message digests as convenient as possible without sacrificing performance.
 
 ## Example Usage

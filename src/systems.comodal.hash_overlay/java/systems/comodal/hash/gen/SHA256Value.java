@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SHA256;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class SHA256Value extends DiscreteHash implements SHA256 {
+public final class SHA256Value extends HashValue implements SHA256 {
 
   public SHA256Value(final byte[] data) {
     super(data);

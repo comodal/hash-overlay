@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.KECCAK512;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class KECCAK512Value extends DiscreteHash implements KECCAK512 {
+public final class KECCAK512Value extends HashValue implements KECCAK512 {
 
   public KECCAK512Value(final byte[] data) {
     super(data);

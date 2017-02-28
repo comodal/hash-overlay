@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.MD2;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class MD2Value extends DiscreteHash implements MD2 {
+public final class MD2Value extends HashValue implements MD2 {
 
   public MD2Value(final byte[] data) {
     super(data);

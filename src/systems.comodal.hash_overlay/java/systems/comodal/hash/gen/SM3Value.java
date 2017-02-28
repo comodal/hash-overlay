@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.SM3;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class SM3Value extends DiscreteHash implements SM3 {
+public final class SM3Value extends HashValue implements SM3 {
 
   public SM3Value(final byte[] data) {
     super(data);

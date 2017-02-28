@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.WHIRLPOOL;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class WHIRLPOOLValue extends DiscreteHash implements WHIRLPOOL {
+public final class WHIRLPOOLValue extends HashValue implements WHIRLPOOL {
 
   public WHIRLPOOLValue(final byte[] data) {
     super(data);

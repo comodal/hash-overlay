@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein1024_1024;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class Skein1024_1024Value extends DiscreteHash implements Skein1024_1024 {
+public final class Skein1024_1024Value extends HashValue implements Skein1024_1024 {
 
   public Skein1024_1024Value(final byte[] data) {
     super(data);

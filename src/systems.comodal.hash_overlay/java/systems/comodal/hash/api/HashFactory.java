@@ -78,13 +78,6 @@ public interface HashFactory<H extends Hash> {
     return messageDigest.digest(messageDigest.digest());
   }
 
-  static byte[] hashTwiceRaw(final MessageDigest messageDigest, final byte prefix,
-      final byte[] data) {
-    messageDigest.update(prefix);
-    messageDigest.update(data);
-    return messageDigest.digest(messageDigest.digest());
-  }
-
   static byte[] merkleHashTwice(final MessageDigest messageDigest, final Hash[] hashes,
       final boolean reverseByteOrder) {
     return merkle(messageDigest, hashes, reverseByteOrder, DIGEST_TWICE);
@@ -303,10 +296,6 @@ public interface HashFactory<H extends Hash> {
 
   default byte[] hashTwiceRaw(final byte[] data, final int offset, final int len) {
     return hashTwiceRaw(getMessageDigest(), data, offset, len);
-  }
-
-  default byte[] hashTwiceRaw(final byte prefix, final byte[] data) {
-    return hashTwiceRaw(getMessageDigest(), prefix, data);
   }
 
   default byte[] hashTwiceReverseRaw(final byte[] data) {

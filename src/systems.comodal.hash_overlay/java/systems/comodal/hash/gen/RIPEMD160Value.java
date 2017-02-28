@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.RIPEMD160;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class RIPEMD160Value extends DiscreteHash implements RIPEMD160 {
+public final class RIPEMD160Value extends HashValue implements RIPEMD160 {
 
   public RIPEMD160Value(final byte[] data) {
     super(data);

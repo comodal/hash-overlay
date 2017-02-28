@@ -3,9 +3,9 @@ package systems.comodal.hash.gen;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.Skein256_224;
 import systems.comodal.hash.api.HashFactory;
-import systems.comodal.hash.base.DiscreteHash;
+import systems.comodal.hash.base.HashValue;
 
-public final class Skein256_224Value extends DiscreteHash implements Skein256_224 {
+public final class Skein256_224Value extends HashValue implements Skein256_224 {
 
   public Skein256_224Value(final byte[] data) {
     super(data);
