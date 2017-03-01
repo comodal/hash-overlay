@@ -14,6 +14,17 @@ import systems.comodal.hash.api.HashFactory;
 
 public interface {{interfaceName}} extends Addr {
 
+  static Version getAddrFactory(final int version) {
+    switch (version) {
+      {{#versions}}
+      case 0x{{versionString}}:
+        return Version.x{{versionString}};
+      {{/versions}}
+      default:
+        throw new IllegalArgumentException("Unknown address version: " + version);
+    }
+  }
+
   default void getChecksum(final byte[] out, final int offset) {
     final MessageDigest messageDigest = getChecksumHashFactory().getMessageDigest();
     messageDigest.update(getVersion());

@@ -24,6 +24,23 @@ import systems.comodal.hash.api.HashFactory;
 
 public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
 
+  static Version getAddrFactory(final int version) {
+    switch (version) {
+      case 0x00:
+        return Version.x00;
+      case 0x05:
+        return Version.x05;
+      case 0x6F:
+        return Version.x6F;
+      case 0xC4:
+        return Version.xC4;
+      case 0x48:
+        return Version.x48;
+      default:
+        throw new IllegalArgumentException("Unknown address version: " + version);
+    }
+  }
+
   default void getChecksum(final byte[] out, final int offset) {
     final MessageDigest messageDigest = getChecksumHashFactory().getMessageDigest();
     messageDigest.update(getVersion());
