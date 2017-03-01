@@ -75,7 +75,8 @@ final class GenerateAddresses {
 
   public enum AddrFactory {
 
-    Sha256RipeMd160Check4DoubleSha256("RIPEMD160", 4, "SHA256", true,
+    Sha256RipeMd160Check4DoubleSha256("RIPEMD160", 20, 19, 4,
+        "SHA256", "messageDigest.digest(messageDigest.digest())",
         "RIPEMD160.FACTORY.hashRaw(SHA256.FACTORY.hashRaw(data, offset, len))",
         new Version[]{
             // Bitcoin
@@ -85,27 +86,43 @@ final class GenerateAddresses {
             ver(List.of("C4")),
             // Litecoin
             ver(List.of("48"))
+        }),
+    Spend256View256DataCheck4Keccac256(null, 64, 63, 4,
+        "KECCAK256", "messageDigest.digest()",
+        "java.util.Arrays.copyOfRange(data, offset, len)",
+        new Version[]{
+            // https://github.com/monero-project/monero/blob/master/src/cryptonote_config.h#L141
+            ver(List.of("12")),
+            ver(List.of("13")),
+            ver(List.of("35")),
+            ver(List.of("36"))
         });
 
     public final String interfaceName;
     public final String digestHash;
+    public final int digestLength;
+    public final int offsetLength;
     public final int checksumLength;
     public final String checksumHash;
-    public final boolean doubleHashChecksum;
+    public final String applyChecksumDigest;
     public final String create;
     public final Version[] versions;
 
     AddrFactory(final String digestHash,
+        final int digestLength,
+        final int offsetLength,
         final int checksumLength,
         final String checksumHash,
-        final boolean doubleHashChecksum,
+        final String applyChecksumDigest,
         final String create,
         final Version[] versions) {
       this.interfaceName = name();
       this.digestHash = digestHash;
+      this.digestLength = digestLength;
+      this.offsetLength = offsetLength;
       this.checksumLength = checksumLength;
       this.checksumHash = checksumHash;
-      this.doubleHashChecksum = doubleHashChecksum;
+      this.applyChecksumDigest = applyChecksumDigest;
       this.create = create;
       this.versions = versions;
       for (final Version version : versions) {

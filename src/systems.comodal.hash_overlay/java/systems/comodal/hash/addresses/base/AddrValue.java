@@ -15,11 +15,11 @@ public abstract class AddrValue implements Addr {
 
   @Override
   public int hashCode() {
-    int offset = getDigestLength();
-    return (data[--offset] & 0xFF)
-        | (data[--offset] & 0xFF) << 8
-        | (data[--offset] & 0xFF) << 16
-        | (data[--offset] & 0xFF) << 24;
+    int index = getDigestLength();
+    return (data[--index] & 0xFF)
+        | (data[--index] & 0xFF) << 8
+        | (data[--index] & 0xFF) << 16
+        | (data[--index] & 0xFF) << 24;
   }
 
   @Override

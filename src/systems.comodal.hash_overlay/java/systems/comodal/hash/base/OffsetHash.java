@@ -18,11 +18,11 @@ public abstract class OffsetHash implements Hash {
 
   @Override
   public int hashCode() {
-    int offset = this.offset + getDigestLength();
-    return (data[--offset] & 0xFF)
-        | (data[--offset] & 0xFF) << 8
-        | (data[--offset] & 0xFF) << 16
-        | (data[--offset] & 0xFF) << 24;
+    int index = offset + getDigestLength();
+    return (data[--index] & 0xFF)
+        | (data[--index] & 0xFF) << 8
+        | (data[--index] & 0xFF) << 16
+        | (data[--index] & 0xFF) << 24;
   }
 
   @Override
@@ -149,7 +149,7 @@ public abstract class OffsetHash implements Hash {
   @Override
   public int compareDigestToReverse(final byte[] other, int otherOffset) {
     for (int i = offset, max = i + getDigestLength(); i < max; ++i, --otherOffset) {
-      if (this.data[i] != other[otherOffset]) {
+      if (data[i] != other[otherOffset]) {
         return Byte.compareUnsigned(other[otherOffset], data[i]);
       }
     }

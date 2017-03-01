@@ -150,12 +150,12 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
 
     @Override
     public int getDigestLength() {
-      return RIPEMD160.FACTORY.getDigestLength();
+      return 20;
     }
 
     @Override
     public int getOffsetLength() {
-      return RIPEMD160.FACTORY.getOffsetLength();
+      return 19;
     }
 
     @Override

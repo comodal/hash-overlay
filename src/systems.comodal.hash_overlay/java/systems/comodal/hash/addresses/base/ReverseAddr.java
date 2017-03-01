@@ -113,7 +113,7 @@ public abstract class ReverseAddr implements Addr {
 
   @Override
   public boolean digestEquals(final byte[] other) {
-    int index = this.offset;
+    int index = offset;
     for (final byte b : other) {
       if (b != data[index]) {
         return false;
@@ -145,12 +145,12 @@ public abstract class ReverseAddr implements Addr {
 
   @Override
   public int compareDigestTo(final byte[] other) {
-    int offset = this.offset;
+    int index = offset;
     for (final byte b : other) {
-      if (data[offset] != b) {
-        return Byte.compareUnsigned(b, data[offset]);
+      if (data[index] != b) {
+        return Byte.compareUnsigned(b, data[index]);
       }
-      --offset;
+      --index;
     }
     return 0;
   }

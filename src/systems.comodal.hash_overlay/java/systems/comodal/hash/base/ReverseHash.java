@@ -17,11 +17,11 @@ public abstract class ReverseHash implements Hash {
 
   @Override
   public int hashCode() {
-    int offset = this.offset - getOffsetLength();
-    return (data[offset] & 0xFF)
-        | (data[++offset] & 0xFF) << 8
-        | (data[++offset] & 0xFF) << 16
-        | (data[++offset] & 0xFF) << 24;
+    int index = offset - getOffsetLength();
+    return (data[index] & 0xFF)
+        | (data[++index] & 0xFF) << 8
+        | (data[++index] & 0xFF) << 16
+        | (data[++index] & 0xFF) << 24;
   }
 
   @Override
@@ -118,7 +118,7 @@ public abstract class ReverseHash implements Hash {
 
   @Override
   public boolean digestEquals(final byte[] other) {
-    int index = this.offset;
+    int index = offset;
     for (final byte b : other) {
       if (b != data[index]) {
         return false;
@@ -150,12 +150,12 @@ public abstract class ReverseHash implements Hash {
 
   @Override
   public int compareDigestTo(final byte[] other) {
-    int offset = this.offset;
+    int index = offset;
     for (final byte b : other) {
-      if (data[offset] != b) {
-        return Byte.compareUnsigned(b, data[offset]);
+      if (data[index] != b) {
+        return Byte.compareUnsigned(b, data[index]);
       }
-      --offset;
+      --index;
     }
     return 0;
   }
