@@ -10,11 +10,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 final class GenerateAddresses {
 
-  static final String addressesSrcDirectory = GenerateHashClasses.apiSrcDirectory +
-      "addresses/";
+  static final String addressesSrcDirectory = GenerateHashClasses.apiSrcDirectory
+      + "addresses/";
   private static final String genSrcDirectory = addressesSrcDirectory + "gen/";
 
   private GenerateAddresses() {
@@ -66,8 +68,9 @@ final class GenerateAddresses {
     }
   }
 
-  static Version ver(final String versionString, final String versionBytes) {
-    return new Version(versionString, versionBytes);
+  static Version ver(final List<String> bytes) {
+    return new Version(bytes.stream().collect(Collectors.joining()),
+        bytes.stream().map(bite -> "(byte) 0x" + bite).collect(Collectors.joining(", ")));
   }
 
   public enum AddrFactory {
@@ -76,12 +79,12 @@ final class GenerateAddresses {
         "RIPEMD160.FACTORY.hashRaw(SHA256.FACTORY.hashRaw(data, offset, len))",
         new Version[]{
             // Bitcoin
-            ver("00", "0x00"),
-            ver("05", "0x05"),
-            ver("6F", "0x6F"),
-            ver("C4", "(byte) 0xC4"),
+            ver(List.of("00")),
+            ver(List.of("05")),
+            ver(List.of("6F")),
+            ver(List.of("C4")),
             // Litecoin
-            ver("48", "0x48")
+            ver(List.of("48"))
         });
 
     public final String interfaceName;

@@ -34,7 +34,7 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
 
   enum Version implements AddrFactory<Sha256RipeMd160Check4DoubleSha256> {
 
-    x00(new byte[]{0x00}) {
+    x00(new byte[]{(byte) 0x00}) {
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
         return new V00Sha256RipeMd160Check4DoubleSha256Value(digest);
@@ -51,7 +51,7 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
         return new ReverseV00Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
     },
-    x05(new byte[]{0x05}) {
+    x05(new byte[]{(byte) 0x05}) {
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
         return new V05Sha256RipeMd160Check4DoubleSha256Value(digest);
@@ -68,7 +68,7 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
         return new ReverseV05Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
     },
-    x6F(new byte[]{0x6F}) {
+    x6F(new byte[]{(byte) 0x6F}) {
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
         return new V6FSha256RipeMd160Check4DoubleSha256Value(digest);
@@ -102,7 +102,7 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
         return new ReverseVC4Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
     },
-    x48(new byte[]{0x48}) {
+    x48(new byte[]{(byte) 0x48}) {
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
         return new V48Sha256RipeMd160Check4DoubleSha256Value(digest);
