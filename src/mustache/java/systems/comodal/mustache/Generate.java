@@ -2,6 +2,9 @@ package systems.comodal.mustache;
 
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.MustacheFactory;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.security.Security;
 import java.util.Collection;
 import java.util.Comparator;
@@ -44,6 +47,15 @@ final class Generate {
 
       GenerateHashFactoryEnum.generate(mf, digests);
       GenerateMultiHashFactory.generate(mf, digests);
+    }
+  }
+
+  static void generate(final MustacheFactory mf, final String templateName,
+      final Object scope, final String outputFile) {
+    try (final FileWriter writer = new FileWriter(outputFile)) {
+      mf.compile(templateName).execute(writer, scope);
+    } catch (IOException ioe) {
+      throw new UncheckedIOException(ioe);
     }
   }
 

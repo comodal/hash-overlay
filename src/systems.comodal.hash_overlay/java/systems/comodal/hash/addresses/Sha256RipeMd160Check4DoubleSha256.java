@@ -5,10 +5,21 @@ import systems.comodal.hash.RIPEMD160;
 import systems.comodal.hash.SHA256;
 import systems.comodal.hash.addresses.api.Addr;
 import systems.comodal.hash.addresses.api.AddrFactory;
-import systems.comodal.hash.addresses.gen.OffsetV0Sha256RipeMd160Check4DoubleSha256;
-import systems.comodal.hash.addresses.gen.ReverseV0Sha256RipeMd160Check4DoubleSha256;
-import systems.comodal.hash.addresses.gen.V0Sha256RipeMd160Check4DoubleSha256Value;
-import systems.comodal.hash.api.Hash;
+import systems.comodal.hash.addresses.gen.OffsetV00Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.ReverseV00Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.V00Sha256RipeMd160Check4DoubleSha256Value;
+import systems.comodal.hash.addresses.gen.OffsetV05Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.ReverseV05Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.V05Sha256RipeMd160Check4DoubleSha256Value;
+import systems.comodal.hash.addresses.gen.OffsetV6FSha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.ReverseV6FSha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.V6FSha256RipeMd160Check4DoubleSha256Value;
+import systems.comodal.hash.addresses.gen.OffsetVC4Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.ReverseVC4Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.VC4Sha256RipeMd160Check4DoubleSha256Value;
+import systems.comodal.hash.addresses.gen.OffsetV48Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.ReverseV48Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.V48Sha256RipeMd160Check4DoubleSha256Value;
 import systems.comodal.hash.api.HashFactory;
 
 public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
@@ -26,20 +37,89 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
     x00(new byte[]{0x00}) {
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
-        return new V0Sha256RipeMd160Check4DoubleSha256Value(digest);
+        return new V00Sha256RipeMd160Check4DoubleSha256Value(digest);
       }
 
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest, final int offset) {
-        return new OffsetV0Sha256RipeMd160Check4DoubleSha256(digest, offset);
+        return new OffsetV00Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
 
       @Override
       public Sha256RipeMd160Check4DoubleSha256 reverseOverlay(final byte[] digest,
           final int offset) {
-        return new ReverseV0Sha256RipeMd160Check4DoubleSha256(digest, offset);
+        return new ReverseV00Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
-    };
+    },
+    x05(new byte[]{0x05}) {
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
+        return new V05Sha256RipeMd160Check4DoubleSha256Value(digest);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest, final int offset) {
+        return new OffsetV05Sha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 reverseOverlay(final byte[] digest,
+          final int offset) {
+        return new ReverseV05Sha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+    },
+    x6F(new byte[]{0x6F}) {
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
+        return new V6FSha256RipeMd160Check4DoubleSha256Value(digest);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest, final int offset) {
+        return new OffsetV6FSha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 reverseOverlay(final byte[] digest,
+          final int offset) {
+        return new ReverseV6FSha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+    },
+    xC4(new byte[]{(byte) 0xC4}) {
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
+        return new VC4Sha256RipeMd160Check4DoubleSha256Value(digest);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest, final int offset) {
+        return new OffsetVC4Sha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 reverseOverlay(final byte[] digest,
+          final int offset) {
+        return new ReverseVC4Sha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+    },
+    x48(new byte[]{0x48}) {
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest) {
+        return new V48Sha256RipeMd160Check4DoubleSha256Value(digest);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest, final int offset) {
+        return new OffsetV48Sha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+
+      @Override
+      public Sha256RipeMd160Check4DoubleSha256 reverseOverlay(final byte[] digest,
+          final int offset) {
+        return new ReverseV48Sha256RipeMd160Check4DoubleSha256(digest, offset);
+      }
+    },
+    ;
 
     private final byte[] version;
     private final int verDigestLength;
@@ -82,7 +162,7 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
     }
 
     @Override
-    public HashFactory<? extends Hash> getChecksumHashFactory() {
+    public HashFactory<SHA256> getChecksumHashFactory() {
       return SHA256.FACTORY;
     }
 

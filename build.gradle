@@ -62,6 +62,14 @@ task generateSrc(type: JavaExec) {
     }
 }
 
+task generateAddrSrc(type: JavaExec) {
+    classpath = sourceSets.mustache.runtimeClasspath
+    main = 'systems.comodal.mustache.GenerateAddresses'
+    if (project.hasProperty('dryRun')) {
+        args 'dryRun'
+    }
+}
+
 task printMemUsage(type: JavaExec) {
     classpath = sourceSets.jmh.runtimeClasspath
     main = 'systems.comodal.hash.benchmark.MemoryMeasurements'

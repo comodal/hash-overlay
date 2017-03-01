@@ -13,9 +13,8 @@ final class GenerateHashFactoryEnum {
   }
 
   static void generate(final MustacheFactory mf, final List<Digest> digests) {
-    GenerateHashClasses
-        .generate(mf, "digest_factory_enum.mustache", new DigestAlgosEnumScope(digests),
-            testSrcDirectory + "DigestAlgo.java");
+    Generate.generate(mf, "digest_factory_enum.mustache", new DigestAlgosEnumScope(digests),
+        testSrcDirectory + "DigestAlgo.java");
   }
 
   public static final class DigestAlgosEnumScope {

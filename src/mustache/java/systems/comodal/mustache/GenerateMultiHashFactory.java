@@ -35,9 +35,8 @@ final class GenerateMultiHashFactory {
         .filter(digest -> digest.fnCode != UNKNOWN_MULTIHASH_FN_CODE)
         .sorted(Comparator.comparing(digest -> Integer.parseInt(digest.fnCode.substring(2), 16)))
         .collect(Collectors.toList());
-    GenerateHashClasses
-        .generate(mf, "multihash_factory.mustache", new MultihashScope(digestsWithFnCodes),
-            multihashSrcDirectory + "HashFactoryFnCodeFactory.java");
+    Generate.generate(mf, "multihash_factory.mustache", new MultihashScope(digestsWithFnCodes),
+        multihashSrcDirectory + "HashFactoryFnCodeFactory.java");
   }
 
   static Map<String, Multihash> getMulthashMap() {

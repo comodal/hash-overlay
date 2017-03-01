@@ -4,7 +4,6 @@ import static systems.comodal.mustache.GenerateMultiHashFactory.UNKNOWN_MULTIHAS
 
 import com.github.mustachejava.MustacheFactory;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.FileVisitOption;
@@ -41,12 +40,13 @@ public final class GenerateHashClasses {
   static void generate(final MustacheFactory mf, final List<Digest> digests) {
     digests.forEach(digest -> {
       System.out.format("%s : %s : %d%n", digest.hash, digest.algoName, digest.digestLength);
-      generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");
-      generate(mf, "hash_value.mustache", digest,
+      Generate
+          .generate(mf, "hash_interface.mustache", digest, apiSrcDirectory + digest.hash + ".java");
+      Generate.generate(mf, "hash_value.mustache", digest,
           genSrcDirectory + digest.hash + "Value.java");
-      generate(mf, "hash_offset.mustache", digest,
+      Generate.generate(mf, "hash_offset.mustache", digest,
           genSrcDirectory + "Offset" + digest.hash + ".java");
-      generate(mf, "hash_reverse.mustache", digest,
+      Generate.generate(mf, "hash_reverse.mustache", digest,
           genSrcDirectory + "Reverse" + digest.hash + ".java");
     });
   }
@@ -91,15 +91,6 @@ public final class GenerateHashClasses {
       return MessageDigest.getInstance(algorithm);
     } catch (final NoSuchAlgorithmException ex) {
       throw new IllegalArgumentException(ex.getMessage());
-    }
-  }
-
-  static void generate(final MustacheFactory mf, final String templateName,
-      final Object scope, final String outputFile) {
-    try (final FileWriter writer = new FileWriter(outputFile)) {
-      mf.compile(templateName).execute(writer, scope);
-    } catch (IOException ioe) {
-      throw new UncheckedIOException(ioe);
     }
   }
 

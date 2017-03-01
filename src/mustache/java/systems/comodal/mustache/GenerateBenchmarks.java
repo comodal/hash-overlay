@@ -19,7 +19,7 @@ final class GenerateBenchmarks {
 
   static void generate(final MustacheFactory mf, final List<Digest> digests) {
     JmhBenchmarkScope benchScope = new JmhBenchmarkScope(digests);
-    GenerateHashClasses.generate(mf, "digest_bench.mustache", benchScope,
+    Generate.generate(mf, "digest_bench.mustache", benchScope,
         benchSrcDirectory + benchScope.className + ".java");
   }
 
