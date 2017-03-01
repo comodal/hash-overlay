@@ -1,16 +1,15 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.addresses.base;
 
-import java.math.BigInteger;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
 import java.util.Arrays;
-import systems.comodal.hash.api.Hash;
+import systems.comodal.hash.addresses.api.Addr;
 
-public abstract class HashValue implements Hash {
+public abstract class AddrValue implements Addr {
 
   protected final byte[] data;
 
-  protected HashValue(final byte[] data) {
+  protected AddrValue(final byte[] data) {
     this.data = data;
   }
 
@@ -34,7 +33,7 @@ public abstract class HashValue implements Hash {
   }
 
   private int getOffsetLength() {
-    return getFactory().getOffsetLength();
+    return getAddrFactory().getOffsetLength();
   }
 
   @Override
@@ -44,22 +43,17 @@ public abstract class HashValue implements Hash {
 
   @Override
   public int getDigestLength() {
-    return getFactory().getDigestLength();
+    return getAddrFactory().getDigestLength();
   }
 
   @Override
-  public Hash getDiscrete() {
+  public Addr getDiscrete() {
     return this;
   }
 
   @Override
   public byte[] getDiscreteRaw() {
     return data;
-  }
-
-  @Override
-  public BigInteger toBigInteger() {
-    return new BigInteger(1, data);
   }
 
   @Override
@@ -137,7 +131,8 @@ public abstract class HashValue implements Hash {
   @Override
   public int compareDigestTo(final byte[] other, int otherOffset) {
     return Arrays
-        .compareUnsigned(other, otherOffset, otherOffset + getDigestLength(), data, 0, getDigestLength());
+        .compareUnsigned(other, otherOffset, otherOffset + getDigestLength(), data, 0,
+            getDigestLength());
   }
 
   @Override
@@ -157,7 +152,8 @@ public abstract class HashValue implements Hash {
   }
 
   @Override
-  public int compareTo(final Hash other) {
-    return other.compareDigestTo(data);
+  public int compareTo(final Addr other) {
+    final int versionCompare = Arrays.compareUnsigned(getVersion(), other.getVersion());
+    return versionCompare == 0 ? other.compareDigestTo(data) : 0;
   }
 }

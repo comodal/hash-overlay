@@ -1,16 +1,16 @@
-package systems.comodal.hash.base;
+package systems.comodal.hash.addresses.base;
 
-import java.math.BigInteger;
 import java.nio.ByteOrder;
 import java.security.MessageDigest;
-import systems.comodal.hash.api.Hash;
+import java.util.Arrays;
+import systems.comodal.hash.addresses.api.Addr;
 
-public abstract class LittleEndianOffsetHash implements Hash {
+public abstract class ReverseAddr implements Addr {
 
   protected final byte[] data;
   protected final int offset;
 
-  protected LittleEndianOffsetHash(final byte[] data, final int offset) {
+  protected ReverseAddr(final byte[] data, final int offset) {
     this.data = data;
     this.offset = offset + getOffsetLength();
   }
@@ -35,7 +35,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   private int getOffsetLength() {
-    return getFactory().getOffsetLength();
+    return getAddrFactory().getOffsetLength();
   }
 
   @Override
@@ -45,22 +45,17 @@ public abstract class LittleEndianOffsetHash implements Hash {
 
   @Override
   public int getDigestLength() {
-    return getFactory().getDigestLength();
+    return getAddrFactory().getDigestLength();
   }
 
   @Override
-  public Hash getDiscrete() {
-    return getFactory().overlay(copy());
+  public Addr getDiscrete() {
+    return getAddrFactory().overlay(copy());
   }
 
   @Override
   public byte[] getDiscreteRaw() {
     return copy();
-  }
-
-  @Override
-  public BigInteger toBigInteger() {
-    return new BigInteger(1, copy());
   }
 
   @Override
@@ -171,7 +166,8 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public int compareTo(final Hash other) {
-    return other.compareDigestToReverse(data, offset);
+  public int compareTo(final Addr other) {
+    final int versionCompare = Arrays.compareUnsigned(getVersion(), other.getVersion());
+    return versionCompare == 0 ? other.compareDigestToReverse(data, offset) : 0;
   }
 }
