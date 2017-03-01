@@ -77,14 +77,14 @@ public abstract class HashValue implements Hash {
   }
 
   @Override
-  public void copyTo(final byte[] to, final int offset) {
-    System.arraycopy(this.data, 0, to, offset, getDigestLength());
+  public void copyTo(final byte[] to, final int otherOffset) {
+    System.arraycopy(data, 0, to, otherOffset, getDigestLength());
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int offset) {
-    for (final byte bite : this.data) {
-      to[offset--] = bite;
+  public void copyToReverse(final byte[] to, int otherOffset) {
+    for (final byte bite : data) {
+      to[otherOffset--] = bite;
     }
   }
 
@@ -101,12 +101,12 @@ public abstract class HashValue implements Hash {
   }
 
   @Override
-  public boolean digestEquals(final byte[] other, int offset) {
-    for (final byte b : this.data) {
-      if (b != other[offset]) {
+  public boolean digestEquals(final byte[] other, int otherOffset) {
+    for (final byte b : data) {
+      if (b != other[otherOffset]) {
         return false;
       }
-      ++offset;
+      ++otherOffset;
     }
     return true;
   }
@@ -114,7 +114,7 @@ public abstract class HashValue implements Hash {
   @Override
   public boolean digestEquals(final byte[] other) {
     int offset = 0;
-    for (final byte b : this.data) {
+    for (final byte b : data) {
       if (b != other[offset]) {
         return false;
       }
@@ -124,12 +124,12 @@ public abstract class HashValue implements Hash {
   }
 
   @Override
-  public boolean digestEqualsReverse(final byte[] other, int offset) {
-    for (final byte b : this.data) {
-      if (b != other[offset]) {
+  public boolean digestEqualsReverse(final byte[] other, int otherOffset) {
+    for (final byte b : data) {
+      if (b != other[otherOffset]) {
         return false;
       }
-      --offset;
+      --otherOffset;
     }
     return true;
   }
@@ -140,22 +140,23 @@ public abstract class HashValue implements Hash {
   }
 
   @Override
-  public int compareDigestTo(final byte[] other, int offset) {
-    return Arrays.compare(other, offset, offset + getDigestLength(), data, 0, getDigestLength());
+  public int compareDigestTo(final byte[] other, int otherOffset) {
+    return Arrays
+        .compareUnsigned(other, otherOffset, otherOffset + getDigestLength(), data, 0, getDigestLength());
   }
 
   @Override
   public int compareDigestTo(final byte[] other) {
-    return Arrays.compare(other, data);
+    return Arrays.compareUnsigned(other, data);
   }
 
   @Override
-  public int compareDigestToReverse(final byte[] other, int offset) {
-    for (final byte b : this.data) {
-      if (b != other[offset]) {
-        return Byte.compare(other[offset], b);
+  public int compareDigestToReverse(final byte[] other, int otherOffset) {
+    for (final byte b : data) {
+      if (b != other[otherOffset]) {
+        return Byte.compareUnsigned(other[otherOffset], b);
       }
-      --offset;
+      --otherOffset;
     }
     return 0;
   }

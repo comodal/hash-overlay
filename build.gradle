@@ -56,7 +56,7 @@ jmh {
 
 task generateSrc(type: JavaExec) {
     classpath = sourceSets.mustache.runtimeClasspath
-    main = 'systems.comodal.mustache.GenerateHashClasses'
+    main = 'systems.comodal.mustache.Generate'
     if (project.hasProperty('dryRun')) {
         args 'dryRun'
     }

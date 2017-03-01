@@ -150,7 +150,7 @@ public class HashTest {
   @Test
   public void testCompareTo() {
     factories.forEach(hashFactory -> {
-      final boolean gt = Arrays.compare(digest, digestB) > 0;
+      final boolean gt = Arrays.compareUnsigned(digest, digestB) > 0;
 
       assertEquals(gt, discrete.compareTo(discreteB) > 0);
       assertEquals(gt, discrete.compareTo(offsetB) > 0);

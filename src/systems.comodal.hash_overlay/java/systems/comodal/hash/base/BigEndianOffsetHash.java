@@ -67,7 +67,7 @@ public abstract class BigEndianOffsetHash implements Hash {
   @Override
   public byte[] copy() {
     final byte[] copy = new byte[getDigestLength()];
-    System.arraycopy(this.data, this.offset, copy, 0, getDigestLength());
+    System.arraycopy(data, offset, copy, 0, getDigestLength());
     return copy;
   }
 
@@ -79,14 +79,14 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public void copyTo(final byte[] to, final int offset) {
-    System.arraycopy(this.data, this.offset, to, offset, getDigestLength());
+  public void copyTo(final byte[] to, final int otherOffset) {
+    System.arraycopy(data, offset, to, otherOffset, getDigestLength());
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int offset) {
-    for (int i = this.offset, max = i + getDigestLength(); i < max; --offset, ++i) {
-      to[offset] = this.data[i];
+  public void copyToReverse(final byte[] to, int otherOffset) {
+    for (int i = offset, max = offset + getDigestLength(); i < max; --otherOffset, ++i) {
+      to[otherOffset] = data[i];
     }
   }
 
@@ -103,9 +103,9 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean digestEquals(final byte[] other, int offset) {
-    for (int i = this.offset, max = this.offset + getDigestLength(); i < max; ++i, ++offset) {
-      if (this.data[i] != other[offset]) {
+  public boolean digestEquals(final byte[] other, int otherOffset) {
+    for (int i = offset, max = offset + getDigestLength(); i < max; ++i, ++otherOffset) {
+      if (data[i] != other[otherOffset]) {
         return false;
       }
     }
@@ -114,9 +114,9 @@ public abstract class BigEndianOffsetHash implements Hash {
 
   @Override
   public boolean digestEquals(final byte[] other) {
-    int index = this.offset;
+    int index = offset;
     for (final byte b : other) {
-      if (b != this.data[index]) {
+      if (b != data[index]) {
         return false;
       }
       ++index;
@@ -125,9 +125,9 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean digestEqualsReverse(final byte[] other, int offset) {
-    for (int i = this.offset, max = i + getDigestLength(); i < max; ++i, --offset) {
-      if (this.data[i] != other[offset]) {
+  public boolean digestEqualsReverse(final byte[] other, int otherOffset) {
+    for (int i = offset, max = i + getDigestLength(); i < max; ++i, --otherOffset) {
+      if (data[i] != other[otherOffset]) {
         return false;
       }
     }
@@ -140,22 +140,22 @@ public abstract class BigEndianOffsetHash implements Hash {
   }
 
   @Override
-  public int compareDigestTo(final byte[] other, final int offset) {
-    return Arrays.compare(other, offset, offset + getDigestLength(), data, this.offset,
-        this.offset + getDigestLength());
+  public int compareDigestTo(final byte[] other, final int otherOffset) {
+    return Arrays.compareUnsigned(other, otherOffset, otherOffset + getDigestLength(), data, offset,
+        offset + getDigestLength());
   }
 
   @Override
   public int compareDigestTo(final byte[] other) {
     return Arrays
-        .compare(other, 0, getDigestLength(), data, this.offset, this.offset + getDigestLength());
+        .compareUnsigned(other, 0, getDigestLength(), data, offset, offset + getDigestLength());
   }
 
   @Override
-  public int compareDigestToReverse(final byte[] other, int offset) {
-    for (int i = this.offset, max = i + getDigestLength(); i < max; ++i, --offset) {
-      if (this.data[i] != other[offset]) {
-        return Byte.compare(other[offset], this.data[i]);
+  public int compareDigestToReverse(final byte[] other, int otherOffset) {
+    for (int i = offset, max = i + getDigestLength(); i < max; ++i, --otherOffset) {
+      if (this.data[i] != other[otherOffset]) {
+        return Byte.compareUnsigned(other[otherOffset], data[i]);
       }
     }
     return 0;

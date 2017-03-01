@@ -242,8 +242,8 @@ public interface HashFactory<H extends Hash> {
   byte[] getMultiHashPrefix();
 
   /**
-   * Uses the supplied byte array as the backing Hash digest.  The digestLength of the byte array
-   * should be exactly the digestLength of the digest.  Otherwise, use the overlay constructor with
+   * Uses the supplied byte array as the backing Hash digest.  The length of the byte array
+   * should be exactly the length of the digest.  Otherwise, use the overlay constructor with
    * an offset of 0;
    *
    * @return A new Hash instance backed by the supplied byte array.
@@ -252,7 +252,7 @@ public interface HashFactory<H extends Hash> {
 
   /**
    * Uses the supplied byte array as the backing Hash digest.  The offset should be the beginning of
-   * the digest digest.
+   * the digest.
    *
    * @return A new Hash instance backed by the supplied byte array.
    */
@@ -260,7 +260,7 @@ public interface HashFactory<H extends Hash> {
 
   /**
    * Uses the supplied byte array as the backing Hash digest.  The offset should be the beginning of
-   * the digest digest and the assumed direction is in reverse (little-endian).
+   * the digest and the assumed direction is in reverse (little-endian).
    *
    * @return A new Hash instance backed by the supplied byte array.
    */

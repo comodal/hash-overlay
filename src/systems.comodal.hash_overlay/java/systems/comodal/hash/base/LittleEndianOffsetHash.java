@@ -66,8 +66,8 @@ public abstract class LittleEndianOffsetHash implements Hash {
   @Override
   public byte[] copy() {
     final byte[] copy = new byte[getDigestLength()];
-    for (int i = this.offset, o = 0; o < getDigestLength(); ++o, --i) {
-      copy[o] = this.data[i];
+    for (int i = offset, o = 0; o < getDigestLength(); ++o, --i) {
+      copy[o] = data[i];
     }
     return copy;
   }
@@ -80,16 +80,17 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public void copyTo(final byte[] to, int offset) {
-    for (int i = this.offset, max = offset + getDigestLength(); offset < max; --i, ++offset) {
-      to[offset] = this.data[i];
+  public void copyTo(final byte[] to, int otherOffset) {
+    for (int i = offset, max = otherOffset + getDigestLength(); otherOffset < max;
+        --i, ++otherOffset) {
+      to[otherOffset] = data[i];
     }
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int offset) {
-    System.arraycopy(this.data, this.offset - getOffsetLength(), to,
-        offset - getOffsetLength(), getDigestLength());
+  public void copyToReverse(final byte[] to, int otherOffset) {
+    System.arraycopy(data, offset - getOffsetLength(), to, otherOffset - getOffsetLength(),
+        getDigestLength());
   }
 
   @Override
@@ -105,9 +106,10 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean digestEquals(final byte[] other, int offset) {
-    for (int i = this.offset, max = offset + getDigestLength(); offset < max; --i, ++offset) {
-      if (data[i] != other[offset]) {
+  public boolean digestEquals(final byte[] other, int otherOffset) {
+    for (int i = offset, max = otherOffset + getDigestLength(); otherOffset < max;
+        --i, ++otherOffset) {
+      if (data[i] != other[otherOffset]) {
         return false;
       }
     }
@@ -118,7 +120,7 @@ public abstract class LittleEndianOffsetHash implements Hash {
   public boolean digestEquals(final byte[] other) {
     int index = this.offset;
     for (final byte b : other) {
-      if (b != this.data[index]) {
+      if (b != data[index]) {
         return false;
       }
       --index;
@@ -127,9 +129,9 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public boolean digestEqualsReverse(final byte[] other, int offset) {
-    for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, --offset) {
-      if (this.data[i] != other[offset]) {
+  public boolean digestEqualsReverse(final byte[] other, int otherOffset) {
+    for (int i = offset, min = offset - getDigestLength(); i > min; --i, --otherOffset) {
+      if (data[i] != other[otherOffset]) {
         return false;
       }
     }
@@ -142,10 +144,10 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public int compareDigestTo(final byte[] other, int offset) {
-    for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, ++offset) {
-      if (this.data[i] != other[offset]) {
-        return Byte.compare(other[offset], this.data[i]);
+  public int compareDigestTo(final byte[] other, int otherOffset) {
+    for (int i = offset, min = offset - getDigestLength(); i > min; --i, ++otherOffset) {
+      if (data[i] != other[otherOffset]) {
+        return Byte.compareUnsigned(other[otherOffset], data[i]);
       }
     }
     return 0;
@@ -155,8 +157,8 @@ public abstract class LittleEndianOffsetHash implements Hash {
   public int compareDigestTo(final byte[] other) {
     int offset = this.offset;
     for (final byte b : other) {
-      if (this.data[offset] != b) {
-        return Byte.compare(b, this.data[offset]);
+      if (data[offset] != b) {
+        return Byte.compareUnsigned(b, data[offset]);
       }
       --offset;
     }
@@ -164,10 +166,10 @@ public abstract class LittleEndianOffsetHash implements Hash {
   }
 
   @Override
-  public int compareDigestToReverse(final byte[] other, int offset) {
-    for (int i = this.offset, min = this.offset - getDigestLength(); i > min; --i, --offset) {
-      if (this.data[i] != other[offset]) {
-        return Byte.compare(other[offset], this.data[i]);
+  public int compareDigestToReverse(final byte[] other, int otherOffset) {
+    for (int i = offset, min = offset - getDigestLength(); i > min; --i, --otherOffset) {
+      if (data[i] != other[otherOffset]) {
+        return Byte.compareUnsigned(other[otherOffset], data[i]);
       }
     }
     return 0;
