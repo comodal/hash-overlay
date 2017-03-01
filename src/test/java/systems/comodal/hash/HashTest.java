@@ -342,7 +342,7 @@ public class HashTest {
   private void testByteOrder(final byte[] expected, final byte[] reverseExpected,
       final Hash hash) {
     final byte[] backingArray = hash.getBackingData();
-    if (hash.getByteOrder() == ByteOrder.BIG_ENDIAN) {
+    if (hash.getByteOrder() == ByteOrder.LITTLE_ENDIAN) {
       Arrays.equals(expected, 0, expected.length,
           backingArray, hash.getOffset(), hash.getOffset() + hash.getDigestLength());
     } else {

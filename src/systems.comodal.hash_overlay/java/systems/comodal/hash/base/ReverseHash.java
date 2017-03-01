@@ -40,7 +40,7 @@ public abstract class ReverseHash implements Hash {
 
   @Override
   public ByteOrder getByteOrder() {
-    return ByteOrder.LITTLE_ENDIAN;
+    return ByteOrder.BIG_ENDIAN;
   }
 
   @Override

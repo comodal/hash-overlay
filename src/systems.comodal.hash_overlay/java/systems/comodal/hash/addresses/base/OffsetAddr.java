@@ -40,7 +40,7 @@ public abstract class OffsetAddr implements Addr {
 
   @Override
   public ByteOrder getByteOrder() {
-    return ByteOrder.BIG_ENDIAN;
+    return ByteOrder.LITTLE_ENDIAN;
   }
 
   @Override

@@ -41,7 +41,7 @@ public abstract class OffsetHash implements Hash {
 
   @Override
   public ByteOrder getByteOrder() {
-    return ByteOrder.BIG_ENDIAN;
+    return ByteOrder.LITTLE_ENDIAN;
   }
 
   @Override
