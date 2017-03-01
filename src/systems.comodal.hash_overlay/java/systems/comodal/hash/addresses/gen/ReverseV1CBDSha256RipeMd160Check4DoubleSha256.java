@@ -1,21 +1,21 @@
 package systems.comodal.hash.addresses.gen;
 
 import java.util.Arrays;
-import systems.comodal.hash.addresses.Spend256View256DataCheck4Keccac256;
+import systems.comodal.hash.addresses.Sha256RipeMd160Check4DoubleSha256;
 import systems.comodal.hash.addresses.api.Addr;
 import systems.comodal.hash.addresses.api.AddrFactory;
 import systems.comodal.hash.addresses.base.ReverseAddr;
 
-public final class ReverseV12Spend256View256DataCheck4Keccac256 extends ReverseAddr implements
-    Spend256View256DataCheck4Keccac256 {
+public final class ReverseV1CBDSha256RipeMd160Check4DoubleSha256 extends ReverseAddr implements
+    Sha256RipeMd160Check4DoubleSha256 {
 
-  public ReverseV12Spend256View256DataCheck4Keccac256(final byte[] data, final int offset) {
+  public ReverseV1CBDSha256RipeMd160Check4DoubleSha256(final byte[] data, final int offset) {
     super(data, offset);
   }
 
   @Override
   public AddrFactory<? extends Addr> getAddrFactory() {
-    return Version.x12;
+    return Version.x1CBD;
   }
 
   @Override
@@ -23,7 +23,7 @@ public final class ReverseV12Spend256View256DataCheck4Keccac256 extends ReverseA
     if (this == other) {
       return true;
     }
-    if (other != null && other instanceof Spend256View256DataCheck4Keccac256) {
+    if (other != null && other instanceof Sha256RipeMd160Check4DoubleSha256) {
       final Addr otherAddr = (Addr) other;
       return Arrays.equals(getVersion(), otherAddr.getVersion())
           && otherAddr.digestEqualsReverse(data, offset);

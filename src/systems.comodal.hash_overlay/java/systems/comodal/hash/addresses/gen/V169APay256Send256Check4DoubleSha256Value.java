@@ -1,21 +1,21 @@
 package systems.comodal.hash.addresses.gen;
 
 import java.util.Arrays;
-import systems.comodal.hash.addresses.Spend256View256DataCheck4Keccac256;
+import systems.comodal.hash.addresses.Pay256Send256Check4DoubleSha256;
 import systems.comodal.hash.addresses.api.Addr;
 import systems.comodal.hash.addresses.api.AddrFactory;
 import systems.comodal.hash.addresses.base.AddrValue;
 
-public final class V13Spend256View256DataCheck4Keccac256Value extends AddrValue implements
-    Spend256View256DataCheck4Keccac256 {
+public final class V169APay256Send256Check4DoubleSha256Value extends AddrValue implements
+    Pay256Send256Check4DoubleSha256 {
 
-  public V13Spend256View256DataCheck4Keccac256Value(final byte[] data) {
+  public V169APay256Send256Check4DoubleSha256Value(final byte[] data) {
     super(data);
   }
 
   @Override
   public AddrFactory<? extends Addr> getAddrFactory() {
-    return Version.x13;
+    return Version.x169A;
   }
 
   @Override
@@ -23,7 +23,7 @@ public final class V13Spend256View256DataCheck4Keccac256Value extends AddrValue 
     if (this == other) {
       return true;
     }
-    if (other != null && other instanceof Spend256View256DataCheck4Keccac256) {
+    if (other != null && other instanceof Pay256Send256Check4DoubleSha256) {
       final Addr otherAddr = (Addr) other;
       return Arrays.equals(getVersion(), otherAddr.getVersion()) && otherAddr.digestEquals(data);
     }

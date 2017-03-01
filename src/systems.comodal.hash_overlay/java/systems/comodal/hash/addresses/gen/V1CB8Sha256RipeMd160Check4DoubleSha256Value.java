@@ -4,18 +4,18 @@ import java.util.Arrays;
 import systems.comodal.hash.addresses.Sha256RipeMd160Check4DoubleSha256;
 import systems.comodal.hash.addresses.api.Addr;
 import systems.comodal.hash.addresses.api.AddrFactory;
-import systems.comodal.hash.addresses.base.OffsetAddr;
+import systems.comodal.hash.addresses.base.AddrValue;
 
-public final class OffsetV48Sha256RipeMd160Check4DoubleSha256 extends OffsetAddr implements
+public final class V1CB8Sha256RipeMd160Check4DoubleSha256Value extends AddrValue implements
     Sha256RipeMd160Check4DoubleSha256 {
 
-  public OffsetV48Sha256RipeMd160Check4DoubleSha256(final byte[] data, final int offset) {
-    super(data, offset);
+  public V1CB8Sha256RipeMd160Check4DoubleSha256Value(final byte[] data) {
+    super(data);
   }
 
   @Override
   public AddrFactory<? extends Addr> getAddrFactory() {
-    return Version.x48;
+    return Version.x1CB8;
   }
 
   @Override
@@ -25,8 +25,7 @@ public final class OffsetV48Sha256RipeMd160Check4DoubleSha256 extends OffsetAddr
     }
     if (other != null && other instanceof Sha256RipeMd160Check4DoubleSha256) {
       final Addr otherAddr = (Addr) other;
-      return Arrays.equals(getVersion(), otherAddr.getVersion())
-          && otherAddr.digestEquals(data, offset);
+      return Arrays.equals(getVersion(), otherAddr.getVersion()) && otherAddr.digestEquals(data);
     }
     return false;
   }

@@ -75,19 +75,35 @@ final class GenerateAddresses {
 
   public enum AddrFactory {
 
-    Sha256RipeMd160Check4DoubleSha256("RIPEMD160", 20, 19, 4,
+    Sha256RipeMd160Check4DoubleSha256("RIPEMD160", 20, 4,
         "SHA256", "messageDigest.digest(messageDigest.digest())",
         "RIPEMD160.FACTORY.hashRaw(SHA256.FACTORY.hashRaw(data, offset, len))",
         new Version[]{
-            // Bitcoin
+            // Bitcoin https://github.com/bitcoin/bitcoin/blob/master/src/chainparams.cpp#L130
             ver(List.of("00")),
             ver(List.of("05")),
             ver(List.of("6F")),
             ver(List.of("C4")),
-            // Litecoin
-            ver(List.of("48"))
+            // Litecoin https://github.com/litecoin-project/litecoin/blob/master/src/chainparams.cpp#L127
+            ver(List.of("30")),
+            ver(List.of("32")),
+            ver(List.of("3A")),
+            // Zcash https://github.com/zcash/zips/blob/master/protocol/protocol.pdf
+            // 5.6.1 Encodings of Addresses and Keys - Transparent Payment Addresses
+            // https://github.com/zcash/zcash/blob/master/src/chainparams.cpp
+            ver(List.of("1C", "BD")),
+            ver(List.of("1C", "BA")),
+            ver(List.of("1C", "B8")),
+            ver(List.of("1D", "25"))
         }),
-    Spend256View256DataCheck4Keccac256(null, 64, 63, 4,
+    //    Keccak256Last160("KECCAK256", 20, 0,
+    //        "KECCAK256", "new byte[0]",
+    //        "Arrays.copyOfRange(KECCAK256.FACTORY.hashRaw(data, offset, len), 12, 32)",
+    //        new Version[]{
+    //            // http://ethereum.stackexchange.com/questions/3542/how-are-ethereum-addresses-generated
+    //            ver(List.of("00", "78")) // '0x' in ASCII
+    //        }),
+    Spend256View256Check4Keccac256(null, 64, 4,
         "KECCAK256", "messageDigest.digest()",
         "java.util.Arrays.copyOfRange(data, offset, len)",
         new Version[]{
@@ -96,6 +112,24 @@ final class GenerateAddresses {
             ver(List.of("13")),
             ver(List.of("35")),
             ver(List.of("36"))
+        }),
+    Pay256Send256Check4DoubleSha256(null, 64, 4,
+        "SHA256", "messageDigest.digest(messageDigest.digest())",
+        "java.util.Arrays.copyOfRange(data, offset, len)",
+        new Version[]{
+            // Zcash https://github.com/zcash/zips/blob/master/protocol/protocol.pdf
+            // 5.6.3 Encodings of Addresses and Keys - Shielded Payment Addresses
+            ver(List.of("16", "9A")),
+            ver(List.of("16", "B6"))
+        }),
+    Pad4Spend252Check4DoubleSha256(null, 32, 4,
+        "SHA256", "messageDigest.digest()",
+        "java.util.Arrays.copyOfRange(data, offset, len)",
+        new Version[]{
+            // Zcash https://github.com/zcash/zips/blob/master/protocol/protocol.pdf
+            // 5.6.4 Encodings of Addresses and Keys - Spending Keys
+            ver(List.of("AB", "36")),
+            ver(List.of("AC", "08"))
         });
 
     public final String interfaceName;
@@ -110,7 +144,6 @@ final class GenerateAddresses {
 
     AddrFactory(final String digestHash,
         final int digestLength,
-        final int offsetLength,
         final int checksumLength,
         final String checksumHash,
         final String applyChecksumDigest,
@@ -119,7 +152,7 @@ final class GenerateAddresses {
       this.interfaceName = name();
       this.digestHash = digestHash;
       this.digestLength = digestLength;
-      this.offsetLength = offsetLength;
+      this.offsetLength = digestLength - 1;
       this.checksumLength = checksumLength;
       this.checksumHash = checksumHash;
       this.applyChecksumDigest = applyChecksumDigest;

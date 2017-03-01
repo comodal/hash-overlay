@@ -9,6 +9,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import systems.comodal.hash.KECCAK256;
 import systems.comodal.hash.addresses.Sha256RipeMd160Check4DoubleSha256.Version;
 import systems.comodal.hash.addresses.api.Addr;
 
@@ -35,7 +36,7 @@ public class AddrTest {
         0, spendView, 0, 32);
     System.arraycopy(Hex.decode("fad7d278ee9fedf0034da1812115c5a369d6bd67e1b076afbc4aee579a609ce3"),
         0, spendView, 32, 32);
-    final Addr addr = Spend256View256DataCheck4Keccac256.Version.x12.create(spendView);
+    final Addr addr = Spend256View256Check4Keccac256.Version.x12.create(spendView);
     final byte[] blah = addr.getChecksummedVerDigest();
     final StringBuilder address = new StringBuilder(95);
     for (int i = 0; i < blah.length; i += 8) {
