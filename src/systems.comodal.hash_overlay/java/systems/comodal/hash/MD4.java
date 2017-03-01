@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetMD4;
+import systems.comodal.hash.gen.OffsetMD4;
 import systems.comodal.hash.gen.MD4Value;
-import systems.comodal.hash.gen.LittleEndianOffsetMD4;
+import systems.comodal.hash.gen.ReverseMD4;
 
 public interface MD4 extends Hash {
 
@@ -39,12 +39,12 @@ public interface MD4 extends Hash {
 
     @Override
     public MD4 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetMD4(digest, offset);
+      return new OffsetMD4(digest, offset);
     }
 
     @Override
     public MD4 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetMD4(digest, offset);
+      return new ReverseMD4(digest, offset);
     }
 
     @Override

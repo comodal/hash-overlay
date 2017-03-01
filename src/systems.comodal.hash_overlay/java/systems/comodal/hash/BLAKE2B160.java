@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetBLAKE2B160;
+import systems.comodal.hash.gen.OffsetBLAKE2B160;
 import systems.comodal.hash.gen.BLAKE2B160Value;
-import systems.comodal.hash.gen.LittleEndianOffsetBLAKE2B160;
+import systems.comodal.hash.gen.ReverseBLAKE2B160;
 
 public interface BLAKE2B160 extends Hash {
 
@@ -39,12 +39,12 @@ public interface BLAKE2B160 extends Hash {
 
     @Override
     public BLAKE2B160 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetBLAKE2B160(digest, offset);
+      return new OffsetBLAKE2B160(digest, offset);
     }
 
     @Override
     public BLAKE2B160 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetBLAKE2B160(digest, offset);
+      return new ReverseBLAKE2B160(digest, offset);
     }
 
     @Override

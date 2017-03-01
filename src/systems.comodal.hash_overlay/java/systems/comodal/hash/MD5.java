@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetMD5;
+import systems.comodal.hash.gen.OffsetMD5;
 import systems.comodal.hash.gen.MD5Value;
-import systems.comodal.hash.gen.LittleEndianOffsetMD5;
+import systems.comodal.hash.gen.ReverseMD5;
 
 public interface MD5 extends Hash {
 
@@ -39,12 +39,12 @@ public interface MD5 extends Hash {
 
     @Override
     public MD5 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetMD5(digest, offset);
+      return new OffsetMD5(digest, offset);
     }
 
     @Override
     public MD5 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetMD5(digest, offset);
+      return new ReverseMD5(digest, offset);
     }
 
     @Override

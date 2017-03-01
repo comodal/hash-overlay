@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetWHIRLPOOL;
+import systems.comodal.hash.gen.OffsetWHIRLPOOL;
 import systems.comodal.hash.gen.WHIRLPOOLValue;
-import systems.comodal.hash.gen.LittleEndianOffsetWHIRLPOOL;
+import systems.comodal.hash.gen.ReverseWHIRLPOOL;
 
 public interface WHIRLPOOL extends Hash {
 
@@ -39,12 +39,12 @@ public interface WHIRLPOOL extends Hash {
 
     @Override
     public WHIRLPOOL overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetWHIRLPOOL(digest, offset);
+      return new OffsetWHIRLPOOL(digest, offset);
     }
 
     @Override
     public WHIRLPOOL reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetWHIRLPOOL(digest, offset);
+      return new ReverseWHIRLPOOL(digest, offset);
     }
 
     @Override

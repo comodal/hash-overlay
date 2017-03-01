@@ -5,8 +5,8 @@ import systems.comodal.hash.RIPEMD160;
 import systems.comodal.hash.SHA256;
 import systems.comodal.hash.addresses.api.Addr;
 import systems.comodal.hash.addresses.api.AddrFactory;
-import systems.comodal.hash.addresses.gen.V0Sha256RipeMd160Check4DoubleSha256Offset;
-import systems.comodal.hash.addresses.gen.V0Sha256RipeMd160Check4DoubleSha256Reverse;
+import systems.comodal.hash.addresses.gen.OffsetV0Sha256RipeMd160Check4DoubleSha256;
+import systems.comodal.hash.addresses.gen.ReverseV0Sha256RipeMd160Check4DoubleSha256;
 import systems.comodal.hash.addresses.gen.V0Sha256RipeMd160Check4DoubleSha256Value;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
@@ -31,13 +31,13 @@ public interface Sha256RipeMd160Check4DoubleSha256 extends Addr {
 
       @Override
       public Sha256RipeMd160Check4DoubleSha256 overlay(final byte[] digest, final int offset) {
-        return new V0Sha256RipeMd160Check4DoubleSha256Offset(digest, offset);
+        return new OffsetV0Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
 
       @Override
       public Sha256RipeMd160Check4DoubleSha256 reverseOverlay(final byte[] digest,
           final int offset) {
-        return new V0Sha256RipeMd160Check4DoubleSha256Reverse(digest, offset);
+        return new ReverseV0Sha256RipeMd160Check4DoubleSha256(digest, offset);
       }
     };
 

@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetTIGER;
+import systems.comodal.hash.gen.OffsetTIGER;
 import systems.comodal.hash.gen.TIGERValue;
-import systems.comodal.hash.gen.LittleEndianOffsetTIGER;
+import systems.comodal.hash.gen.ReverseTIGER;
 
 public interface TIGER extends Hash {
 
@@ -39,12 +39,12 @@ public interface TIGER extends Hash {
 
     @Override
     public TIGER overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetTIGER(digest, offset);
+      return new OffsetTIGER(digest, offset);
     }
 
     @Override
     public TIGER reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetTIGER(digest, offset);
+      return new ReverseTIGER(digest, offset);
     }
 
     @Override

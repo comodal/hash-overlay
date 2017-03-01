@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetGOST3411;
+import systems.comodal.hash.gen.OffsetGOST3411;
 import systems.comodal.hash.gen.GOST3411Value;
-import systems.comodal.hash.gen.LittleEndianOffsetGOST3411;
+import systems.comodal.hash.gen.ReverseGOST3411;
 
 public interface GOST3411 extends Hash {
 
@@ -39,12 +39,12 @@ public interface GOST3411 extends Hash {
 
     @Override
     public GOST3411 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetGOST3411(digest, offset);
+      return new OffsetGOST3411(digest, offset);
     }
 
     @Override
     public GOST3411 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetGOST3411(digest, offset);
+      return new ReverseGOST3411(digest, offset);
     }
 
     @Override

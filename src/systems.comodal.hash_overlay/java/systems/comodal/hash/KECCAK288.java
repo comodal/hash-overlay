@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetKECCAK288;
+import systems.comodal.hash.gen.OffsetKECCAK288;
 import systems.comodal.hash.gen.KECCAK288Value;
-import systems.comodal.hash.gen.LittleEndianOffsetKECCAK288;
+import systems.comodal.hash.gen.ReverseKECCAK288;
 
 public interface KECCAK288 extends Hash {
 
@@ -39,12 +39,12 @@ public interface KECCAK288 extends Hash {
 
     @Override
     public KECCAK288 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetKECCAK288(digest, offset);
+      return new OffsetKECCAK288(digest, offset);
     }
 
     @Override
     public KECCAK288 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetKECCAK288(digest, offset);
+      return new ReverseKECCAK288(digest, offset);
     }
 
     @Override

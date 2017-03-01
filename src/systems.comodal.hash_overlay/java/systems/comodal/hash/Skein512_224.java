@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetSkein512_224;
+import systems.comodal.hash.gen.OffsetSkein512_224;
 import systems.comodal.hash.gen.Skein512_224Value;
-import systems.comodal.hash.gen.LittleEndianOffsetSkein512_224;
+import systems.comodal.hash.gen.ReverseSkein512_224;
 
 public interface Skein512_224 extends Hash {
 
@@ -39,12 +39,12 @@ public interface Skein512_224 extends Hash {
 
     @Override
     public Skein512_224 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetSkein512_224(digest, offset);
+      return new OffsetSkein512_224(digest, offset);
     }
 
     @Override
     public Skein512_224 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetSkein512_224(digest, offset);
+      return new ReverseSkein512_224(digest, offset);
     }
 
     @Override

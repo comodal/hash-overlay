@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetRIPEMD160;
+import systems.comodal.hash.gen.OffsetRIPEMD160;
 import systems.comodal.hash.gen.RIPEMD160Value;
-import systems.comodal.hash.gen.LittleEndianOffsetRIPEMD160;
+import systems.comodal.hash.gen.ReverseRIPEMD160;
 
 public interface RIPEMD160 extends Hash {
 
@@ -39,12 +39,12 @@ public interface RIPEMD160 extends Hash {
 
     @Override
     public RIPEMD160 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetRIPEMD160(digest, offset);
+      return new OffsetRIPEMD160(digest, offset);
     }
 
     @Override
     public RIPEMD160 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetRIPEMD160(digest, offset);
+      return new ReverseRIPEMD160(digest, offset);
     }
 
     @Override

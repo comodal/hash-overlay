@@ -3,9 +3,9 @@ package systems.comodal.hash;
 import systems.comodal.hash.api.Hash;
 import systems.comodal.hash.api.HashFactory;
 import systems.comodal.hash.base.BaseFactory;
-import systems.comodal.hash.gen.BigEndianOffsetSHA3_256;
+import systems.comodal.hash.gen.OffsetSHA3_256;
 import systems.comodal.hash.gen.SHA3_256Value;
-import systems.comodal.hash.gen.LittleEndianOffsetSHA3_256;
+import systems.comodal.hash.gen.ReverseSHA3_256;
 
 public interface SHA3_256 extends Hash {
 
@@ -39,12 +39,12 @@ public interface SHA3_256 extends Hash {
 
     @Override
     public SHA3_256 overlay(final byte[] digest, final int offset) {
-      return new BigEndianOffsetSHA3_256(digest, offset);
+      return new OffsetSHA3_256(digest, offset);
     }
 
     @Override
     public SHA3_256 reverseOverlay(final byte[] digest, final int offset) {
-      return new LittleEndianOffsetSHA3_256(digest, offset);
+      return new ReverseSHA3_256(digest, offset);
     }
 
     @Override
