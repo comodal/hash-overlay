@@ -39,7 +39,8 @@ public interface MD5 extends Hash {
 
     @Override
     public MD5 overlay(final byte[] digest, final int offset) {
-      return new OffsetMD5(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetMD5(digest, offset);
     }
 
     @Override

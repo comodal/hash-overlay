@@ -39,7 +39,8 @@ public interface SHA3_512 extends Hash {
 
     @Override
     public SHA3_512 overlay(final byte[] digest, final int offset) {
-      return new OffsetSHA3_512(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSHA3_512(digest, offset);
     }
 
     @Override

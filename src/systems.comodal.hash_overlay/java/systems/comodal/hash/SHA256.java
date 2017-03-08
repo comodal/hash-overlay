@@ -39,7 +39,8 @@ public interface SHA256 extends Hash {
 
     @Override
     public SHA256 overlay(final byte[] digest, final int offset) {
-      return new OffsetSHA256(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSHA256(digest, offset);
     }
 
     @Override

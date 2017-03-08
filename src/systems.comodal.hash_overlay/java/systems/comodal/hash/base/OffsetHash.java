@@ -61,6 +61,11 @@ public abstract class OffsetHash implements Hash {
   }
 
   @Override
+  public boolean isDiscrete() {
+    return false;
+  }
+
+  @Override
   public BigInteger toBigInteger() {
     return new BigInteger(1, data, offset, getDigestLength());
   }

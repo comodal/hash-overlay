@@ -39,7 +39,8 @@ public interface RIPEMD256 extends Hash {
 
     @Override
     public RIPEMD256 overlay(final byte[] digest, final int offset) {
-      return new OffsetRIPEMD256(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetRIPEMD256(digest, offset);
     }
 
     @Override

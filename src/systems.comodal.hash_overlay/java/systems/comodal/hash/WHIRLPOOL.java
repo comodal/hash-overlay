@@ -39,7 +39,8 @@ public interface WHIRLPOOL extends Hash {
 
     @Override
     public WHIRLPOOL overlay(final byte[] digest, final int offset) {
-      return new OffsetWHIRLPOOL(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetWHIRLPOOL(digest, offset);
     }
 
     @Override

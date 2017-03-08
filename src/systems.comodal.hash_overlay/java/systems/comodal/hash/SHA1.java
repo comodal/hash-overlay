@@ -39,7 +39,8 @@ public interface SHA1 extends Hash {
 
     @Override
     public SHA1 overlay(final byte[] digest, final int offset) {
-      return new OffsetSHA1(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSHA1(digest, offset);
     }
 
     @Override

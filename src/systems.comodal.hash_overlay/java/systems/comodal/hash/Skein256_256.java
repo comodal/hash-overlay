@@ -39,7 +39,8 @@ public interface Skein256_256 extends Hash {
 
     @Override
     public Skein256_256 overlay(final byte[] digest, final int offset) {
-      return new OffsetSkein256_256(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSkein256_256(digest, offset);
     }
 
     @Override

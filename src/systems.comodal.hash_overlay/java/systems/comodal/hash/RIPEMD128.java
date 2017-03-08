@@ -39,7 +39,8 @@ public interface RIPEMD128 extends Hash {
 
     @Override
     public RIPEMD128 overlay(final byte[] digest, final int offset) {
-      return new OffsetRIPEMD128(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetRIPEMD128(digest, offset);
     }
 
     @Override

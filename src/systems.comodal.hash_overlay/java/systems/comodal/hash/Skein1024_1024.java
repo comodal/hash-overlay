@@ -39,7 +39,8 @@ public interface Skein1024_1024 extends Hash {
 
     @Override
     public Skein1024_1024 overlay(final byte[] digest, final int offset) {
-      return new OffsetSkein1024_1024(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSkein1024_1024(digest, offset);
     }
 
     @Override

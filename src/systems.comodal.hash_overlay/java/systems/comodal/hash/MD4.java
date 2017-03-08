@@ -39,7 +39,8 @@ public interface MD4 extends Hash {
 
     @Override
     public MD4 overlay(final byte[] digest, final int offset) {
-      return new OffsetMD4(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetMD4(digest, offset);
     }
 
     @Override

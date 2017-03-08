@@ -39,7 +39,8 @@ public interface SHA3_384 extends Hash {
 
     @Override
     public SHA3_384 overlay(final byte[] digest, final int offset) {
-      return new OffsetSHA3_384(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSHA3_384(digest, offset);
     }
 
     @Override

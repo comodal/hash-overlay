@@ -39,7 +39,8 @@ public interface SHA3_256 extends Hash {
 
     @Override
     public SHA3_256 overlay(final byte[] digest, final int offset) {
-      return new OffsetSHA3_256(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSHA3_256(digest, offset);
     }
 
     @Override

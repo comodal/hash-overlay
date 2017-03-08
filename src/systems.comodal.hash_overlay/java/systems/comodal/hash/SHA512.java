@@ -39,7 +39,8 @@ public interface SHA512 extends Hash {
 
     @Override
     public SHA512 overlay(final byte[] digest, final int offset) {
-      return new OffsetSHA512(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSHA512(digest, offset);
     }
 
     @Override

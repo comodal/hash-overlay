@@ -39,7 +39,8 @@ public interface BLAKE2B384 extends Hash {
 
     @Override
     public BLAKE2B384 overlay(final byte[] digest, final int offset) {
-      return new OffsetBLAKE2B384(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetBLAKE2B384(digest, offset);
     }
 
     @Override

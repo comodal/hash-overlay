@@ -39,6 +39,8 @@ public interface Hash {
    */
   Hash getDiscrete();
 
+  boolean isDiscrete();
+
   /**
    * If the current Hash is already discrete this method should return the backing array.
    *

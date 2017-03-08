@@ -39,7 +39,8 @@ public interface {{hash}} extends Hash {
 
     @Override
     public {{hash}} overlay(final byte[] digest, final int offset) {
-      return new Offset{{hash}}(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new Offset{{hash}}(digest, offset);
     }
 
     @Override

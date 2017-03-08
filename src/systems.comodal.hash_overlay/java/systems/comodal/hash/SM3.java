@@ -39,7 +39,8 @@ public interface SM3 extends Hash {
 
     @Override
     public SM3 overlay(final byte[] digest, final int offset) {
-      return new OffsetSM3(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetSM3(digest, offset);
     }
 
     @Override

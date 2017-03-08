@@ -39,7 +39,8 @@ public interface TIGER extends Hash {
 
     @Override
     public TIGER overlay(final byte[] digest, final int offset) {
-      return new OffsetTIGER(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetTIGER(digest, offset);
     }
 
     @Override

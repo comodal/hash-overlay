@@ -39,7 +39,8 @@ public interface KECCAK288 extends Hash {
 
     @Override
     public KECCAK288 overlay(final byte[] digest, final int offset) {
-      return new OffsetKECCAK288(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetKECCAK288(digest, offset);
     }
 
     @Override

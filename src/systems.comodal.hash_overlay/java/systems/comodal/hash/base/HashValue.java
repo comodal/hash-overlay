@@ -59,6 +59,11 @@ public abstract class HashValue implements Hash {
   }
 
   @Override
+  public boolean isDiscrete() {
+    return true;
+  }
+
+  @Override
   public BigInteger toBigInteger() {
     return new BigInteger(1, data);
   }

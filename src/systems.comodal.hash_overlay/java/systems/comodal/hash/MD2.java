@@ -39,7 +39,8 @@ public interface MD2 extends Hash {
 
     @Override
     public MD2 overlay(final byte[] digest, final int offset) {
-      return new OffsetMD2(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetMD2(digest, offset);
     }
 
     @Override

@@ -39,7 +39,8 @@ public interface GOST3411 extends Hash {
 
     @Override
     public GOST3411 overlay(final byte[] digest, final int offset) {
-      return new OffsetGOST3411(digest, offset);
+      return offset == 0 && digest.length == getDigestLength()
+          ? overlay(digest) : new OffsetGOST3411(digest, offset);
     }
 
     @Override
