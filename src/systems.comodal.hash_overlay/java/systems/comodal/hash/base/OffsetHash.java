@@ -35,7 +35,8 @@ public abstract class OffsetHash implements Hash {
     return offset;
   }
 
-  private int getOffsetLength() {
+  @Override
+  public int getOffsetLength() {
     return getFactory().getOffsetLength();
   }
 

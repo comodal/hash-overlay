@@ -16,6 +16,13 @@ public interface Hash {
 
   int getDigestLength();
 
+  /**
+   * Useful for jumping to the opposite end of the hash in the backing byte array.
+   *
+   * @return getDigestLength() - 1
+   */
+  int getOffsetLength();
+
   byte[] copy();
 
   byte[] copyReverse();
@@ -35,8 +42,8 @@ public interface Hash {
   /**
    * If the current Hash is already discrete this method should return the backing array.
    *
-   * @return A byte array with a digestLength exactly the same
-   * as the number of bytes that constitute the digest.
+   * @return A byte array with a digestLength exactly the same as the number of bytes that
+   * constitute the digest.
    */
   byte[] getDiscreteRaw();
 

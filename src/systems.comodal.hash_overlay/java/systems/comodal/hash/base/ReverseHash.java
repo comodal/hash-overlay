@@ -34,7 +34,8 @@ public abstract class ReverseHash implements Hash {
     return offset;
   }
 
-  private int getOffsetLength() {
+  @Override
+  public int getOffsetLength() {
     return getFactory().getOffsetLength();
   }
 

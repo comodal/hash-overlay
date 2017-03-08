@@ -33,7 +33,8 @@ public abstract class HashValue implements Hash {
     return 0;
   }
 
-  private int getOffsetLength() {
+  @Override
+  public int getOffsetLength() {
     return getFactory().getOffsetLength();
   }
 
