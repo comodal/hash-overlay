@@ -12,7 +12,7 @@ public final class OffsetMD4 extends OffsetHash implements MD4 {
   }
 
   @Override
-  public HashFactory<MD4> getFactory() {
+  public HashFactory<MD4> getHashFactory() {
     return FACTORY;
   }
 

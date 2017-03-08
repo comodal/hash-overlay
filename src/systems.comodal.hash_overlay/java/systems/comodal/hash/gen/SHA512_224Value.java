@@ -12,7 +12,7 @@ public final class SHA512_224Value extends HashValue implements SHA512_224 {
   }
 
   @Override
-  public HashFactory<SHA512_224> getFactory() {
+  public HashFactory<SHA512_224> getHashFactory() {
     return FACTORY;
   }
 

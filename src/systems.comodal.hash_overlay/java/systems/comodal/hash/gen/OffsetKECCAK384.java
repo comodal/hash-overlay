@@ -12,7 +12,7 @@ public final class OffsetKECCAK384 extends OffsetHash implements KECCAK384 {
   }
 
   @Override
-  public HashFactory<KECCAK384> getFactory() {
+  public HashFactory<KECCAK384> getHashFactory() {
     return FACTORY;
   }
 

@@ -12,7 +12,7 @@ public final class ReverseKECCAK288 extends ReverseHash implements KECCAK288 {
   }
 
   @Override
-  public HashFactory<KECCAK288> getFactory() {
+  public HashFactory<KECCAK288> getHashFactory() {
     return FACTORY;
   }
 

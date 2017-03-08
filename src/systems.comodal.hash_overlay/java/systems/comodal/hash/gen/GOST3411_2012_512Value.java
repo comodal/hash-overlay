@@ -12,7 +12,7 @@ public final class GOST3411_2012_512Value extends HashValue implements GOST3411_
   }
 
   @Override
-  public HashFactory<GOST3411_2012_512> getFactory() {
+  public HashFactory<GOST3411_2012_512> getHashFactory() {
     return FACTORY;
   }
 

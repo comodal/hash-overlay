@@ -12,7 +12,7 @@ public final class Skein512_128Value extends HashValue implements Skein512_128 {
   }
 
   @Override
-  public HashFactory<Skein512_128> getFactory() {
+  public HashFactory<Skein512_128> getHashFactory() {
     return FACTORY;
   }
 

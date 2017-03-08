@@ -12,7 +12,7 @@ public final class SHA3_256Value extends HashValue implements SHA3_256 {
   }
 
   @Override
-  public HashFactory<SHA3_256> getFactory() {
+  public HashFactory<SHA3_256> getHashFactory() {
     return FACTORY;
   }
 

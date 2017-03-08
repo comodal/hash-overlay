@@ -6,13 +6,13 @@ import java.security.MessageDigest;
 
 public interface Hash {
 
-  byte[] getBackingData();
+  byte[] getBackingDigestData();
 
-  int getOffset();
+  int getDigestOffset();
 
-  ByteOrder getByteOrder();
+  ByteOrder getDigestByteOrder();
 
-  HashFactory<? extends Hash> getFactory();
+  HashFactory<? extends Hash> getHashFactory();
 
   int getDigestLength();
 
@@ -21,15 +21,15 @@ public interface Hash {
    *
    * @return getDigestLength() - 1
    */
-  int getOffsetLength();
+  int getDigestOffsetLength();
 
-  byte[] copy();
+  byte[] copyDigest();
 
-  byte[] copyReverse();
+  byte[] copyDigestReverse();
 
-  void copyTo(final byte[] to, final int offset);
+  void copyDigestTo(final byte[] to, final int offset);
 
-  void copyToReverse(final byte[] to, final int offset);
+  void copyDigestToReverse(final byte[] to, final int offset);
 
   /**
    * If the current Hash is already discrete this method should return itself.
@@ -37,9 +37,9 @@ public interface Hash {
    * @return A Hash instance backed by a dedicated byte array with a digestLength exactly the same
    * as the number of bytes that constitute the digest.
    */
-  Hash getDiscrete();
+  Hash getDiscreteHash();
 
-  boolean isDiscrete();
+  boolean isDigestDiscrete();
 
   /**
    * If the current Hash is already discrete this method should return the backing array.
@@ -47,13 +47,13 @@ public interface Hash {
    * @return A byte array with a digestLength exactly the same as the number of bytes that
    * constitute the digest.
    */
-  byte[] getDiscreteRaw();
+  byte[] getDiscreteDigest();
 
-  BigInteger toBigInteger();
+  BigInteger digestToBigInteger();
 
-  void update(final MessageDigest messageDigest);
+  void updateDigest(final MessageDigest messageDigest);
 
-  void updateReverse(final MessageDigest messageDigest);
+  void updateDigestReverse(final MessageDigest messageDigest);
 
   boolean digestEquals(final byte[] data);
 
@@ -61,7 +61,7 @@ public interface Hash {
 
   boolean digestEqualsReverse(final byte[] data, int offset);
 
-  int compareTo(final Hash other);
+  int compareHashTo(final Hash other);
 
   int compareDigestTo(final byte[] other);
 

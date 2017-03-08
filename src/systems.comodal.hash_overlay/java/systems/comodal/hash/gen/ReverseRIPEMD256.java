@@ -12,7 +12,7 @@ public final class ReverseRIPEMD256 extends ReverseHash implements RIPEMD256 {
   }
 
   @Override
-  public HashFactory<RIPEMD256> getFactory() {
+  public HashFactory<RIPEMD256> getHashFactory() {
     return FACTORY;
   }
 

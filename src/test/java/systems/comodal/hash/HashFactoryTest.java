@@ -50,17 +50,17 @@ public class HashFactoryTest {
   public void testCopy() {
     factories.forEach(hashFactory -> {
       final Hash copy = hashFactory.copy(digest, 0);
-      assertArrayEquals(digest, copy.getBackingData());
-      assertFalse(digest == copy.getBackingData());
-      assertTrue(copy.getDiscreteRaw() == copy.getBackingData());
+      assertArrayEquals(digest, copy.getBackingDigestData());
+      assertFalse(digest == copy.getBackingDigestData());
+      assertTrue(copy.getDiscreteDigest() == copy.getBackingDigestData());
       assertTrue(copy.digestEquals(digest));
 
       final byte[] offset = new byte[digest.length * 2];
       System.arraycopy(digest, 0, offset, 3, digest.length);
       final Hash offsetHash = hashFactory.copy(offset, 3);
-      assertArrayEquals(digest, offsetHash.getBackingData());
-      assertFalse(offset == copy.getBackingData());
-      assertTrue(copy.getDiscreteRaw() == copy.getBackingData());
+      assertArrayEquals(digest, offsetHash.getBackingDigestData());
+      assertFalse(offset == copy.getBackingDigestData());
+      assertTrue(copy.getDiscreteDigest() == copy.getBackingDigestData());
       assertTrue(copy.digestEquals(offset, 3));
     });
   }

@@ -12,7 +12,7 @@ public final class OffsetSkein1024_512 extends OffsetHash implements Skein1024_5
   }
 
   @Override
-  public HashFactory<Skein1024_512> getFactory() {
+  public HashFactory<Skein1024_512> getHashFactory() {
     return FACTORY;
   }
 

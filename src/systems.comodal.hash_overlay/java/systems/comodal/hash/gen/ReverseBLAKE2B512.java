@@ -12,7 +12,7 @@ public final class ReverseBLAKE2B512 extends ReverseHash implements BLAKE2B512 {
   }
 
   @Override
-  public HashFactory<BLAKE2B512> getFactory() {
+  public HashFactory<BLAKE2B512> getHashFactory() {
     return FACTORY;
   }
 

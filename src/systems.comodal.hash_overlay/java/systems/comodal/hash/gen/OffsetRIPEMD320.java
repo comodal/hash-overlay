@@ -12,7 +12,7 @@ public final class OffsetRIPEMD320 extends OffsetHash implements RIPEMD320 {
   }
 
   @Override
-  public HashFactory<RIPEMD320> getFactory() {
+  public HashFactory<RIPEMD320> getHashFactory() {
     return FACTORY;
   }
 

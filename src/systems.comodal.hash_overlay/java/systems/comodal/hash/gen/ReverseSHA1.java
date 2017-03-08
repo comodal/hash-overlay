@@ -12,7 +12,7 @@ public final class ReverseSHA1 extends ReverseHash implements SHA1 {
   }
 
   @Override
-  public HashFactory<SHA1> getFactory() {
+  public HashFactory<SHA1> getHashFactory() {
     return FACTORY;
   }
 

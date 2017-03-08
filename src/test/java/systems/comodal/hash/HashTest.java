@@ -152,46 +152,46 @@ public class HashTest {
     factories.forEach(hashFactory -> {
       final boolean gt = Arrays.compareUnsigned(digest, digestB) > 0;
 
-      assertEquals(gt, discrete.compareTo(discreteB) > 0);
-      assertEquals(gt, discrete.compareTo(offsetB) > 0);
-      assertEquals(gt, discrete.compareTo(reverseOverlayB) > 0);
-      assertEquals(gt, discrete.compareTo(offsetReverseB) > 0);
+      assertEquals(gt, discrete.compareHashTo(discreteB) > 0);
+      assertEquals(gt, discrete.compareHashTo(offsetB) > 0);
+      assertEquals(gt, discrete.compareHashTo(reverseOverlayB) > 0);
+      assertEquals(gt, discrete.compareHashTo(offsetReverseB) > 0);
 
-      assertEquals(gt, offset.compareTo(offsetB) > 0);
-      assertEquals(gt, offset.compareTo(discreteB) > 0);
-      assertEquals(gt, offset.compareTo(offsetReverseB) > 0);
-      assertEquals(gt, offset.compareTo(reverseOverlayB) > 0);
+      assertEquals(gt, offset.compareHashTo(offsetB) > 0);
+      assertEquals(gt, offset.compareHashTo(discreteB) > 0);
+      assertEquals(gt, offset.compareHashTo(offsetReverseB) > 0);
+      assertEquals(gt, offset.compareHashTo(reverseOverlayB) > 0);
 
-      assertEquals(gt, reverseOverlay.compareTo(reverseOverlayB) > 0);
-      assertEquals(gt, reverseOverlay.compareTo(discreteB) > 0);
-      assertEquals(gt, reverseOverlay.compareTo(offsetB) > 0);
-      assertEquals(gt, reverseOverlay.compareTo(offsetReverseB) > 0);
+      assertEquals(gt, reverseOverlay.compareHashTo(reverseOverlayB) > 0);
+      assertEquals(gt, reverseOverlay.compareHashTo(discreteB) > 0);
+      assertEquals(gt, reverseOverlay.compareHashTo(offsetB) > 0);
+      assertEquals(gt, reverseOverlay.compareHashTo(offsetReverseB) > 0);
 
-      assertEquals(gt, offsetReverse.compareTo(offsetReverseB) > 0);
-      assertEquals(gt, offsetReverse.compareTo(discreteB) > 0);
-      assertEquals(gt, offsetReverse.compareTo(offsetB) > 0);
-      assertEquals(gt, offsetReverse.compareTo(reverseOverlayB) > 0);
+      assertEquals(gt, offsetReverse.compareHashTo(offsetReverseB) > 0);
+      assertEquals(gt, offsetReverse.compareHashTo(discreteB) > 0);
+      assertEquals(gt, offsetReverse.compareHashTo(offsetB) > 0);
+      assertEquals(gt, offsetReverse.compareHashTo(reverseOverlayB) > 0);
 
-      assertEquals(0, discrete.compareTo(discrete));
-      assertEquals(0, offset.compareTo(offset));
-      assertEquals(0, reverseOverlay.compareTo(reverseOverlay));
-      assertEquals(0, offsetReverse.compareTo(offsetReverse));
+      assertEquals(0, discrete.compareHashTo(discrete));
+      assertEquals(0, offset.compareHashTo(offset));
+      assertEquals(0, reverseOverlay.compareHashTo(reverseOverlay));
+      assertEquals(0, offsetReverse.compareHashTo(offsetReverse));
 
-      assertEquals(0, discrete.compareTo(offset));
-      assertEquals(0, discrete.compareTo(reverseOverlay));
-      assertEquals(0, discrete.compareTo(offsetReverse));
+      assertEquals(0, discrete.compareHashTo(offset));
+      assertEquals(0, discrete.compareHashTo(reverseOverlay));
+      assertEquals(0, discrete.compareHashTo(offsetReverse));
 
-      assertEquals(0, offset.compareTo(discrete));
-      assertEquals(0, offset.compareTo(offsetReverse));
-      assertEquals(0, offset.compareTo(reverseOverlay));
+      assertEquals(0, offset.compareHashTo(discrete));
+      assertEquals(0, offset.compareHashTo(offsetReverse));
+      assertEquals(0, offset.compareHashTo(reverseOverlay));
 
-      assertEquals(0, reverseOverlay.compareTo(discrete));
-      assertEquals(0, reverseOverlay.compareTo(offset));
-      assertEquals(0, reverseOverlay.compareTo(offsetReverse));
+      assertEquals(0, reverseOverlay.compareHashTo(discrete));
+      assertEquals(0, reverseOverlay.compareHashTo(offset));
+      assertEquals(0, reverseOverlay.compareHashTo(offsetReverse));
 
-      assertEquals(0, offsetReverse.compareTo(discrete));
-      assertEquals(0, offsetReverse.compareTo(offset));
-      assertEquals(0, offsetReverse.compareTo(reverseOverlay));
+      assertEquals(0, offsetReverse.compareHashTo(discrete));
+      assertEquals(0, offsetReverse.compareHashTo(offset));
+      assertEquals(0, offsetReverse.compareHashTo(reverseOverlay));
     });
   }
 
@@ -217,21 +217,21 @@ public class HashTest {
   @Test
   public void testToBigInteger() {
     factories.forEach(hashFactory -> {
-      assertEquals(discrete.toBigInteger(), offset.toBigInteger());
-      assertEquals(offset.toBigInteger(), offset2.toBigInteger());
-      assertEquals(offset2.toBigInteger(), reverseOverlay.toBigInteger());
-      assertEquals(reverseOverlay.toBigInteger(), offsetReverse.toBigInteger());
+      assertEquals(discrete.digestToBigInteger(), offset.digestToBigInteger());
+      assertEquals(offset.digestToBigInteger(), offset2.digestToBigInteger());
+      assertEquals(offset2.digestToBigInteger(), reverseOverlay.digestToBigInteger());
+      assertEquals(reverseOverlay.digestToBigInteger(), offsetReverse.digestToBigInteger());
     });
   }
 
   @Test
   public void testCopy() {
     factories.forEach(hashFactory -> {
-      assertArrayEquals(digest, discrete.copy());
-      assertArrayEquals(digest, offset.copy());
-      assertArrayEquals(digest, offset2.copy());
-      assertArrayEquals(digest, reverseOverlay.copy());
-      assertArrayEquals(digest, offsetReverse.copy());
+      assertArrayEquals(digest, discrete.copyDigest());
+      assertArrayEquals(digest, offset.copyDigest());
+      assertArrayEquals(digest, offset2.copyDigest());
+      assertArrayEquals(digest, reverseOverlay.copyDigest());
+      assertArrayEquals(digest, offsetReverse.copyDigest());
     });
   }
 
@@ -243,15 +243,15 @@ public class HashTest {
       final byte[] test = new byte[expected.length];
       System.arraycopy(digest, 0, expected, testOffset, digest.length);
 
-      discrete.copyTo(test, testOffset);
+      discrete.copyDigestTo(test, testOffset);
       assertArrayEquals(expected, test);
-      offset.copyTo(test, testOffset);
+      offset.copyDigestTo(test, testOffset);
       assertArrayEquals(expected, test);
-      offset2.copyTo(test, testOffset);
+      offset2.copyDigestTo(test, testOffset);
       assertArrayEquals(expected, test);
-      reverseOverlay.copyTo(test, testOffset);
+      reverseOverlay.copyDigestTo(test, testOffset);
       assertArrayEquals(expected, test);
-      offsetReverse.copyTo(test, testOffset);
+      offsetReverse.copyDigestTo(test, testOffset);
       assertArrayEquals(expected, test);
     });
   }
@@ -260,11 +260,11 @@ public class HashTest {
   public void testCopyReverse() {
     factories.forEach(hashFactory -> {
       final byte[] expected = HashFactory.copyReverse(digest);
-      assertArrayEquals(expected, discrete.copyReverse());
-      assertArrayEquals(expected, offset.copyReverse());
-      assertArrayEquals(expected, offset2.copyReverse());
-      assertArrayEquals(expected, reverseOverlay.copyReverse());
-      assertArrayEquals(expected, offsetReverse.copyReverse());
+      assertArrayEquals(expected, discrete.copyDigestReverse());
+      assertArrayEquals(expected, offset.copyDigestReverse());
+      assertArrayEquals(expected, offset2.copyDigestReverse());
+      assertArrayEquals(expected, reverseOverlay.copyDigestReverse());
+      assertArrayEquals(expected, offsetReverse.copyDigestReverse());
     });
   }
 
@@ -278,15 +278,15 @@ public class HashTest {
       System.arraycopy(reverseDigest, 0, expected,
           expected.length - (digest.length + testOffset - 1), digest.length);
 
-      discrete.copyToReverse(test, expected.length - testOffset);
+      discrete.copyDigestToReverse(test, expected.length - testOffset);
       assertArrayEquals(expected, test);
-      offset.copyToReverse(test, expected.length - testOffset);
+      offset.copyDigestToReverse(test, expected.length - testOffset);
       assertArrayEquals(expected, test);
-      offset2.copyToReverse(test, expected.length - testOffset);
+      offset2.copyDigestToReverse(test, expected.length - testOffset);
       assertArrayEquals(expected, test);
-      reverseOverlay.copyToReverse(test, expected.length - testOffset);
+      reverseOverlay.copyDigestToReverse(test, expected.length - testOffset);
       assertArrayEquals(expected, test);
-      offsetReverse.copyToReverse(test, expected.length - testOffset);
+      offsetReverse.copyDigestToReverse(test, expected.length - testOffset);
       assertArrayEquals(expected, test);
     });
   }
@@ -296,15 +296,15 @@ public class HashTest {
     factories.forEach(hashFactory -> {
       final MessageDigest msgDigest = hashFactory.getMessageDigest();
       final byte[] expected = msgDigest.digest(HashFactory.copyReverse(digest));
-      discrete.updateReverse(msgDigest);
+      discrete.updateDigestReverse(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      offset.updateReverse(msgDigest);
+      offset.updateDigestReverse(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      offset2.updateReverse(msgDigest);
+      offset2.updateDigestReverse(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      reverseOverlay.updateReverse(msgDigest);
+      reverseOverlay.updateDigestReverse(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      offsetReverse.updateReverse(msgDigest);
+      offsetReverse.updateDigestReverse(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
     });
   }
@@ -314,15 +314,15 @@ public class HashTest {
     factories.forEach(hashFactory -> {
       final MessageDigest msgDigest = hashFactory.getMessageDigest();
       final byte[] expected = msgDigest.digest(digest);
-      discrete.update(msgDigest);
+      discrete.updateDigest(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      offset.update(msgDigest);
+      offset.updateDigest(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      offset2.update(msgDigest);
+      offset2.updateDigest(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      reverseOverlay.update(msgDigest);
+      reverseOverlay.updateDigest(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
-      offsetReverse.update(msgDigest);
+      offsetReverse.updateDigest(msgDigest);
       assertArrayEquals(expected, msgDigest.digest());
     });
   }
@@ -341,42 +341,42 @@ public class HashTest {
 
   private void testByteOrder(final byte[] expected, final byte[] reverseExpected,
       final Hash hash) {
-    final byte[] backingArray = hash.getBackingData();
-    if (hash.getByteOrder() == ByteOrder.LITTLE_ENDIAN) {
+    final byte[] backingArray = hash.getBackingDigestData();
+    if (hash.getDigestByteOrder() == ByteOrder.LITTLE_ENDIAN) {
       Arrays.equals(expected, 0, expected.length,
-          backingArray, hash.getOffset(), hash.getOffset() + hash.getDigestLength());
+          backingArray, hash.getDigestOffset(), hash.getDigestOffset() + hash.getDigestLength());
     } else {
       Arrays.equals(reverseExpected, 0, expected.length,
-          backingArray, hash.getOffset() - (hash.getDigestLength() - 1), hash.getOffset() + 1);
+          backingArray, hash.getDigestOffset() - (hash.getDigestLength() - 1), hash.getDigestOffset() + 1);
     }
   }
 
   @Test
   public void testGetDiscrete() {
     factories.forEach(hashFactory -> {
-      assertTrue(discrete == discrete.getDiscrete());
-      assertEquals(discrete, discrete.getDiscrete());
-      assertTrue(digest == discrete.getDiscreteRaw());
+      assertTrue(discrete == discrete.getDiscreteHash());
+      assertEquals(discrete, discrete.getDiscreteHash());
+      assertTrue(digest == discrete.getDiscreteDigest());
 
-      assertFalse(offset == offset.getDiscrete());
-      assertEquals(offset, offset.getDiscrete());
-      assertFalse(digest == offset.getDiscreteRaw());
-      assertArrayEquals(digest, offset.getDiscreteRaw());
+      assertFalse(offset == offset.getDiscreteHash());
+      assertEquals(offset, offset.getDiscreteHash());
+      assertFalse(digest == offset.getDiscreteDigest());
+      assertArrayEquals(digest, offset.getDiscreteDigest());
 
-      assertFalse(offset2 == offset2.getDiscrete());
-      assertEquals(offset2, offset2.getDiscrete());
-      assertFalse(digest == offset2.getDiscreteRaw());
-      assertArrayEquals(digest, offset2.getDiscreteRaw());
+      assertFalse(offset2 == offset2.getDiscreteHash());
+      assertEquals(offset2, offset2.getDiscreteHash());
+      assertFalse(digest == offset2.getDiscreteDigest());
+      assertArrayEquals(digest, offset2.getDiscreteDigest());
 
-      assertFalse(reverseOverlay == reverseOverlay.getDiscrete());
-      assertEquals(reverseOverlay, reverseOverlay.getDiscrete());
-      assertFalse(digest == reverseOverlay.getDiscreteRaw());
-      assertArrayEquals(digest, reverseOverlay.getDiscreteRaw());
+      assertFalse(reverseOverlay == reverseOverlay.getDiscreteHash());
+      assertEquals(reverseOverlay, reverseOverlay.getDiscreteHash());
+      assertFalse(digest == reverseOverlay.getDiscreteDigest());
+      assertArrayEquals(digest, reverseOverlay.getDiscreteDigest());
 
-      assertFalse(offsetReverse == offsetReverse.getDiscrete());
-      assertEquals(offsetReverse, offsetReverse.getDiscrete());
-      assertFalse(digest == offsetReverse.getDiscreteRaw());
-      assertArrayEquals(digest, offsetReverse.getDiscreteRaw());
+      assertFalse(offsetReverse == offsetReverse.getDiscreteHash());
+      assertEquals(offsetReverse, offsetReverse.getDiscreteHash());
+      assertFalse(digest == offsetReverse.getDiscreteDigest());
+      assertArrayEquals(digest, offsetReverse.getDiscreteDigest());
     });
   }
 }

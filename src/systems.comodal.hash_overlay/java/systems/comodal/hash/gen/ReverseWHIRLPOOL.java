@@ -12,7 +12,7 @@ public final class ReverseWHIRLPOOL extends ReverseHash implements WHIRLPOOL {
   }
 
   @Override
-  public HashFactory<WHIRLPOOL> getFactory() {
+  public HashFactory<WHIRLPOOL> getHashFactory() {
     return FACTORY;
   }
 

@@ -12,7 +12,7 @@ public final class OffsetBLAKE2B512 extends OffsetHash implements BLAKE2B512 {
   }
 
   @Override
-  public HashFactory<BLAKE2B512> getFactory() {
+  public HashFactory<BLAKE2B512> getHashFactory() {
     return FACTORY;
   }
 

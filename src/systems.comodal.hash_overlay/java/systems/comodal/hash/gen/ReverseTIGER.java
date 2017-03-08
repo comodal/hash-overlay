@@ -12,7 +12,7 @@ public final class ReverseTIGER extends ReverseHash implements TIGER {
   }
 
   @Override
-  public HashFactory<TIGER> getFactory() {
+  public HashFactory<TIGER> getHashFactory() {
     return FACTORY;
   }
 

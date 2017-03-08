@@ -12,7 +12,7 @@ public final class KECCAK256Value extends HashValue implements KECCAK256 {
   }
 
   @Override
-  public HashFactory<KECCAK256> getFactory() {
+  public HashFactory<KECCAK256> getHashFactory() {
     return FACTORY;
   }
 

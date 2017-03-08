@@ -114,10 +114,10 @@ public class MultiHashTest {
         .filter(hashFactory -> hashFactory.getMultiHashFnCode() > 0)
         .forEach(hashFactory -> {
           final Hash hash = hashFactory.hash(msg);
-          final byte[] prefix = hash.getFactory().getMultiHashPrefix();
+          final byte[] prefix = hash.getHashFactory().getMultiHashPrefix();
           final byte[] multiHash = new byte[prefix.length + hash.getDigestLength()];
           System.arraycopy(prefix, 0, multiHash, 0, prefix.length);
-          hash.copyTo(multiHash, prefix.length);
+          hash.copyDigestTo(multiHash, prefix.length);
 
           assertEquals(hash, MultiHash.createOverlay(multiHash));
           assertEquals(hash, MultiHash.createCopy(multiHash));

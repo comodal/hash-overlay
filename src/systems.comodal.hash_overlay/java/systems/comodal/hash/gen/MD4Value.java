@@ -12,7 +12,7 @@ public final class MD4Value extends HashValue implements MD4 {
   }
 
   @Override
-  public HashFactory<MD4> getFactory() {
+  public HashFactory<MD4> getHashFactory() {
     return FACTORY;
   }
 

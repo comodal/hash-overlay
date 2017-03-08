@@ -12,7 +12,7 @@ public final class ReverseSM3 extends ReverseHash implements SM3 {
   }
 
   @Override
-  public HashFactory<SM3> getFactory() {
+  public HashFactory<SM3> getHashFactory() {
     return FACTORY;
   }
 

@@ -9,4 +9,12 @@ public interface HashedData extends Hash {
   int getHashedDataLength();
 
   boolean isHashedDataDiscrete();
+
+  byte[] getBackingData();
+
+  int getDataOffset();
+
+  int getDataLength();
+
+  boolean isDataDiscrete();
 }

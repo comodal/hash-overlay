@@ -12,7 +12,7 @@ public final class ReverseGOST3411 extends ReverseHash implements GOST3411 {
   }
 
   @Override
-  public HashFactory<GOST3411> getFactory() {
+  public HashFactory<GOST3411> getHashFactory() {
     return FACTORY;
   }
 

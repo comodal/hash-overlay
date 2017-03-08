@@ -12,7 +12,7 @@ public final class MD5Value extends HashValue implements MD5 {
   }
 
   @Override
-  public HashFactory<MD5> getFactory() {
+  public HashFactory<MD5> getHashFactory() {
     return FACTORY;
   }
 

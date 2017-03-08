@@ -12,7 +12,7 @@ public final class OffsetSHA224 extends OffsetHash implements SHA224 {
   }
 
   @Override
-  public HashFactory<SHA224> getFactory() {
+  public HashFactory<SHA224> getHashFactory() {
     return FACTORY;
   }
 

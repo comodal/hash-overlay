@@ -12,7 +12,7 @@ public final class ReverseSHA512_224 extends ReverseHash implements SHA512_224 {
   }
 
   @Override
-  public HashFactory<SHA512_224> getFactory() {
+  public HashFactory<SHA512_224> getHashFactory() {
     return FACTORY;
   }
 

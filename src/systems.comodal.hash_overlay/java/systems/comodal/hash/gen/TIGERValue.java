@@ -12,7 +12,7 @@ public final class TIGERValue extends HashValue implements TIGER {
   }
 
   @Override
-  public HashFactory<TIGER> getFactory() {
+  public HashFactory<TIGER> getHashFactory() {
     return FACTORY;
   }
 

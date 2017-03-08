@@ -12,7 +12,7 @@ public final class BLAKE2B160Value extends HashValue implements BLAKE2B160 {
   }
 
   @Override
-  public HashFactory<BLAKE2B160> getFactory() {
+  public HashFactory<BLAKE2B160> getHashFactory() {
     return FACTORY;
   }
 

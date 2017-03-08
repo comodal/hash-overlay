@@ -12,7 +12,7 @@ public final class RIPEMD256Value extends HashValue implements RIPEMD256 {
   }
 
   @Override
-  public HashFactory<RIPEMD256> getFactory() {
+  public HashFactory<RIPEMD256> getHashFactory() {
     return FACTORY;
   }
 

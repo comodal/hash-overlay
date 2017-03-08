@@ -12,7 +12,7 @@ public final class OffsetWHIRLPOOL extends OffsetHash implements WHIRLPOOL {
   }
 
   @Override
-  public HashFactory<WHIRLPOOL> getFactory() {
+  public HashFactory<WHIRLPOOL> getHashFactory() {
     return FACTORY;
   }
 

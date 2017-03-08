@@ -12,7 +12,7 @@ public final class Skein1024_1024Value extends HashValue implements Skein1024_10
   }
 
   @Override
-  public HashFactory<Skein1024_1024> getFactory() {
+  public HashFactory<Skein1024_1024> getHashFactory() {
     return FACTORY;
   }
 

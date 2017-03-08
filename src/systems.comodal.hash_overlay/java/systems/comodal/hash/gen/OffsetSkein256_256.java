@@ -12,7 +12,7 @@ public final class OffsetSkein256_256 extends OffsetHash implements Skein256_256
   }
 
   @Override
-  public HashFactory<Skein256_256> getFactory() {
+  public HashFactory<Skein256_256> getHashFactory() {
     return FACTORY;
   }
 

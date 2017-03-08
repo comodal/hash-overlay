@@ -12,12 +12,12 @@ public abstract class ReverseHash implements Hash {
 
   protected ReverseHash(final byte[] data, final int offset) {
     this.data = data;
-    this.offset = offset + getOffsetLength();
+    this.offset = offset + getDigestOffsetLength();
   }
 
   @Override
   public int hashCode() {
-    int index = offset - getOffsetLength();
+    int index = offset - getDigestOffsetLength();
     return (data[index] & 0xFF)
         | (data[++index] & 0xFF) << 8
         | (data[++index] & 0xFF) << 16
@@ -25,52 +25,52 @@ public abstract class ReverseHash implements Hash {
   }
 
   @Override
-  public byte[] getBackingData() {
+  public byte[] getBackingDigestData() {
     return data;
   }
 
   @Override
-  public int getOffset() {
+  public int getDigestOffset() {
     return offset;
   }
 
   @Override
-  public int getOffsetLength() {
-    return getFactory().getOffsetLength();
+  public int getDigestOffsetLength() {
+    return getHashFactory().getOffsetLength();
   }
 
   @Override
-  public ByteOrder getByteOrder() {
+  public ByteOrder getDigestByteOrder() {
     return ByteOrder.BIG_ENDIAN;
   }
 
   @Override
   public int getDigestLength() {
-    return getFactory().getDigestLength();
+    return getHashFactory().getDigestLength();
   }
 
   @Override
-  public Hash getDiscrete() {
-    return getFactory().overlay(copy());
+  public Hash getDiscreteHash() {
+    return getHashFactory().overlay(copyDigest());
   }
 
   @Override
-  public byte[] getDiscreteRaw() {
-    return copy();
+  public byte[] getDiscreteDigest() {
+    return copyDigest();
   }
 
   @Override
-  public boolean isDiscrete() {
+  public boolean isDigestDiscrete() {
     return false;
   }
 
   @Override
-  public BigInteger toBigInteger() {
-    return new BigInteger(1, copy());
+  public BigInteger digestToBigInteger() {
+    return new BigInteger(1, copyDigest());
   }
 
   @Override
-  public byte[] copy() {
+  public byte[] copyDigest() {
     final byte[] copy = new byte[getDigestLength()];
     for (int i = offset, o = 0; o < getDigestLength(); ++o, --i) {
       copy[o] = data[i];
@@ -79,14 +79,14 @@ public abstract class ReverseHash implements Hash {
   }
 
   @Override
-  public byte[] copyReverse() {
+  public byte[] copyDigestReverse() {
     final byte[] reverseHash = new byte[getDigestLength()];
-    copyToReverse(reverseHash, getOffsetLength());
+    copyDigestToReverse(reverseHash, getDigestOffsetLength());
     return reverseHash;
   }
 
   @Override
-  public void copyTo(final byte[] to, int otherOffset) {
+  public void copyDigestTo(final byte[] to, int otherOffset) {
     for (int i = offset, max = otherOffset + getDigestLength(); otherOffset < max;
         --i, ++otherOffset) {
       to[otherOffset] = data[i];
@@ -94,21 +94,21 @@ public abstract class ReverseHash implements Hash {
   }
 
   @Override
-  public void copyToReverse(final byte[] to, int otherOffset) {
-    System.arraycopy(data, offset - getOffsetLength(), to, otherOffset - getOffsetLength(),
+  public void copyDigestToReverse(final byte[] to, int otherOffset) {
+    System.arraycopy(data, offset - getDigestOffsetLength(), to, otherOffset - getDigestOffsetLength(),
         getDigestLength());
   }
 
   @Override
-  public void update(final MessageDigest messageDigest) {
+  public void updateDigest(final MessageDigest messageDigest) {
     for (int i = offset, min = offset - getDigestLength(); i > min; --i) {
       messageDigest.update(data[i]);
     }
   }
 
   @Override
-  public void updateReverse(final MessageDigest messageDigest) {
-    messageDigest.update(data, offset - getOffsetLength(), getDigestLength());
+  public void updateDigestReverse(final MessageDigest messageDigest) {
+    messageDigest.update(data, offset - getDigestOffsetLength(), getDigestLength());
   }
 
   @Override
@@ -177,7 +177,7 @@ public abstract class ReverseHash implements Hash {
   }
 
   @Override
-  public int compareTo(final Hash other) {
+  public int compareHashTo(final Hash other) {
     return other.compareDigestToReverse(data, offset);
   }
 }

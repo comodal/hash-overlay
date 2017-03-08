@@ -12,7 +12,7 @@ public final class OffsetSM3 extends OffsetHash implements SM3 {
   }
 
   @Override
-  public HashFactory<SM3> getFactory() {
+  public HashFactory<SM3> getHashFactory() {
     return FACTORY;
   }
 

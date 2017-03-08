@@ -12,7 +12,7 @@ public final class WHIRLPOOLValue extends HashValue implements WHIRLPOOL {
   }
 
   @Override
-  public HashFactory<WHIRLPOOL> getFactory() {
+  public HashFactory<WHIRLPOOL> getHashFactory() {
     return FACTORY;
   }
 

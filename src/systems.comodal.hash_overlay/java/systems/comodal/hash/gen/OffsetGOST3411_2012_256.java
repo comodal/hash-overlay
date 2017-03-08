@@ -12,7 +12,7 @@ public final class OffsetGOST3411_2012_256 extends OffsetHash implements GOST341
   }
 
   @Override
-  public HashFactory<GOST3411_2012_256> getFactory() {
+  public HashFactory<GOST3411_2012_256> getHashFactory() {
     return FACTORY;
   }
 

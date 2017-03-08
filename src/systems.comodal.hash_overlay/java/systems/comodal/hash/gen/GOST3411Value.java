@@ -12,7 +12,7 @@ public final class GOST3411Value extends HashValue implements GOST3411 {
   }
 
   @Override
-  public HashFactory<GOST3411> getFactory() {
+  public HashFactory<GOST3411> getHashFactory() {
     return FACTORY;
   }
 

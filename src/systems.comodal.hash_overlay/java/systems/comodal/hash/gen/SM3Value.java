@@ -12,7 +12,7 @@ public final class SM3Value extends HashValue implements SM3 {
   }
 
   @Override
-  public HashFactory<SM3> getFactory() {
+  public HashFactory<SM3> getHashFactory() {
     return FACTORY;
   }
 

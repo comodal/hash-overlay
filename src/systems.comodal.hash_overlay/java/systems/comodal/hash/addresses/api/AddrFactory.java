@@ -52,9 +52,9 @@ public interface AddrFactory<A extends Addr> {
   }
 
   /**
-   * Creates a copy of the supplied byte array to serve as the backing address data.
+   * Creates a copyDigest of the supplied byte array to serve as the backing address data.
    *
-   * @return A new Addr instance backed by a copy of the supplied byte array.
+   * @return A new Addr instance backed by a copyDigest of the supplied byte array.
    */
   default A copy(final byte[] digest, final int offset) {
     final byte[] discrete = new byte[getDigestLength()];

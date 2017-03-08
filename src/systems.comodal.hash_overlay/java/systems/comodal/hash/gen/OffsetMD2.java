@@ -12,7 +12,7 @@ public final class OffsetMD2 extends OffsetHash implements MD2 {
   }
 
   @Override
-  public HashFactory<MD2> getFactory() {
+  public HashFactory<MD2> getHashFactory() {
     return FACTORY;
   }
 

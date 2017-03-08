@@ -91,31 +91,31 @@ public interface HashFactory<H extends Hash> {
   static byte[] merkle(final MessageDigest messageDigest, final Hash[] hashes,
       final boolean reverseByteOrder, Function<MessageDigest, byte[]> digestFunction) {
     if (hashes.length == 1) {
-      return reverseByteOrder ? hashes[0].copyReverse() : hashes[0].getDiscreteRaw();
+      return reverseByteOrder ? hashes[0].copyDigestReverse() : hashes[0].getDiscreteDigest();
     }
     final byte[][] tree = new byte[(hashes.length + 1) >> 1][];
     int depthOffset = 0;
     int nextDepthOffset = 0;
     if (reverseByteOrder) {
       for (final int maxOffset = hashes.length - 1; depthOffset < maxOffset; ) {
-        hashes[depthOffset++].updateReverse(messageDigest);
-        hashes[depthOffset++].updateReverse(messageDigest);
+        hashes[depthOffset++].updateDigestReverse(messageDigest);
+        hashes[depthOffset++].updateDigestReverse(messageDigest);
         tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (depthOffset < hashes.length) {
-        hashes[depthOffset].updateReverse(messageDigest);
-        hashes[depthOffset].updateReverse(messageDigest);
+        hashes[depthOffset].updateDigestReverse(messageDigest);
+        hashes[depthOffset].updateDigestReverse(messageDigest);
         tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
     } else {
       for (final int maxOffset = hashes.length - 1; depthOffset < maxOffset; ) {
-        hashes[depthOffset++].update(messageDigest);
-        hashes[depthOffset++].update(messageDigest);
+        hashes[depthOffset++].updateDigest(messageDigest);
+        hashes[depthOffset++].updateDigest(messageDigest);
         tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
       if (depthOffset < hashes.length) {
-        hashes[depthOffset].update(messageDigest);
-        hashes[depthOffset].update(messageDigest);
+        hashes[depthOffset].updateDigest(messageDigest);
+        hashes[depthOffset].updateDigest(messageDigest);
         tree[nextDepthOffset++] = digestFunction.apply(messageDigest);
       }
     }
@@ -272,9 +272,9 @@ public interface HashFactory<H extends Hash> {
   }
 
   /**
-   * Creates a copy of the supplied byte array to serve as the backing Hash data.
+   * Creates a copyDigest of the supplied byte array to serve as the backing Hash data.
    *
-   * @return A new Hash instance backed by a copy of the supplied byte array.
+   * @return A new Hash instance backed by a copyDigest of the supplied byte array.
    */
   default H copy(final byte[] digest, final int offset) {
     final byte[] discrete = new byte[getDigestLength()];

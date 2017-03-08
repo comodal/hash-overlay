@@ -12,7 +12,7 @@ public final class SHA224Value extends HashValue implements SHA224 {
   }
 
   @Override
-  public HashFactory<SHA224> getFactory() {
+  public HashFactory<SHA224> getHashFactory() {
     return FACTORY;
   }
 

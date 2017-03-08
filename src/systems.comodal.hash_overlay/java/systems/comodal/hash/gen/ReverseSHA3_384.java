@@ -12,7 +12,7 @@ public final class ReverseSHA3_384 extends ReverseHash implements SHA3_384 {
   }
 
   @Override
-  public HashFactory<SHA3_384> getFactory() {
+  public HashFactory<SHA3_384> getHashFactory() {
     return FACTORY;
   }
 

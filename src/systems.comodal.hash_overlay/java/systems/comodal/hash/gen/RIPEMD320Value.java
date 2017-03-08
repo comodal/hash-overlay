@@ -12,7 +12,7 @@ public final class RIPEMD320Value extends HashValue implements RIPEMD320 {
   }
 
   @Override
-  public HashFactory<RIPEMD320> getFactory() {
+  public HashFactory<RIPEMD320> getHashFactory() {
     return FACTORY;
   }
 

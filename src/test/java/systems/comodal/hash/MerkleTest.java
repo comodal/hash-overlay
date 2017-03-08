@@ -25,7 +25,7 @@ public class MerkleTest {
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
     for (final Hash hash : hashes) {
-      hash.copyTo(flatHashes, offset);
+      hash.copyDigestTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
     assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, true));
@@ -49,7 +49,7 @@ public class MerkleTest {
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
     for (final Hash hash : hashes) {
-      hash.copyTo(flatHashes, offset);
+      hash.copyDigestTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
     assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, true));
@@ -75,7 +75,7 @@ public class MerkleTest {
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
     for (final Hash hash : hashes) {
-      hash.copyTo(flatHashes, offset);
+      hash.copyDigestTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
     assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, false));
@@ -103,7 +103,7 @@ public class MerkleTest {
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
     for (final Hash hash : hashes) {
-      hash.copyTo(flatHashes, offset);
+      hash.copyDigestTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
     assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, true));
@@ -140,7 +140,7 @@ public class MerkleTest {
     final byte[] flatHashes = new byte[hashes[0].getDigestLength() * hashes.length];
     int offset = 0;
     for (final Hash hash : hashes) {
-      hash.copyTo(flatHashes, offset);
+      hash.copyDigestTo(flatHashes, offset);
       offset += hash.getDigestLength();
     }
     assertArrayEquals(expected, factory.merkleHashTwice(flatHashes, 0, hashes.length, false));

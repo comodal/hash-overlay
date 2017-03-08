@@ -12,7 +12,7 @@ public final class ReverseSkein512_224 extends ReverseHash implements Skein512_2
   }
 
   @Override
-  public HashFactory<Skein512_224> getFactory() {
+  public HashFactory<Skein512_224> getHashFactory() {
     return FACTORY;
   }
 

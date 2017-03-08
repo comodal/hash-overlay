@@ -12,7 +12,7 @@ public final class OffsetSHA3_256 extends OffsetHash implements SHA3_256 {
   }
 
   @Override
-  public HashFactory<SHA3_256> getFactory() {
+  public HashFactory<SHA3_256> getHashFactory() {
     return FACTORY;
   }
 

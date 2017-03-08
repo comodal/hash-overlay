@@ -12,7 +12,7 @@ public final class OffsetMD5 extends OffsetHash implements MD5 {
   }
 
   @Override
-  public HashFactory<MD5> getFactory() {
+  public HashFactory<MD5> getHashFactory() {
     return FACTORY;
   }
 

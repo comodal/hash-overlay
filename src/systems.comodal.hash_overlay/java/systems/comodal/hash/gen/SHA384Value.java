@@ -12,7 +12,7 @@ public final class SHA384Value extends HashValue implements SHA384 {
   }
 
   @Override
-  public HashFactory<SHA384> getFactory() {
+  public HashFactory<SHA384> getHashFactory() {
     return FACTORY;
   }
 

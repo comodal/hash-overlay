@@ -12,7 +12,7 @@ public final class ReverseSkein256_128 extends ReverseHash implements Skein256_1
   }
 
   @Override
-  public HashFactory<Skein256_128> getFactory() {
+  public HashFactory<Skein256_128> getHashFactory() {
     return FACTORY;
   }
 
