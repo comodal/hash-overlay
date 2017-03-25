@@ -15,20 +15,24 @@ apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/j
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/axion.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/comodal.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/bintray-maven.gradle'
-apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/checks.gradle'
+//apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/checks.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/jmh.gradle'
 
-compileJava {
-    options.fork = true
-}
-
 sourceCompatibility = JavaVersion.VERSION_1_9
+
+tasks.withType(Test) {
+    jvmArgs += ['-XX:+IgnoreUnrecognizedVMOptions', '--permit-illegal-access']
+}
 
 sourceSets {
     mustache
     main {
         java {
-            srcDir 'src/systems.comodal.hash_overlay/java'
+            //srcDir 'src/systems.comodal.address_overlay'
+            srcDir 'src/systems.comodal.hash_overlay'
+        }
+        resources {
+            srcDir 'src/systems.comodal.address_overlay/resources'
         }
     }
 }

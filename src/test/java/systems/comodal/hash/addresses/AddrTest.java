@@ -9,7 +9,6 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import systems.comodal.hash.KECCAK256;
 import systems.comodal.hash.addresses.Sha256RipeMd160Check4DoubleSha256.Version;
 import systems.comodal.hash.addresses.api.Addr;
 

@@ -32,7 +32,7 @@ import systems.comodal.mustache.GenerateMultiHashFactory.Multihash;
 public final class GenerateHashClasses {
 
   static final String apiSrcDirectory =
-      "src/systems.comodal.hash_overlay/java/systems/comodal/hash/";
+      "src/systems.comodal.hash_overlay/systems/comodal/hash/";
   private static final String genSrcDirectory = apiSrcDirectory + "gen/";
 
   private static final Pattern nonDigitHyphenPattern = Pattern.compile("(\\D)-");

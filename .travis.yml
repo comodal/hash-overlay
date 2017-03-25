@@ -4,6 +4,9 @@ group: edge
 language: java
 jdk: oraclejdk9
 
+env:
+  - JAVA_OPTS='--permit-illegal-access'
+
 notifications:
   email:
     on_success: never
