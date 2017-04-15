@@ -18,7 +18,7 @@ import org.openjdk.jmh.annotations.Warmup;
 {{#digestAlgos}}
 import systems.comodal.hash.{{hash}};
 {{/digestAlgos}}
-import Hash;
+import systems.comodal.hash.api.Hash;
 
 @State(Scope.Benchmark)
 @Threads(Threads.MAX)

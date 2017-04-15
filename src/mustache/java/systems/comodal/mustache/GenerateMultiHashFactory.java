@@ -4,9 +4,9 @@ import static systems.comodal.mustache.GenerateHashClasses.apiSrcDirectory;
 
 import com.github.mustachejava.MustacheFactory;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -17,9 +17,6 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import jdk.incubator.http.HttpClient;
-import jdk.incubator.http.HttpRequest;
-import jdk.incubator.http.HttpResponse.BodyHandler;
 import systems.comodal.mustache.GenerateHashClasses.Digest;
 
 final class GenerateMultiHashFactory {
@@ -39,13 +36,18 @@ final class GenerateMultiHashFactory {
         multihashSrcDirectory + "HashFactoryFnCodeFactory.java");
   }
 
-  static Map<String, Multihash> getMulthashMap() {
+  static Map<String, Multihash> getMultihashMap() {
     try {
-      final String hashtableCSV = HttpClient.newHttpClient().send(HttpRequest.newBuilder(new URI(
-          "https://raw.githubusercontent.com/multiformats/multihash/master/hashtable.csv"))
-          .GET().build(), BodyHandler.asString(StandardCharsets.UTF_8)).body();
+      final String hashTableCSV;
+      try (final InputStream response = URI
+          .create("https://raw.githubusercontent.com/multiformats/multihash/master/hashtable.csv")
+          .toURL().openConnection().getInputStream()) {
+        hashTableCSV = new String(response.readAllBytes(), StandardCharsets.UTF_8)
+            .replaceAll(" +", "");
+      }
+      final String[] lines = hashTableCSV.split("[\\n\\r]+");
       final Pattern hexPattern = Pattern.compile("0x([a-fA-F0-9]+)");
-      return Arrays.stream(hashtableCSV.split("/n"))
+      return Arrays.stream(lines)
           .map(line -> line.split(","))
           .filter(parts -> parts.length == 3)
           .map(parts -> {
@@ -60,8 +62,6 @@ final class GenerateMultiHashFactory {
           .collect(Collectors.toMap(multiHash -> multiHash.hash, multiHash -> multiHash));
     } catch (IOException ex) {
       throw new UncheckedIOException(ex);
-    } catch (InterruptedException | URISyntaxException ex) {
-      throw new RuntimeException(ex);
     }
   }
 

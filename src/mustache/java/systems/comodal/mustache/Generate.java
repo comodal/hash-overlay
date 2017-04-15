@@ -28,7 +28,7 @@ final class Generate {
 
     Security.addProvider(new BouncyCastleProvider());
 
-    final Map<String, Multihash> multihashMap = GenerateMultiHashFactory.getMulthashMap();
+    final Map<String, Multihash> multihashMap = GenerateMultiHashFactory.getMultihashMap();
 
     final Map<Integer, List<Digest>> digestsByLength = GenerateHashClasses
         .getDigestsByLength(multihashMap);
