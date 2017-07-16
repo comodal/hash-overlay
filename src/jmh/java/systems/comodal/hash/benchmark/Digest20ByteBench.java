@@ -62,22 +62,22 @@ public class Digest20ByteBench {
   }
 
   @Benchmark
-  public Hash RIPEMD160__BC1_56(final ThreadState threadState) {
+  public Hash RIPEMD160__BC1_57(final ThreadState threadState) {
     return RIPEMD160.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash Skein256_160__BC1_56(final ThreadState threadState) {
+  public Hash Skein256_160__BC1_57(final ThreadState threadState) {
     return Skein256_160.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash Skein512_160__BC1_56(final ThreadState threadState) {
+  public Hash Skein512_160__BC1_57(final ThreadState threadState) {
     return Skein512_160.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash BLAKE2B160__BC1_56(final ThreadState threadState) {
+  public Hash BLAKE2B160__BC1_57(final ThreadState threadState) {
     return BLAKE2B160.FACTORY.hash(messages[threadState.next()]);
   }
 

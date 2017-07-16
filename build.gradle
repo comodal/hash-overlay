@@ -17,12 +17,9 @@ apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/comoda
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/bintray-maven.gradle'
 //apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/checks.gradle'
 apply from: 'https://raw.githubusercontent.com/comodal/gradle-conf/master/java/jmh.gradle'
+apply plugin: 'idea'
 
 sourceCompatibility = JavaVersion.VERSION_1_9
-
-tasks.withType(Test) {
-    jvmArgs += ['-XX:+IgnoreUnrecognizedVMOptions', '--permit-illegal-access']
-}
 
 sourceSets {
     mustache
@@ -49,6 +46,12 @@ dependencies {
     jmh fileTree(dir: 'libs', include: ['*.jar'])
 
     testCompile 'org.bouncycastle:bcprov-jdk15on:+'
+}
+
+test {
+  testLogging {
+    events "passed", "skipped", "failed", "standardOut", "standardError"
+  }
 }
 
 jmh {

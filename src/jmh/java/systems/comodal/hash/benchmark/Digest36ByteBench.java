@@ -47,7 +47,7 @@ public class Digest36ByteBench {
   }
 
   @Benchmark
-  public Hash KECCAK288__BC1_56(final ThreadState threadState) {
+  public Hash KECCAK288__BC1_57(final ThreadState threadState) {
     return KECCAK288.FACTORY.hash(messages[threadState.next()]);
   }
 

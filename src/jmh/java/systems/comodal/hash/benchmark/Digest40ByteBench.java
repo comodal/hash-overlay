@@ -47,7 +47,7 @@ public class Digest40ByteBench {
   }
 
   @Benchmark
-  public Hash RIPEMD320__BC1_56(final ThreadState threadState) {
+  public Hash RIPEMD320__BC1_57(final ThreadState threadState) {
     return RIPEMD320.FACTORY.hash(messages[threadState.next()]);
   }
 

@@ -47,7 +47,7 @@ public class Digest24ByteBench {
   }
 
   @Benchmark
-  public Hash TIGER__BC1_56(final ThreadState threadState) {
+  public Hash TIGER__BC1_57(final ThreadState threadState) {
     return TIGER.FACTORY.hash(messages[threadState.next()]);
   }
 

@@ -72,42 +72,42 @@ public class Digest32ByteBench {
   }
 
   @Benchmark
-  public Hash GOST3411__BC1_56(final ThreadState threadState) {
+  public Hash GOST3411__BC1_57(final ThreadState threadState) {
     return GOST3411.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash GOST3411_2012_256__BC1_56(final ThreadState threadState) {
+  public Hash GOST3411_2012_256__BC1_57(final ThreadState threadState) {
     return GOST3411_2012_256.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash KECCAK256__BC1_56(final ThreadState threadState) {
+  public Hash KECCAK256__BC1_57(final ThreadState threadState) {
     return KECCAK256.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash RIPEMD256__BC1_56(final ThreadState threadState) {
+  public Hash RIPEMD256__BC1_57(final ThreadState threadState) {
     return RIPEMD256.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash Skein256_256__BC1_56(final ThreadState threadState) {
+  public Hash Skein256_256__BC1_57(final ThreadState threadState) {
     return Skein256_256.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash Skein512_256__BC1_56(final ThreadState threadState) {
+  public Hash Skein512_256__BC1_57(final ThreadState threadState) {
     return Skein512_256.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash SM3__BC1_56(final ThreadState threadState) {
+  public Hash SM3__BC1_57(final ThreadState threadState) {
     return SM3.FACTORY.hash(messages[threadState.next()]);
   }
 
   @Benchmark
-  public Hash BLAKE2B256__BC1_56(final ThreadState threadState) {
+  public Hash BLAKE2B256__BC1_57(final ThreadState threadState) {
     return BLAKE2B256.FACTORY.hash(messages[threadState.next()]);
   }
 

@@ -47,7 +47,7 @@ public class Digest128ByteBench {
   }
 
   @Benchmark
-  public Hash Skein1024_1024__BC1_56(final ThreadState threadState) {
+  public Hash Skein1024_1024__BC1_57(final ThreadState threadState) {
     return Skein1024_1024.FACTORY.hash(messages[threadState.next()]);
   }
 
